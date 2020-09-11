@@ -10,4 +10,4 @@ alex trying [ECOM-1] commit
 
 weixiang trying ECOM-1 commit
 
-local changes ---> wx/alex ---> PR  ---->dev/Ivan ----> merge ----> pull from origin/de
+local changes ---> wx/alex ---> PR  ---->dev/Ivan ----> merge ----> pull from origin
