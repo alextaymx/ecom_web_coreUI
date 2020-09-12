@@ -1,12 +1,16 @@
 module.exports = {
-  parser: "babel-eslint",
-  plugins: ["import"],
-  extends: ["airbnb", "plugin:jsx-a11y/recommended", "prettier", "prettier/react"],
+  extends: ['airbnb'],
   rules: {
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    'react/jsx-filename-extension': 'off',
     //You can override any rules you want
-    no-console: "warn",
-    no-eval: "error",
-    import/first: "error",
-    'linebreak-style': 0
+    'linebreak-style': 0,
+  },
+  //trying alex
+  use: {
+    loader: 'babel-loader',
+    options: {
+      presets: ['@babel/preset-env', '@babel/preset-react'],
+      plugins: ['@babel/plugin-syntax-dynamic-import'],
+    },
+  },
 };
