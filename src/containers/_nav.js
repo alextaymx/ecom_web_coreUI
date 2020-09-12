@@ -7,11 +7,11 @@ export default [
     badge: {
       color: 'info',
       text: 'NEW',
-    }
+    },
   },
   {
     _tag: 'CSidebarNavTitle',
-    _children: ['Theme']
+    _children: ['Theme'],
   },
   {
     _tag: 'CSidebarNavItem',
@@ -27,7 +27,7 @@ export default [
   },
   {
     _tag: 'CSidebarNavTitle',
-    _children: ['Components']
+    _children: ['Components'],
   },
   {
     _tag: 'CSidebarNavDropdown',
@@ -142,14 +142,14 @@ export default [
         _tag: 'CSidebarNavItem',
         name: 'Dropdowns',
         to: '/buttons/button-dropdowns',
-      }
+      },
     ],
   },
   {
     _tag: 'CSidebarNavItem',
     name: 'Charts',
     to: '/charts',
-    icon: 'cil-chart-pie'
+    icon: 'cil-chart-pie',
   },
   {
     _tag: 'CSidebarNavDropdown',
@@ -202,9 +202,9 @@ export default [
       {
         _tag: 'CSidebarNavItem',
         name: 'Toaster',
-        to: '/notifications/toaster'
-      }
-    ]
+        to: '/notifications/toaster',
+      },
+    ],
   },
   {
     _tag: 'CSidebarNavItem',
@@ -217,7 +217,7 @@ export default [
     },
   },
   {
-    _tag: 'CSidebarNavDivider'
+    _tag: 'CSidebarNavDivider',
   },
   {
     _tag: 'CSidebarNavTitle',
@@ -260,15 +260,15 @@ export default [
       text: 'NEW',
     },
     addLinkClass: 'c-disabled',
-    'disabled': true
+    disabled: true,
   },
   {
     _tag: 'CSidebarNavDivider',
-    className: 'm-2'
+    className: 'm-2',
   },
   {
     _tag: 'CSidebarNavTitle',
-    _children: ['Labels']
+    _children: ['Labels'],
   },
   {
     _tag: 'CSidebarNavItem',
@@ -276,9 +276,9 @@ export default [
     to: '',
     icon: {
       name: 'cil-star',
-      className: 'text-danger'
+      className: 'text-danger',
     },
-    label: true
+    label: true,
   },
   {
     _tag: 'CSidebarNavItem',
@@ -286,9 +286,9 @@ export default [
     to: '',
     icon: {
       name: 'cil-star',
-      className: 'text-info'
+      className: 'text-info',
     },
-    label: true
+    label: true,
   },
   {
     _tag: 'CSidebarNavItem',
@@ -296,13 +296,12 @@ export default [
     to: '',
     icon: {
       name: 'cil-star',
-      className: 'text-warning'
+      className: 'text-warning',
     },
-    label: true
+    label: true,
   },
   {
     _tag: 'CSidebarNavDivider',
-    className: 'm-2'
-  }
-]
-
+    className: 'm-2',
+  },
+];
