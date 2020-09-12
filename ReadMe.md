@@ -53,7 +53,7 @@ CoreUI is meant to be the UX game changer. Pure & transparent code is devoid of 
 - ?? [CoreUI Pro Vue.js + Laravel Admin Template](https://coreui.io/pro/vue-laravel/)
 
 ## Installation
-this is a test line by alex
+
 
 ### Clone repo
 
