@@ -16,7 +16,8 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react"],
+  //dynamic-import-webpack enable lazy import in react --alex
+  "plugins": ["react", "dynamic-import-webpack"],
   "rules": {
     "react/jsx-filename-extension": [
       1,

@@ -33,7 +33,6 @@
     "type": "git",
     "url": "git@github.com:coreui/coreui-free-react-admin-template.git"
   },
-  
   "dependencies": {
     "@coreui/chartjs": "^2.0.0",
     "@coreui/coreui": "^3.2.2",
