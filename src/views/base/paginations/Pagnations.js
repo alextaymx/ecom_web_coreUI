@@ -1,13 +1,8 @@
-import React, { useState } from 'react'
-import {
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CPagination
-} from '@coreui/react'
+import React, { useState } from "react";
+import { CCard, CCardBody, CCardHeader, CPagination } from "@coreui/react";
 
 const Paginations = () => {
-  const [currentPage, setCurrentPage] = useState(2)
+  const [currentPage, setCurrentPage] = useState(2);
 
   return (
     <>
@@ -15,7 +10,12 @@ const Paginations = () => {
         <CCardHeader>
           Pagination
           <div className="card-header-actions">
-            <a href="https://coreui.github.io/components/pagination/" rel="noreferrer noopener" target="_blank" className="card-header-action">
+            <a
+              href="https://coreui.github.io/components/pagination/"
+              rel="noreferrer noopener"
+              target="_blank"
+              className="card-header-action"
+            >
               <small className="text-muted">docs</small>
             </a>
           </div>
@@ -89,7 +89,7 @@ const Paginations = () => {
         </CCardBody>
       </CCard>
     </>
-  )
-}
+  );
+};
 
-export default Paginations
+export default Paginations;

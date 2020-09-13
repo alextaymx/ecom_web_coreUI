@@ -1,4 +1,4 @@
-import React, { lazy } from 'react';
+import React, { lazy } from "react";
 import {
   CBadge,
   CButton,
@@ -11,13 +11,13 @@ import {
   CProgress,
   CRow,
   CCallout,
-} from '@coreui/react';
-import CIcon from '@coreui/icons-react';
+} from "@coreui/react";
+import CIcon from "@coreui/icons-react";
 
-import MainChartExample from '../charts/MainChartExample';
+import MainChartExample from "../charts/MainChartExample";
 
-const WidgetsDropdown = lazy(() => import('../widgets/WidgetsDropdown.js'));
-const WidgetsBrand = lazy(() => import('../widgets/WidgetsBrand.js'));
+const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
+const WidgetsBrand = lazy(() => import("../widgets/WidgetsBrand.js"));
 
 const Dashboard = () => {
   return (
@@ -37,12 +37,12 @@ const Dashboard = () => {
                 <CIcon name="cil-cloud-download" />
               </CButton>
               <CButtonGroup className="float-right mr-3">
-                {['Day', 'Month', 'Year'].map((value) => (
+                {["Day", "Month", "Year"].map((value) => (
                   <CButton
                     color="outline-secondary"
                     key={value}
                     className="mx-0"
-                    active={value === 'Month'}
+                    active={value === "Month"}
                   >
                     {value}
                   </CButton>
@@ -50,7 +50,7 @@ const Dashboard = () => {
               </CButtonGroup>
             </CCol>
           </CRow>
-          <MainChartExample style={{ height: '300px', marginTop: '40px' }} />
+          <MainChartExample style={{ height: "300px", marginTop: "40px" }} />
         </CCardBody>
         <CCardFooter>
           <CRow className="text-center">
@@ -114,7 +114,7 @@ const Dashboard = () => {
           <CCard>
             <CCardHeader>
               Traffic
-              {' & '}
+              {" & "}
               Sales
             </CCardHeader>
             <CCardBody>

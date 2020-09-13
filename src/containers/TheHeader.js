@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   CHeader,
   CToggler,
@@ -10,35 +10,35 @@ import {
   CSubheader,
   CBreadcrumbRouter,
   CLink,
-} from '@coreui/react';
-import CIcon from '@coreui/icons-react';
+} from "@coreui/react";
+import CIcon from "@coreui/icons-react";
 
 // routes config
-import routes from '../routes';
+import routes from "../routes";
 
 import {
   TheHeaderDropdown,
   TheHeaderDropdownMssg,
   TheHeaderDropdownNotif,
   TheHeaderDropdownTasks,
-} from './index';
+} from "./index";
 
 const TheHeader = () => {
   const dispatch = useDispatch();
   const sidebarShow = useSelector((state) => state.sidebarShow);
 
   const toggleSidebar = () => {
-    const val = [true, 'responsive'].includes(sidebarShow)
+    const val = [true, "responsive"].includes(sidebarShow)
       ? false
-      : 'responsive';
-    dispatch({ type: 'set', sidebarShow: val });
+      : "responsive";
+    dispatch({ type: "set", sidebarShow: val });
   };
 
   const toggleSidebarMobile = () => {
-    const val = [false, 'responsive'].includes(sidebarShow)
+    const val = [false, "responsive"].includes(sidebarShow)
       ? true
-      : 'responsive';
-    dispatch({ type: 'set', sidebarShow: val });
+      : "responsive";
+    dispatch({ type: "set", sidebarShow: val });
   };
 
   return (
