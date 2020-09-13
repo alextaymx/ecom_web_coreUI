@@ -1,18 +1,32 @@
 {
   "extends": [
+    "react-app",
     "prettier",
     "prettier/standard",
     "prettier/react",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended"
   ],
-  "plugins": ["prettier", "html", "react", "react-hooks"],
+  "plugins": ["prettier", "html", "react", "react-hooks", "import"],
   "rules": {
-    "prettier/prettier": "warn",
+    "prettier/prettier": [
+      "warn",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "react/prop-types": "off",
     "react/no-unescaped-entities": "off",
     "react/display-name": "off",
-    "react/jsx-key": "off"
+    "react/jsx-key": "off",
+
+    // Add Rules Below
+    // https://github.com/facebook/react/tree/master/packages/eslint-plugin-react-hooks
+    "react-hooks/rules-of-hooks": "error",
+    "no-console": "warn",
+    "import/first": "error",
+    "react/no-direct-mutation-state": "warn"
   },
   "parser": "babel-eslint",
   "parserOptions": {

@@ -11,11 +11,7 @@ const TheFooter = () => (
     </div>
     <div className="mfs-auto">
       <span className="mr-1">Powered by</span>
-      <a
-        href="https://coreui.io/react"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href="https://coreui.io/react" target="_blank" rel="noopener noreferrer">
         CoreUI for React
       </a>
     </div>
