@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   CButton,
   CCard,
@@ -13,14 +13,14 @@ import {
   CInputGroupPrepend,
   CInputGroupText,
   CRow,
-} from '@coreui/react';
-import CIcon from '@coreui/icons-react';
+} from "@coreui/react";
+import CIcon from "@coreui/icons-react";
 
 const Register = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [repeatedPassword, setRepeatedPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatedPassword, setRepeatedPassword] = useState("");
   const handleCreate = (e) => {
     e.preventDefault();
     if (!username || !password || !email || password !== repeatedPassword) {
@@ -35,10 +35,10 @@ const Register = () => {
     //     password,
     //   },
     // });
-    setUsername('');
-    setEmail('');
-    setPassword('');
-    setRepeatedPassword('');
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setRepeatedPassword("");
   };
 
   return (

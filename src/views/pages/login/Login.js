@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   CButton,
   CCard,
@@ -13,12 +13,12 @@ import {
   CInputGroupPrepend,
   CInputGroupText,
   CRow,
-} from '@coreui/react';
-import CIcon from '@coreui/icons-react';
+} from "@coreui/react";
+import CIcon from "@coreui/icons-react";
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const handleLogin = (e) => {
     e.preventDefault();
     if (!username || !password) {
@@ -33,8 +33,8 @@ const Login = () => {
     //     password,
     //   },
     // });
-    setUsername('');
-    setPassword('');
+    setUsername("");
+    setPassword("");
   };
 
   return (
@@ -97,7 +97,7 @@ const Login = () => {
               </CCard>
               <CCard
                 className="text-white bg-primary py-5 d-md-down-none"
-                style={{ width: '44%' }}
+                style={{ width: "44%" }}
               >
                 <CCardBody className="text-center">
                   <div>
