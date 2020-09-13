@@ -40,12 +40,11 @@ const TheHeaderDropdownMssg = () => {
               <small className="text-muted float-right mt-1">Just now</small>
             </div>
             <div className="text-truncate font-weight-bold">
-              <span className="fa fa-exclamation text-danger"></span> Important
-              message
+              <span className="fa fa-exclamation text-danger"></span> Important message
             </div>
             <div className="small text-muted text-truncate">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt...
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt...
             </div>
           </div>
         </CDropdownItem>
@@ -64,16 +63,14 @@ const TheHeaderDropdownMssg = () => {
             </div>
             <div>
               <small className="text-muted">Jane Dovve</small>
-              <small className="text-muted float-right mt-1">
-                5 minutes ago
-              </small>
+              <small className="text-muted float-right mt-1">5 minutes ago</small>
             </div>
             <div className="text-truncate font-weight-bold">
               Lorem ipsum dolor sit amet
             </div>
             <div className="small text-muted text-truncate">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt...
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt...
             </div>
           </div>
         </CDropdownItem>
@@ -98,8 +95,8 @@ const TheHeaderDropdownMssg = () => {
               Lorem ipsum dolor sit amet
             </div>
             <div className="small text-muted text-truncate">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt...
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt...
             </div>
           </div>
         </CDropdownItem>
@@ -124,8 +121,8 @@ const TheHeaderDropdownMssg = () => {
               Lorem ipsum dolor sit amet
             </div>
             <div className="small text-muted text-truncate">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt...
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt...
             </div>
           </div>
         </CDropdownItem>
