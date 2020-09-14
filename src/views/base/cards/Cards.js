@@ -25,22 +25,20 @@ const Cards = () => {
           <CCard>
             <CCardHeader>Card title</CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
         <CCol xs="12" sm="6" md="4">
           <CCard>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
             <CCardFooter>Card footer</CCardFooter>
           </CCard>
@@ -54,11 +52,10 @@ const Cards = () => {
               </div>
             </CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat.Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Ut wisi
+              enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -77,11 +74,10 @@ const Cards = () => {
               </div>
             </CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -96,11 +92,10 @@ const Cards = () => {
               </div>
             </CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -115,11 +110,10 @@ const Cards = () => {
               </div>
             </CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -129,11 +123,10 @@ const Cards = () => {
           <CCard borderColor="primary">
             <CCardHeader>Card outline primary</CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat.Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Ut wisi
+              enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -141,11 +134,10 @@ const Cards = () => {
           <CCard borderColor="secondary">
             <CCardHeader>Card outline secondary</CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat.Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Ut wisi
+              enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -153,11 +145,10 @@ const Cards = () => {
           <CCard borderColor="success">
             <CCardHeader>Card outline success</CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat.Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Ut wisi
+              enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -165,11 +156,10 @@ const Cards = () => {
           <CCard borderColor="info">
             <CCardHeader>Card outline info</CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -177,11 +167,10 @@ const Cards = () => {
           <CCard borderColor="warning">
             <CCardHeader>Card outline warning</CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -189,11 +178,10 @@ const Cards = () => {
           <CCard borderColor="danger">
             <CCardHeader>Card outline danger</CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -204,11 +192,10 @@ const Cards = () => {
           <CCard accentColor="primary">
             <CCardHeader>Card with accent</CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -216,11 +203,10 @@ const Cards = () => {
           <CCard accentColor="secondary">
             <CCardHeader>Card with accent</CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -228,11 +214,10 @@ const Cards = () => {
           <CCard accentColor="success">
             <CCardHeader>Card with accent</CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -240,11 +225,10 @@ const Cards = () => {
           <CCard accentColor="info">
             <CCardHeader>Card with accent</CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -252,11 +236,10 @@ const Cards = () => {
           <CCard accentColor="warning">
             <CCardHeader>Card with accent</CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -264,11 +247,10 @@ const Cards = () => {
           <CCard accentColor="danger">
             <CCardHeader>Card with accent</CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -279,12 +261,11 @@ const Cards = () => {
             <CCardBody>
               <blockquote className="card-bodyquote">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Integer posuere erat a ante.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+                  erat a ante.
                 </p>
                 <footer>
-                  Someone famous in{" "}
-                  <cite title="Source Title">Source Title</cite>
+                  Someone famous in <cite title="Source Title">Source Title</cite>
                 </footer>
               </blockquote>
             </CCardBody>
@@ -295,12 +276,11 @@ const Cards = () => {
             <CCardBody>
               <blockquote className="card-bodyquote">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Integer posuere erat a ante.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+                  erat a ante.
                 </p>
                 <footer>
-                  Someone famous in{" "}
-                  <cite title="Source Title">Source Title</cite>
+                  Someone famous in <cite title="Source Title">Source Title</cite>
                 </footer>
               </blockquote>
             </CCardBody>
@@ -311,12 +291,11 @@ const Cards = () => {
             <CCardBody>
               <blockquote className="card-bodyquote">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Integer posuere erat a ante.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+                  erat a ante.
                 </p>
                 <footer>
-                  Someone famous in{" "}
-                  <cite title="Source Title">Source Title</cite>
+                  Someone famous in <cite title="Source Title">Source Title</cite>
                 </footer>
               </blockquote>
             </CCardBody>
@@ -327,12 +306,11 @@ const Cards = () => {
             <CCardBody>
               <blockquote className="card-bodyquote">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Integer posuere erat a ante.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+                  erat a ante.
                 </p>
                 <footer>
-                  Someone famous in{" "}
-                  <cite title="Source Title">Source Title</cite>
+                  Someone famous in <cite title="Source Title">Source Title</cite>
                 </footer>
               </blockquote>
             </CCardBody>
@@ -343,12 +321,11 @@ const Cards = () => {
             <CCardBody>
               <blockquote className="card-bodyquote">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Integer posuere erat a ante.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+                  erat a ante.
                 </p>
                 <footer>
-                  Someone famous in{" "}
-                  <cite title="Source Title">Source Title</cite>
+                  Someone famous in <cite title="Source Title">Source Title</cite>
                 </footer>
               </blockquote>
             </CCardBody>
@@ -359,12 +336,11 @@ const Cards = () => {
             <CCardBody>
               <blockquote className="card-bodyquote">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Integer posuere erat a ante.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+                  erat a ante.
                 </p>
                 <footer>
-                  Someone famous in{" "}
-                  <cite title="Source Title">Source Title</cite>
+                  Someone famous in <cite title="Source Title">Source Title</cite>
                 </footer>
               </blockquote>
             </CCardBody>
@@ -376,11 +352,10 @@ const Cards = () => {
           <CCard color="primary" className="text-white">
             <CCardHeader>Card title</CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -388,11 +363,10 @@ const Cards = () => {
           <CCard color="success" className="text-white">
             <CCardHeader>Card title</CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -400,11 +374,10 @@ const Cards = () => {
           <CCard color="info" className="text-white">
             <CCardHeader>Card title</CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -412,11 +385,10 @@ const Cards = () => {
           <CCard color="warning" className="text-white">
             <CCardHeader>Card title</CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -424,11 +396,10 @@ const Cards = () => {
           <CCard color="gradient-secondary">
             <CCardHeader>Card title - gradient</CCardHeader>
             <CCardBody>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat.
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+              nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut
+              wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+              lobortis nisl ut aliquip ex ea commodo consequat.
             </CCardBody>
           </CCard>
         </CCol>
@@ -443,29 +414,22 @@ const Cards = () => {
                   </CLink>
                   <CLink
                     className="card-header-action"
-                    onClick={() => setCollapsed(!collapsed)}
-                  >
-                    <CIcon
-                      name={
-                        collapsed ? "cil-chevron-bottom" : "cil-chevron-top"
-                      }
-                    />
+                    onClick={() => setCollapsed(!collapsed)}>
+                    <CIcon name={collapsed ? "cil-chevron-bottom" : "cil-chevron-top"} />
                   </CLink>
                   <CLink
                     className="card-header-action"
-                    onClick={() => setShowCard(false)}
-                  >
+                    onClick={() => setShowCard(false)}>
                     <CIcon name="cil-x-circle" />
                   </CLink>
                 </div>
               </CCardHeader>
               <CCollapse show={collapsed}>
                 <CCardBody>
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                  diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                  aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
-                  nostrud exerci tation ullamcorper suscipit lobortis nisl ut
-                  aliquip ex ea commodo consequat.
+                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+                  nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
+                  volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation
+                  ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
                 </CCardBody>
               </CCollapse>
             </CCard>

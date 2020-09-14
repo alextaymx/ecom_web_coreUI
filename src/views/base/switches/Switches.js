@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CRow,
-  CSwitch,
-} from "@coreui/react";
+import { CCard, CCardBody, CCardHeader, CCol, CRow, CSwitch } from "@coreui/react";
 
 const Switches = () => {
   return (
@@ -28,42 +21,12 @@ const Switches = () => {
               color={"secondary"}
               defaultChecked
             />
-            <CSwitch
-              className={"mx-1"}
-              variant={"3d"}
-              color={"success"}
-              defaultChecked
-            />
-            <CSwitch
-              className={"mx-1"}
-              variant={"3d"}
-              color={"warning"}
-              defaultChecked
-            />
-            <CSwitch
-              className={"mx-1"}
-              variant={"3d"}
-              color={"info"}
-              defaultChecked
-            />
-            <CSwitch
-              className={"mx-1"}
-              variant={"3d"}
-              color={"danger"}
-              defaultChecked
-            />
-            <CSwitch
-              className={"mx-1"}
-              variant={"3d"}
-              color={"light"}
-              defaultChecked
-            />
-            <CSwitch
-              className={"mx-1"}
-              variant={"3d"}
-              color={"dark"}
-              defaultChecked
-            />
+            <CSwitch className={"mx-1"} variant={"3d"} color={"success"} defaultChecked />
+            <CSwitch className={"mx-1"} variant={"3d"} color={"warning"} defaultChecked />
+            <CSwitch className={"mx-1"} variant={"3d"} color={"info"} defaultChecked />
+            <CSwitch className={"mx-1"} variant={"3d"} color={"danger"} defaultChecked />
+            <CSwitch className={"mx-1"} variant={"3d"} color={"light"} defaultChecked />
+            <CSwitch className={"mx-1"} variant={"3d"} color={"dark"} defaultChecked />
             <CSwitch className={"mx-1"} variant={"3d"} color={"primary"} />
           </CCardBody>
         </CCard>
@@ -85,42 +48,17 @@ const Switches = () => {
         <CCard>
           <CCardHeader>Switch default - pills</CCardHeader>
           <CCardBody>
-            <CSwitch
-              className={"mx-1"}
-              shape={"pill"}
-              color={"primary"}
-              defaultChecked
-            />
+            <CSwitch className={"mx-1"} shape={"pill"} color={"primary"} defaultChecked />
             <CSwitch
               className={"mx-1"}
               shape={"pill"}
               color={"secondary"}
               defaultChecked
             />
-            <CSwitch
-              className={"mx-1"}
-              shape={"pill"}
-              color={"success"}
-              defaultChecked
-            />
-            <CSwitch
-              className={"mx-1"}
-              shape={"pill"}
-              color={"warning"}
-              defaultChecked
-            />
-            <CSwitch
-              className={"mx-1"}
-              shape={"pill"}
-              color={"info"}
-              defaultChecked
-            />
-            <CSwitch
-              className={"mx-1"}
-              shape={"pill"}
-              color={"danger"}
-              defaultChecked
-            />
+            <CSwitch className={"mx-1"} shape={"pill"} color={"success"} defaultChecked />
+            <CSwitch className={"mx-1"} shape={"pill"} color={"warning"} defaultChecked />
+            <CSwitch className={"mx-1"} shape={"pill"} color={"info"} defaultChecked />
+            <CSwitch className={"mx-1"} shape={"pill"} color={"danger"} defaultChecked />
           </CCardBody>
         </CCard>
       </CCol>
@@ -157,12 +95,7 @@ const Switches = () => {
               variant="outline"
               defaultChecked
             />
-            <CSwitch
-              className={"mx-1"}
-              color={"info"}
-              variant="outline"
-              defaultChecked
-            />
+            <CSwitch className={"mx-1"} color={"info"} variant="outline" defaultChecked />
             <CSwitch
               className={"mx-1"}
               color={"danger"}
@@ -1065,12 +998,7 @@ const Switches = () => {
               defaultChecked
               disabled
             />
-            <CSwitch
-              className={"mx-1"}
-              variant={"3d"}
-              color={"primary"}
-              disabled
-            />
+            <CSwitch className={"mx-1"} variant={"3d"} color={"primary"} disabled />
           </CCardBody>
         </CCard>
       </CCol>
@@ -1127,12 +1055,7 @@ const Switches = () => {
               defaultChecked
               variant="opposite"
             />
-            <CSwitch
-              className={"mx-1"}
-              color={"primary"}
-              variant="opposite"
-              disabled
-            />
+            <CSwitch className={"mx-1"} color={"primary"} variant="opposite" disabled />
           </CCardBody>
         </CCard>
       </CCol>
@@ -1145,54 +1068,19 @@ const Switches = () => {
         <CCard>
           <CCardHeader>3d Switch</CCardHeader>
           <CCardBody>
-            <CSwitch
-              className={"mx-1"}
-              variant={"3d"}
-              color={"primary"}
-              defaultChecked
-            />
+            <CSwitch className={"mx-1"} variant={"3d"} color={"primary"} defaultChecked />
             <CSwitch
               className={"mx-1"}
               variant={"3d"}
               color={"secondary"}
               defaultChecked
             />
-            <CSwitch
-              className={"mx-1"}
-              variant={"3d"}
-              color={"success"}
-              defaultChecked
-            />
-            <CSwitch
-              className={"mx-1"}
-              variant={"3d"}
-              color={"warning"}
-              defaultChecked
-            />
-            <CSwitch
-              className={"mx-1"}
-              variant={"3d"}
-              color={"info"}
-              defaultChecked
-            />
-            <CSwitch
-              className={"mx-1"}
-              variant={"3d"}
-              color={"danger"}
-              defaultChecked
-            />
-            <CSwitch
-              className={"mx-1"}
-              variant={"3d"}
-              color={"light"}
-              defaultChecked
-            />
-            <CSwitch
-              className={"mx-1"}
-              variant={"3d"}
-              color={"dark"}
-              defaultChecked
-            />
+            <CSwitch className={"mx-1"} variant={"3d"} color={"success"} defaultChecked />
+            <CSwitch className={"mx-1"} variant={"3d"} color={"warning"} defaultChecked />
+            <CSwitch className={"mx-1"} variant={"3d"} color={"info"} defaultChecked />
+            <CSwitch className={"mx-1"} variant={"3d"} color={"danger"} defaultChecked />
+            <CSwitch className={"mx-1"} variant={"3d"} color={"light"} defaultChecked />
+            <CSwitch className={"mx-1"} variant={"3d"} color={"dark"} defaultChecked />
             <CSwitch className={"mx-1"} variant={"3d"} color={"primary"} />
           </CCardBody>
         </CCard>

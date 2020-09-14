@@ -36,8 +36,7 @@ const Tooltips = () => {
               href="https://coreui.github.io/components/tooltips/"
               rel="noreferrer noopener"
               target="_blank"
-              className="card-header-action"
-            >
+              className="card-header-action">
               <small className="text-muted">docs</small>
             </a>
           </div>
@@ -45,24 +44,22 @@ const Tooltips = () => {
         <CCardBody>
           {/*eslint-disable-next-line*/}
 
-          <p className="text-muted">
-            Hover over the links below to see tooltips:
-          </p>
+          <p className="text-muted">Hover over the links below to see tooltips:</p>
 
           <p className="muted">
             Tight pants next level keffiyeh
             <CTooltip content="Tooltip text">
               <CLink> you probably </CLink>
             </CTooltip>
-            haven't heard of them. Photo booth beard raw denim letterpress vegan
-            messenger bag stumptown. Farm-to-table seitan, mcsweeney's fixie
-            sustainable quinoa 8-bit american apparel
+            haven't heard of them. Photo booth beard raw denim letterpress vegan messenger
+            bag stumptown. Farm-to-table seitan, mcsweeney's fixie sustainable quinoa
+            8-bit american apparel
             <CTooltip content="Tooltip text">
               <CLink> have a </CLink>
             </CTooltip>
-            terry richardson vinyl chambray. Beard stumptown, cardigans banh mi
-            lomo thundercats. Tofu biodiesel williamsburg marfa, four loko
-            mcsweeney''s cleanse vegan chambray. A really ironic artisan
+            terry richardson vinyl chambray. Beard stumptown, cardigans banh mi lomo
+            thundercats. Tofu biodiesel williamsburg marfa, four loko mcsweeney''s cleanse
+            vegan chambray. A really ironic artisan
             <CTooltip content="Tooltip text">
               <CLink> whatever keytar </CLink>
             </CTooltip>
@@ -90,8 +87,7 @@ const Tooltips = () => {
                   <CCol md="4" className="py-4 text-center" key={placement}>
                     <CTooltip
                       content={`Tooltip with placement: ${placement}`}
-                      placement={placement}
-                    >
+                      placement={placement}>
                       <CButton color="primary">{placement}</CButton>
                     </CTooltip>
                   </CCol>

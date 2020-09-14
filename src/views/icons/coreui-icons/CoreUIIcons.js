@@ -13,8 +13,7 @@ const CoreUIIcons = () => {
             href="https://github.com/coreui/coreui-icons"
             rel="noreferrer noopener"
             target="_blank"
-            className="card-header-action"
-          >
+            className="card-header-action">
             <small className="text-muted">Github</small>
           </a>
         </div>

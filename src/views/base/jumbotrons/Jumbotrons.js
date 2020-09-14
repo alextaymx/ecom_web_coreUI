@@ -25,8 +25,7 @@ const Jumbotrons = () => {
                   href="https://coreui.github.io/components/jumbotron/"
                   rel="noreferrer noopener"
                   target="_blank"
-                  className="card-header-action"
-                >
+                  className="card-header-action">
                   <small className="text-muted">docs</small>
                 </a>
               </div>
@@ -35,14 +34,13 @@ const Jumbotrons = () => {
               <CJumbotron className="border">
                 <h1 className="display-3">Hello, world!</h1>
                 <p className="lead">
-                  This is a simple hero unit, a simple Jumbotron - style
-                  component for calling extra attention to featured content or
-                  information.
+                  This is a simple hero unit, a simple Jumbotron - style component for
+                  calling extra attention to featured content or information.
                 </p>
                 <hr className="my-2" />
                 <p>
-                  It uses utility classes for typgraphy and spacing to space
-                  content out within the larger container.
+                  It uses utility classes for typgraphy and spacing to space content out
+                  within the larger container.
                 </p>
                 <p className="lead">
                   <CButton color="primary" size="lg">
@@ -64,8 +62,8 @@ const Jumbotrons = () => {
                 <CContainer fluid>
                   <h1 className="display-3">Fluid jumbotron</h1>
                   <p className="lead">
-                    This is a modified jumbotron that occupies the entire
-                    horizontal space of its parent.
+                    This is a modified jumbotron that occupies the entire horizontal space
+                    of its parent.
                   </p>
                 </CContainer>
               </CJumbotron>

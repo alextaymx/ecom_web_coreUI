@@ -15,8 +15,7 @@ const WidgetsBrand = ({ withCharts }) => {
           rightHeader="89k"
           rightFooter="friends"
           leftHeader="459"
-          leftFooter="feeds"
-        >
+          leftFooter="feeds">
           <CIcon name="cib-facebook" height="52" className="my-4" />
           <ChartLineSimple
             className="position-absolute w-100 h-100"
@@ -34,8 +33,7 @@ const WidgetsBrand = ({ withCharts }) => {
           rightHeader="973k"
           rightFooter="followers"
           leftHeader="1.792"
-          leftFooter="tweets"
-        >
+          leftFooter="tweets">
           <CIcon name="cib-twitter" height="52" className="my-4" />
           <ChartLineSimple
             className="position-absolute w-100 h-100"
@@ -53,8 +51,7 @@ const WidgetsBrand = ({ withCharts }) => {
           rightHeader="500+"
           rightFooter="contracts"
           leftHeader="292"
-          leftFooter="feeds"
-        >
+          leftFooter="feeds">
           <CIcon name="cib-linkedin" height="52" className="my-4" />
           <ChartLineSimple
             className="position-absolute w-100 h-100"
@@ -72,8 +69,7 @@ const WidgetsBrand = ({ withCharts }) => {
           rightFooter="events"
           leftHeader="4"
           leftFooter="meetings"
-          color="gradient-warning"
-        >
+          color="gradient-warning">
           <CIcon name="cil-calendar" height="52" className="my-4" />
           <ChartLineSimple
             className="position-absolute w-100 h-100"
@@ -93,8 +89,7 @@ const WidgetsBrand = ({ withCharts }) => {
           rightHeader="89k"
           rightFooter="friends"
           leftHeader="459"
-          leftFooter="feeds"
-        >
+          leftFooter="feeds">
           <CIcon name="cib-facebook" height="56" className="my-4" />
         </CWidgetBrand>
       </CCol>
@@ -105,8 +100,7 @@ const WidgetsBrand = ({ withCharts }) => {
           rightHeader="973k"
           rightFooter="followers"
           leftHeader="1.792"
-          leftFooter="tweets"
-        >
+          leftFooter="tweets">
           <CIcon name="cib-twitter" height="56" className="my-4" />
         </CWidgetBrand>
       </CCol>
@@ -117,8 +111,7 @@ const WidgetsBrand = ({ withCharts }) => {
           rightHeader="500+"
           rightFooter="contracts"
           leftHeader="292"
-          leftFooter="feeds"
-        >
+          leftFooter="feeds">
           <CIcon name="cib-linkedin" height="56" className="my-4" />
         </CWidgetBrand>
       </CCol>
@@ -129,8 +122,7 @@ const WidgetsBrand = ({ withCharts }) => {
           rightFooter="events"
           leftHeader="4"
           leftFooter="meetings"
-          color="gradient-warning"
-        >
+          color="gradient-warning">
           <CIcon name="cil-calendar" height="56" className="my-4" />
         </CWidgetBrand>
       </CCol>

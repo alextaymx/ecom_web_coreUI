@@ -131,8 +131,7 @@ const Register = () => {
                         className="mt-3 mb-1"
                         active
                         tabIndex={-1}
-                        block
-                      >
+                        block>
                         Already have an account? Login Now
                       </CButton>
                     </Link>
