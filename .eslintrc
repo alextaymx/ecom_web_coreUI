@@ -19,7 +19,7 @@
     "react/prop-types": "off",
     "react/no-unescaped-entities": "off",
     "react/display-name": "off",
-    "react/jsx-key": "off",
+    "react/jsx-key": "warn",
 
     // Add Rules Below
     // https://github.com/facebook/react/tree/master/packages/eslint-plugin-react-hooks
