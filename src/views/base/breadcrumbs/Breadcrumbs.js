@@ -24,8 +24,7 @@ const Breadcrumbs = () => {
                 href="https://coreui.github.io/components/breadcrumbs/"
                 rel="noreferrer noopener"
                 target="_blank"
-                className="card-header-action"
-              >
+                className="card-header-action">
                 <small className="text-muted">docs</small>
               </a>
             </div>

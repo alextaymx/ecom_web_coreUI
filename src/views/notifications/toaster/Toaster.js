@@ -101,8 +101,7 @@ const Toaster = () => {
                     value={position}
                     onChange={(e) => {
                       setPosition(e.target.value);
-                    }}
-                  >
+                    }}>
                     {positions.map((position, i) => (
                       <option key={i}>{position}</option>
                     ))}
@@ -137,11 +136,7 @@ const Toaster = () => {
                   </CLabel>
                 </CFormGroup>
 
-                <CButton
-                  className="mr-1 w-25"
-                  color="success"
-                  onClick={addToast}
-                >
+                <CButton className="mr-1 w-25" color="success" onClick={addToast}>
                   Add toast
                 </CButton>
               </CForm>
@@ -155,8 +150,7 @@ const Toaster = () => {
                         key={"toast" + key}
                         show={true}
                         autohide={toast.autohide}
-                        fade={toast.fade}
-                      >
+                        fade={toast.fade}>
                         <CToastHeader closeButton={toast.closeButton}>
                           Toast title
                         </CToastHeader>

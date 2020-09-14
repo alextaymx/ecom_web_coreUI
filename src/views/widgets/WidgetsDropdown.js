@@ -31,8 +31,7 @@ const WidgetsDropdown = () => {
               label="Members"
               labels="months"
             />
-          }
-        >
+          }>
           <CDropdown>
             <CDropdownToggle color="transparent">
               <CIcon name="cil-settings" />
@@ -63,8 +62,7 @@ const WidgetsDropdown = () => {
               label="Members"
               labels="months"
             />
-          }
-        >
+          }>
           <CDropdown>
             <CDropdownToggle caret={false} color="transparent">
               <CIcon name="cil-location-pin" />
@@ -95,8 +93,7 @@ const WidgetsDropdown = () => {
               label="Members"
               labels="months"
             />
-          }
-        >
+          }>
           <CDropdown>
             <CDropdownToggle color="transparent">
               <CIcon name="cil-settings" />
@@ -124,8 +121,7 @@ const WidgetsDropdown = () => {
               label="Members"
               labels="months"
             />
-          }
-        >
+          }>
           <CDropdown>
             <CDropdownToggle caret className="text-white" color="transparent">
               <CIcon name="cil-settings" />

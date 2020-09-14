@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  CButton,
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CRow,
-} from "@coreui/react";
+import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 
 const BrandButtons = () => {
@@ -52,10 +45,7 @@ const BrandButtons = () => {
                 <CIcon name="cib-github" />
                 <span>Github</span>
               </CButton>
-              <CButton
-                size="sm"
-                className="btn-stack-overflow btn-brand mr-1 mb-1"
-              >
+              <CButton size="sm" className="btn-stack-overflow btn-brand mr-1 mb-1">
                 <CIcon name="cib-stackoverflow" />
                 <span>StackOverflow</span>
               </CButton>
@@ -203,10 +193,7 @@ const BrandButtons = () => {
                 <CIcon name="cib-github" />
                 <span>Github</span>
               </CButton>
-              <CButton
-                size="lg"
-                className="btn-stack-overflow btn-brand mr-1 mb-1"
-              >
+              <CButton size="lg" className="btn-stack-overflow btn-brand mr-1 mb-1">
                 <CIcon name="cib-stackoverflow" />
                 <span>StackOverflow</span>
               </CButton>
@@ -287,10 +274,7 @@ const BrandButtons = () => {
               <CButton size="sm" className="btn-github btn-brand mr-1 mb-1">
                 <CIcon name="cib-github" />
               </CButton>
-              <CButton
-                size="sm"
-                className="btn-stack-overflow btn-brand mr-1 mb-1"
-              >
+              <CButton size="sm" className="btn-stack-overflow btn-brand mr-1 mb-1">
                 <CIcon name="cib-stackoverflow" />
               </CButton>
               <CButton size="sm" className="btn-youtube btn-brand mr-1 mb-1">
@@ -404,10 +388,7 @@ const BrandButtons = () => {
               <CButton size="lg" className="btn-github btn-brand mr-1 mb-1">
                 <CIcon name="cib-github" />
               </CButton>
-              <CButton
-                size="lg"
-                className="btn-stack-overflow btn-brand mr-1 mb-1"
-              >
+              <CButton size="lg" className="btn-stack-overflow btn-brand mr-1 mb-1">
                 <CIcon name="cib-stackoverflow" />
               </CButton>
               <CButton size="lg" className="btn-youtube btn-brand mr-1 mb-1">

@@ -31,8 +31,7 @@ const ButtonGroups = () => {
                 href="https://coreui.github.io/components/button-group/"
                 rel="noreferrer noopener"
                 target="_blank"
-                className="card-header-action"
-              >
+                className="card-header-action">
                 <small className="text-muted">docs</small>
               </a>
             </div>
@@ -50,8 +49,7 @@ const ButtonGroups = () => {
                 href="https://coreui.github.io/components/button-group/"
                 rel="noreferrer noopener"
                 target="_blank"
-                className="card-header-action"
-              >
+                className="card-header-action">
                 <small className="text-muted">docs</small>
               </a>
             </div>

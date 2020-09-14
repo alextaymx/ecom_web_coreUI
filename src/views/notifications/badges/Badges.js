@@ -22,8 +22,7 @@ const Badges = () => {
                 href="https://coreui.github.io/components/badge/"
                 rel="noreferrer noopener"
                 target="_blank"
-                className="card-header-action"
-              >
+                className="card-header-action">
                 <small className="text-muted">docs</small>
               </a>
             </div>
@@ -51,11 +50,7 @@ const Badges = () => {
           <CCardFooter>
             <CButton color="secondary">
               Notifications{" "}
-              <CBadge
-                color="primary"
-                shape="pill"
-                style={{ position: "static" }}
-              >
+              <CBadge color="primary" shape="pill" style={{ position: "static" }}>
                 9
               </CBadge>
             </CButton>

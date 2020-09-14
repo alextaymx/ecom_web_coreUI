@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  CButton,
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CRow,
-} from "@coreui/react";
+import { CButton, CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 
 const Buttons = () => {
@@ -224,13 +217,7 @@ const Buttons = () => {
               Active State
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                block
-                variant="outline"
-                active
-                color="primary"
-                aria-pressed="true"
-              >
+              <CButton block variant="outline" active color="primary" aria-pressed="true">
                 Primary
               </CButton>
             </CCol>
@@ -240,74 +227,37 @@ const Buttons = () => {
                 variant="outline"
                 active
                 color="secondary"
-                aria-pressed="true"
-              >
+                aria-pressed="true">
                 Secondary
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                block
-                variant="outline"
-                active
-                color="success"
-                aria-pressed="true"
-              >
+              <CButton block variant="outline" active color="success" aria-pressed="true">
                 Success
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                block
-                variant="outline"
-                active
-                color="warning"
-                aria-pressed="true"
-              >
+              <CButton block variant="outline" active color="warning" aria-pressed="true">
                 Warning
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                block
-                variant="outline"
-                active
-                color="danger"
-                aria-pressed="true"
-              >
+              <CButton block variant="outline" active color="danger" aria-pressed="true">
                 Danger
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                block
-                variant="outline"
-                active
-                color="info"
-                aria-pressed="true"
-              >
+              <CButton block variant="outline" active color="info" aria-pressed="true">
                 Info
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                block
-                variant="outline"
-                active
-                color="light"
-                aria-pressed="true"
-              >
+              <CButton block variant="outline" active color="light" aria-pressed="true">
                 Light
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                block
-                variant="outline"
-                active
-                color="dark"
-                aria-pressed="true"
-              >
+              <CButton block variant="outline" active color="dark" aria-pressed="true">
                 Dark
               </CButton>
             </CCol>
@@ -418,90 +368,42 @@ const Buttons = () => {
               Active State
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                block
-                active
-                variant="ghost"
-                color="primary"
-                aria-pressed="true"
-              >
+              <CButton block active variant="ghost" color="primary" aria-pressed="true">
                 Primary
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                block
-                active
-                variant="ghost"
-                color="secondary"
-                aria-pressed="true"
-              >
+              <CButton block active variant="ghost" color="secondary" aria-pressed="true">
                 Secondary
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                block
-                active
-                variant="ghost"
-                color="success"
-                aria-pressed="true"
-              >
+              <CButton block active variant="ghost" color="success" aria-pressed="true">
                 Success
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                block
-                active
-                variant="ghost"
-                color="warning"
-                aria-pressed="true"
-              >
+              <CButton block active variant="ghost" color="warning" aria-pressed="true">
                 Warning
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                block
-                active
-                variant="ghost"
-                color="danger"
-                aria-pressed="true"
-              >
+              <CButton block active variant="ghost" color="danger" aria-pressed="true">
                 Danger
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                block
-                active
-                variant="ghost"
-                color="info"
-                aria-pressed="true"
-              >
+              <CButton block active variant="ghost" color="info" aria-pressed="true">
                 Info
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                block
-                active
-                variant="ghost"
-                color="light"
-                aria-pressed="true"
-              >
+              <CButton block active variant="ghost" color="light" aria-pressed="true">
                 Light
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                block
-                active
-                variant="ghost"
-                color="dark"
-                aria-pressed="true"
-              >
+              <CButton block active variant="ghost" color="dark" aria-pressed="true">
                 Dark
               </CButton>
             </CCol>
@@ -616,101 +518,47 @@ const Buttons = () => {
               Active State
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                active
-                block
-                shape="square"
-                color="primary"
-                aria-pressed="true"
-              >
+              <CButton active block shape="square" color="primary" aria-pressed="true">
                 Primary
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                active
-                block
-                shape="square"
-                color="secondary"
-                aria-pressed="true"
-              >
+              <CButton active block shape="square" color="secondary" aria-pressed="true">
                 Secondary
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                active
-                block
-                shape="square"
-                color="success"
-                aria-pressed="true"
-              >
+              <CButton active block shape="square" color="success" aria-pressed="true">
                 Success
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                active
-                block
-                shape="square"
-                color="warning"
-                aria-pressed="true"
-              >
+              <CButton active block shape="square" color="warning" aria-pressed="true">
                 Warning
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                active
-                block
-                shape="square"
-                color="danger"
-                aria-pressed="true"
-              >
+              <CButton active block shape="square" color="danger" aria-pressed="true">
                 Danger
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                active
-                block
-                shape="square"
-                color="info"
-                aria-pressed="true"
-              >
+              <CButton active block shape="square" color="info" aria-pressed="true">
                 Info
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                active
-                block
-                shape="square"
-                color="light"
-                aria-pressed="true"
-              >
+              <CButton active block shape="square" color="light" aria-pressed="true">
                 Light
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                active
-                block
-                shape="square"
-                color="dark"
-                aria-pressed="true"
-              >
+              <CButton active block shape="square" color="dark" aria-pressed="true">
                 Dark
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                active
-                block
-                shape="square"
-                color="link"
-                aria-pressed="true"
-              >
+              <CButton active block shape="square" color="link" aria-pressed="true">
                 Link
               </CButton>
             </CCol>
@@ -828,101 +676,47 @@ const Buttons = () => {
               Active State
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                active
-                block
-                shape="pill"
-                color="primary"
-                aria-pressed="true"
-              >
+              <CButton active block shape="pill" color="primary" aria-pressed="true">
                 Primary
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                active
-                block
-                shape="pill"
-                color="secondary"
-                aria-pressed="true"
-              >
+              <CButton active block shape="pill" color="secondary" aria-pressed="true">
                 Secondary
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                active
-                block
-                shape="pill"
-                color="success"
-                aria-pressed="true"
-              >
+              <CButton active block shape="pill" color="success" aria-pressed="true">
                 Success
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                active
-                block
-                shape="pill"
-                color="warning"
-                aria-pressed="true"
-              >
+              <CButton active block shape="pill" color="warning" aria-pressed="true">
                 Warning
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                active
-                block
-                shape="pill"
-                color="danger"
-                aria-pressed="true"
-              >
+              <CButton active block shape="pill" color="danger" aria-pressed="true">
                 Danger
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                active
-                block
-                shape="pill"
-                color="info"
-                aria-pressed="true"
-              >
+              <CButton active block shape="pill" color="info" aria-pressed="true">
                 Info
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                active
-                block
-                shape="pill"
-                color="light"
-                aria-pressed="true"
-              >
+              <CButton active block shape="pill" color="light" aria-pressed="true">
                 Light
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                active
-                block
-                shape="pill"
-                color="dark"
-                aria-pressed="true"
-              >
+              <CButton active block shape="pill" color="dark" aria-pressed="true">
                 Dark
               </CButton>
             </CCol>
             <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-              <CButton
-                active
-                block
-                shape="pill"
-                color="link"
-                aria-pressed="true"
-              >
+              <CButton active block shape="pill" color="link" aria-pressed="true">
                 Link
               </CButton>
             </CCol>

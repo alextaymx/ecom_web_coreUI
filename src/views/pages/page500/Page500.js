@@ -31,11 +31,7 @@ const Page500 = () => {
                   <CIcon name="cil-magnifying-glass" />
                 </CInputGroupText>
               </CInputGroupPrepend>
-              <CInput
-                size="16"
-                type="text"
-                placeholder="What are you looking for?"
-              />
+              <CInput size="16" type="text" placeholder="What are you looking for?" />
               <CInputGroupAppend>
                 <CButton color="info">Search</CButton>
               </CInputGroupAppend>

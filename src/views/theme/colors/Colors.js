@@ -9,9 +9,7 @@ const ThemeView = () => {
 
   useEffect(() => {
     const el = ref.current.parentNode.firstChild;
-    const varColor = window
-      .getComputedStyle(el)
-      .getPropertyValue("background-color");
+    const varColor = window.getComputedStyle(el).getPropertyValue("background-color");
     setColor(varColor);
   }, [ref]);
 

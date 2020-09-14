@@ -146,11 +146,7 @@ const CNavbars = () => {
           <CNavbar light color="light">
             <CForm inline>
               <CInput className="mr-sm-2" placeholder="Search" size="sm" />
-              <CButton
-                color="outline-success"
-                className="my-2 my-sm-0"
-                type="submit"
-              >
+              <CButton color="outline-success" className="my-2 my-sm-0" type="submit">
                 Search
               </CButton>
             </CForm>
