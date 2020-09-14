@@ -29,25 +29,13 @@ const Modals = () => {
         <CCard>
           <CCardHeader>Bootstrap Modals</CCardHeader>
           <CCardBody>
-            <CButton
-              onClick={() => setModal(!modal)}
-              className="mr-1"
-              color="secondary"
-            >
+            <CButton onClick={() => setModal(!modal)} className="mr-1" color="secondary">
               Launch demo modal
             </CButton>
-            <CButton
-              onClick={() => setLarge(!large)}
-              className="mr-1"
-              color="secondary"
-            >
+            <CButton onClick={() => setLarge(!large)} className="mr-1" color="secondary">
               Launch large modal
             </CButton>
-            <CButton
-              onClick={() => setSmall(!large)}
-              className="mr-1"
-              color="secondary"
-            >
+            <CButton onClick={() => setSmall(!large)} className="mr-1" color="secondary">
               Launch small modal
             </CButton>
             <CModal show={modal} onClose={setModal}>
@@ -55,13 +43,13 @@ const Modals = () => {
                 <CModalTitle>Modal title</CModalTitle>
               </CModalHeader>
               <CModalBody>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                est laborum.
               </CModalBody>
               <CModalFooter>
                 <CButton color="primary">Do Something</CButton>{" "}
@@ -76,13 +64,13 @@ const Modals = () => {
                 <CModalTitle>Modal title</CModalTitle>
               </CModalHeader>
               <CModalBody>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                est laborum.
               </CModalBody>
               <CModalFooter>
                 <CButton color="primary" onClick={() => setLarge(!large)}>
@@ -99,13 +87,13 @@ const Modals = () => {
                 <CModalTitle>Modal title</CModalTitle>
               </CModalHeader>
               <CModalBody>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                est laborum.
               </CModalBody>
               <CModalFooter>
                 <CButton color="primary" onClick={() => setSmall(!small)}>
@@ -122,55 +110,40 @@ const Modals = () => {
             <CButton
               color="primary"
               onClick={() => setPrimary(!primary)}
-              className="mr-1"
-            >
+              className="mr-1">
               Primary modal
             </CButton>
             <CButton
               color="success"
               onClick={() => setSuccess(!success)}
-              className="mr-1"
-            >
+              className="mr-1">
               Success modal
             </CButton>
             <CButton
               color="warning"
               onClick={() => setWarning(!warning)}
-              className="mr-1"
-            >
+              className="mr-1">
               Warning modal
             </CButton>
-            <CButton
-              color="danger"
-              onClick={() => setDanger(!danger)}
-              className="mr-1"
-            >
+            <CButton color="danger" onClick={() => setDanger(!danger)} className="mr-1">
               Danger modal
             </CButton>
-            <CButton
-              color="info"
-              onClick={() => setInfo(!info)}
-              className="mr-1"
-            >
+            <CButton color="info" onClick={() => setInfo(!info)} className="mr-1">
               Info modal
             </CButton>
 
-            <CModal
-              show={primary}
-              onClose={() => setPrimary(!primary)}
-              color="primary"
-            >
+            <CModal show={primary} onClose={() => setPrimary(!primary)} color="primary">
               <CModalHeader closeButton>
                 <CModalTitle>Modal title</CModalTitle>
               </CModalHeader>
               <CModalBody>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                est laborum.
               </CModalBody>
               <CModalFooter>
                 <CButton color="primary" onClick={() => setPrimary(!primary)}>
@@ -182,22 +155,18 @@ const Modals = () => {
               </CModalFooter>
             </CModal>
 
-            <CModal
-              show={success}
-              onClose={() => setSuccess(!success)}
-              color="success"
-            >
+            <CModal show={success} onClose={() => setSuccess(!success)} color="success">
               <CModalHeader closeButton>
                 <CModalTitle>Modal title</CModalTitle>
               </CModalHeader>
               <CModalBody>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                est laborum.
               </CModalBody>
               <CModalFooter>
                 <CButton color="success" onClick={() => setSuccess(!success)}>
@@ -209,22 +178,18 @@ const Modals = () => {
               </CModalFooter>
             </CModal>
 
-            <CModal
-              show={warning}
-              onClose={() => setWarning(!warning)}
-              color="warning"
-            >
+            <CModal show={warning} onClose={() => setWarning(!warning)} color="warning">
               <CModalHeader closeButton>
                 <CModalTitle>Modal title</CModalTitle>
               </CModalHeader>
               <CModalBody>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                est laborum.
               </CModalBody>
               <CModalFooter>
                 <CButton color="warning" onClick={() => setWarning(!warning)}>
@@ -236,22 +201,18 @@ const Modals = () => {
               </CModalFooter>
             </CModal>
 
-            <CModal
-              show={danger}
-              onClose={() => setDanger(!danger)}
-              color="danger"
-            >
+            <CModal show={danger} onClose={() => setDanger(!danger)} color="danger">
               <CModalHeader closeButton>
                 <CModalTitle>Modal title</CModalTitle>
               </CModalHeader>
               <CModalBody>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                est laborum.
               </CModalBody>
               <CModalFooter>
                 <CButton color="danger" onClick={() => setDanger(!danger)}>
@@ -268,13 +229,13 @@ const Modals = () => {
                 <CModalTitle>Modal title</CModalTitle>
               </CModalHeader>
               <CModalBody>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                est laborum.
               </CModalBody>
               <CModalFooter>
                 <CButton color="secondary" onClick={() => setInfo(!info)}>

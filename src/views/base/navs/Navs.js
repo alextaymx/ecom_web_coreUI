@@ -27,8 +27,7 @@ const Navs = () => {
                   href="https://coreui.github.io/components/navs/"
                   rel="noreferrer noopener"
                   target="_blank"
-                  className="card-header-action"
-                >
+                  className="card-header-action">
                   <small className="text-muted">docs</small>
                 </a>
               </div>
@@ -239,12 +238,8 @@ const Navs = () => {
                 <CNavLink className="flex-sm-fill text-sm-center" active>
                   Active
                 </CNavLink>
-                <CNavLink className="flex-sm-fill text-sm-center">
-                  Link
-                </CNavLink>
-                <CNavLink className="flex-sm-fill text-sm-center">
-                  Link
-                </CNavLink>
+                <CNavLink className="flex-sm-fill text-sm-center">Link</CNavLink>
+                <CNavLink className="flex-sm-fill text-sm-center">Link</CNavLink>
                 <CNavLink className="flex-sm-fill text-sm-center" disabled>
                   Disabled
                 </CNavLink>

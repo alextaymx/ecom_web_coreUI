@@ -31,8 +31,7 @@ const ButtonDropdowns = () => {
                 href="https://coreui.github.io/components/button-dropdown/"
                 rel="noreferrer noopener"
                 target="_blank"
-                className="card-header-action"
-              >
+                className="card-header-action">
                 <small className="text-muted">docs</small>
               </a>
             </div>
@@ -267,9 +266,7 @@ const ButtonDropdowns = () => {
             </CDropdown>
 
             <CDropdown className="m-1 d-inline-block">
-              <CDropdownToggle color="secondary">
-                Direction Left
-              </CDropdownToggle>
+              <CDropdownToggle color="secondary">Direction Left</CDropdownToggle>
               <CDropdownMenu placement="left">
                 <CDropdownItem header>Header</CDropdownItem>
                 <CDropdownItem disabled>Action Disabled</CDropdownItem>
@@ -279,9 +276,7 @@ const ButtonDropdowns = () => {
             </CDropdown>
 
             <CDropdown className="m-1 d-inline-block">
-              <CDropdownToggle color="secondary">
-                Direction Right
-              </CDropdownToggle>
+              <CDropdownToggle color="secondary">Direction Right</CDropdownToggle>
               <CDropdownMenu placement="right">
                 <CDropdownHeader>Header</CDropdownHeader>
                 <CDropdownItem disabled>Action Disabled</CDropdownItem>
@@ -294,8 +289,7 @@ const ButtonDropdowns = () => {
               <CDropdownToggle color="secondary">Default Down</CDropdownToggle>
               <CDropdownMenu
                 placement="bottom"
-                modifiers={[{ name: "flip", enabled: false }]}
-              >
+                modifiers={[{ name: "flip", enabled: false }]}>
                 <CDropdownItem header>Header</CDropdownItem>
                 <CDropdownItem disabled>Action Disabled</CDropdownItem>
                 <CDropdownItem>Action</CDropdownItem>
@@ -320,9 +314,7 @@ const ButtonDropdowns = () => {
             <hr />
 
             <CDropdown className="m-1">
-              <CDropdownToggle color="secondary">
-                Dropdown with header
-              </CDropdownToggle>
+              <CDropdownToggle color="secondary">Dropdown with header</CDropdownToggle>
               <CDropdownMenu>
                 <CDropdownItem header>Header</CDropdownItem>
                 <CDropdownItem>Action</CDropdownItem>
@@ -333,9 +325,7 @@ const ButtonDropdowns = () => {
             <hr />
 
             <CDropdown className="m-1">
-              <CDropdownToggle color="secondary">
-                Dropdown with divider
-              </CDropdownToggle>
+              <CDropdownToggle color="secondary">Dropdown with divider</CDropdownToggle>
               <CDropdownMenu>
                 <CDropdownItem>Action</CDropdownItem>
                 <CDropdownDivider />
@@ -362,9 +352,7 @@ const ButtonDropdowns = () => {
               <CDropdownMenu>
                 <CForm className="px-4 py-3">
                   <CFormGroup>
-                    <CLabel htmlFor="exampleDropdownFormEmail1">
-                      Email address
-                    </CLabel>
+                    <CLabel htmlFor="exampleDropdownFormEmail1">Email address</CLabel>
                     <CInput
                       className="form-control"
                       id="exampleDropdownFormEmail1"
@@ -374,9 +362,7 @@ const ButtonDropdowns = () => {
                     />
                   </CFormGroup>
                   <CFormGroup>
-                    <CLabel htmlFor="exampleDropdownFormPassword1">
-                      Password
-                    </CLabel>
+                    <CLabel htmlFor="exampleDropdownFormPassword1">Password</CLabel>
                     <CInput
                       className="form-control"
                       id="exampleDropdownFormPassword1"
@@ -389,8 +375,7 @@ const ButtonDropdowns = () => {
                     <CInputCheckbox custom id="exampleDropdownFormCheckbox1" />
                     <CLabel
                       variant="custom-checkbox"
-                      htmlFor="exampleDropdownFormCheckbox1"
-                    >
+                      htmlFor="exampleDropdownFormCheckbox1">
                       Remember me
                     </CLabel>
                   </CFormGroup>

@@ -43,9 +43,7 @@ const Tables = () => {
                 scopedSlots={{
                   status: (item) => (
                     <td>
-                      <CBadge color={getBadge(item.status)}>
-                        {item.status}
-                      </CBadge>
+                      <CBadge color={getBadge(item.status)}>{item.status}</CBadge>
                     </td>
                   ),
                 }}
@@ -67,9 +65,7 @@ const Tables = () => {
                 scopedSlots={{
                   status: (item) => (
                     <td>
-                      <CBadge color={getBadge(item.status)}>
-                        {item.status}
-                      </CBadge>
+                      <CBadge color={getBadge(item.status)}>{item.status}</CBadge>
                     </td>
                   ),
                 }}
@@ -93,9 +89,7 @@ const Tables = () => {
                 scopedSlots={{
                   status: (item) => (
                     <td>
-                      <CBadge color={getBadge(item.status)}>
-                        {item.status}
-                      </CBadge>
+                      <CBadge color={getBadge(item.status)}>{item.status}</CBadge>
                     </td>
                   ),
                 }}
@@ -117,9 +111,7 @@ const Tables = () => {
                 scopedSlots={{
                   status: (item) => (
                     <td>
-                      <CBadge color={getBadge(item.status)}>
-                        {item.status}
-                      </CBadge>
+                      <CBadge color={getBadge(item.status)}>{item.status}</CBadge>
                     </td>
                   ),
                 }}
@@ -146,9 +138,7 @@ const Tables = () => {
                 scopedSlots={{
                   status: (item) => (
                     <td>
-                      <CBadge color={getBadge(item.status)}>
-                        {item.status}
-                      </CBadge>
+                      <CBadge color={getBadge(item.status)}>{item.status}</CBadge>
                     </td>
                   ),
                 }}
@@ -175,9 +165,7 @@ const Tables = () => {
                 scopedSlots={{
                   status: (item) => (
                     <td>
-                      <CBadge color={getBadge(item.status)}>
-                        {item.status}
-                      </CBadge>
+                      <CBadge color={getBadge(item.status)}>{item.status}</CBadge>
                     </td>
                   ),
                 }}

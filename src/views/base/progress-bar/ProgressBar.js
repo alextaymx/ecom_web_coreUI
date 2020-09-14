@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CProgress,
-  CProgressBar,
-} from "@coreui/react";
+import { CCard, CCardBody, CCardHeader, CProgress, CProgressBar } from "@coreui/react";
 
 const ProgressBar = () => {
   return (
@@ -18,8 +12,7 @@ const ProgressBar = () => {
               href="https://coreui.github.io/components/progress/"
               rel="noreferrer noopener"
               target="_blank"
-              className="card-header-action"
-            >
+              className="card-header-action">
               <small className="text-muted">docs</small>
             </a>
           </div>
@@ -38,12 +31,7 @@ const ProgressBar = () => {
           <small> labels</small>
         </CCardHeader>
         <CCardBody>
-          <CProgress
-            value={25.3746472}
-            showPercentage
-            precision={2}
-            className="mb-3"
-          />
+          <CProgress value={25.3746472} showPercentage precision={2} className="mb-3" />
           <CProgress value={50.45} showValue className="mb-3" />
           <CProgress value={15} max={20} showPercentage className="mb-3" />
         </CCardBody>
