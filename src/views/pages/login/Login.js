@@ -17,7 +17,7 @@ import {
 import CIcon from "@coreui/icons-react";
 import { useDispatch } from "react-redux";
 import { login } from "../../../actions";
-import Axios from "axios";
+import axios from "axios";
 
 const Login = () => {
   let history = useHistory();
@@ -25,24 +25,29 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-
-  const handleLogin = (e) => {
+  // functions
+  const handleLogin = async (e) => {
     e.preventDefault();
     if (!email || !password) {
       return;
     }
-    const user = {};
-
-    console.log(email, password);
-    dispatch(login(user));
-    history.push("/dashboard");
-    // dispatch({
-    //   type: "ADD_BOOK",
-    //   user: {
-    //     username,
-    //     password,
-    //   },
-    // });
+    // console.log("from user input field ", email, password);
+    const credentials = {
+      email,
+      password,
+    };
+    axios
+      .post("http://localhost:3001/login", credentials)
+      .then((response) => {
+        const data = response.data.data;
+        const user = { id: data.user };
+        dispatch(login(user));
+        // console.log("returned: ", data);
+        history.push("/dashboard");
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
     setEmail("");
     setPassword("");
   };

@@ -23,7 +23,7 @@ const userList = [
   },
   {
     id: 3,
-    email: "testing2@outlook.com",
+    email: "alextay0naruto@gmail.com",
     name: "alextay",
     password: "alextay123",
     role: Roles.SuperAdmin,
