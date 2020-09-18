@@ -1,7 +1,13 @@
 import { createStore } from "redux";
+import { combineReducers } from "redux";
 
 const initialState = {
   sidebarShow: "responsive",
+};
+
+const initialLogin = {
+  isLoggedIn: false,
+  token: null,
 };
 
 const changeState = (state = initialState, { type, ...rest }) => {
@@ -13,5 +19,19 @@ const changeState = (state = initialState, { type, ...rest }) => {
   }
 };
 
-const store = createStore(changeState);
+const userLogin = (state = initialLogin, action) => {
+  switch (action) {
+    case "SIGN_IN":
+      return { ...state, isLoggedIn: true };
+    default:
+      return state;
+  }
+};
+
+const allReducers = combineReducers({
+  changeState,
+  userLogin,
+});
+
+const store = createStore(allReducers);
 export default store;
