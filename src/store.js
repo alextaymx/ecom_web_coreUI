@@ -5,9 +5,10 @@ const initialState = {
   sidebarShow: "responsive",
 };
 
-const initialLogin = {
-  isLoggedIn: false,
+const initialUserState = {
+  isLogin: false,
   token: null,
+  user: {},
 };
 
 const changeState = (state = initialState, { type, ...rest }) => {
@@ -18,11 +19,13 @@ const changeState = (state = initialState, { type, ...rest }) => {
       return state;
   }
 };
-
-const userLogin = (state = initialLogin, action) => {
-  switch (action) {
-    case "SIGN_IN":
-      return { ...state, isLoggedIn: true };
+// action object is destructured to type and others(probably payload)
+const userInfo = (state = initialUserState, { type, ...rest }) => {
+  switch (type) {
+    case "LOGIN":
+      return { ...state, user: rest.payload, isLogin: true };
+    case "LOGOUT":
+      return { ...state, user: {}, isLogin: false };
     default:
       return state;
   }
@@ -30,8 +33,11 @@ const userLogin = (state = initialLogin, action) => {
 
 const allReducers = combineReducers({
   changeState,
-  userLogin,
+  userInfo,
 });
 
-const store = createStore(allReducers);
+const store = createStore(
+  allReducers /* preloadedState, */,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 export default store;

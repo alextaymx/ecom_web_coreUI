@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   CButton,
   CCard,
@@ -15,25 +15,40 @@ import {
   CRow,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
+import { useDispatch } from "react-redux";
+import { login } from "../../../actions";
+import axios from "axios";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  let history = useHistory();
+  // const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleLogin = (e) => {
+  const dispatch = useDispatch();
+  // functions
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (!username || !password) {
+    if (!email || !password) {
       return;
     }
-
-    console.log(username, password);
-    // dispatch({
-    //   type: "ADD_BOOK",
-    //   user: {
-    //     username,
-    //     password,
-    //   },
-    // });
-    setUsername("");
+    // console.log("from user input field ", email, password);
+    const credentials = {
+      email,
+      password,
+    };
+    axios
+      .post("http://localhost:3001/login", credentials)
+      .then((response) => {
+        const data = response.data.data;
+        const user = { id: data.user };
+        dispatch(login(user));
+        // console.log("returned: ", data);
+        history.push("/dashboard");
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+    setEmail("");
     setPassword("");
   };
 
@@ -50,6 +65,18 @@ const Login = () => {
                     <p className="text-muted">Sign In to your account</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupPrepend>
+                        <CInputGroupText>@</CInputGroupText>
+                      </CInputGroupPrepend>
+                      <CInput
+                        type="text"
+                        placeholder="Email"
+                        autoComplete="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </CInputGroup>
+                    {/* <CInputGroup className="mb-3">
+                      <CInputGroupPrepend>
                         <CInputGroupText>
                           <CIcon name="cil-user" />
                         </CInputGroupText>
@@ -61,7 +88,7 @@ const Login = () => {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                       />
-                    </CInputGroup>
+                    </CInputGroup> */}
                     <CInputGroup className="mb-4">
                       <CInputGroupPrepend>
                         <CInputGroupText>

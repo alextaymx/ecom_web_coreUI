@@ -10,8 +10,16 @@ export const decrement = () => {
   };
 };
 
-export const login = () => {
+export const login = (user) => {
   return {
-    type: "SIGN_IN",
+    type: "LOGIN",
+    payload: user,
+  };
+};
+
+export const logout = () => {
+  return {
+    type: "LOGOUT",
+    // payload: user,
   };
 };
