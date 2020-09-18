@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   CButton,
   CCard,
@@ -15,17 +15,27 @@ import {
   CRow,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
+import { useDispatch } from "react-redux";
+import { login } from "../../../actions";
+import Axios from "axios";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  let history = useHistory();
+  // const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
   const handleLogin = (e) => {
     e.preventDefault();
-    if (!username || !password) {
+    if (!email || !password) {
       return;
     }
+    const user = {};
 
-    console.log(username, password);
+    console.log(email, password);
+    dispatch(login(user));
+    history.push("/dashboard");
     // dispatch({
     //   type: "ADD_BOOK",
     //   user: {
@@ -33,7 +43,7 @@ const Login = () => {
     //     password,
     //   },
     // });
-    setUsername("");
+    setEmail("");
     setPassword("");
   };
 
@@ -50,6 +60,18 @@ const Login = () => {
                     <p className="text-muted">Sign In to your account</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupPrepend>
+                        <CInputGroupText>@</CInputGroupText>
+                      </CInputGroupPrepend>
+                      <CInput
+                        type="text"
+                        placeholder="Email"
+                        autoComplete="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </CInputGroup>
+                    {/* <CInputGroup className="mb-3">
+                      <CInputGroupPrepend>
                         <CInputGroupText>
                           <CIcon name="cil-user" />
                         </CInputGroupText>
@@ -61,7 +83,7 @@ const Login = () => {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                       />
-                    </CInputGroup>
+                    </CInputGroup> */}
                     <CInputGroup className="mb-4">
                       <CInputGroupPrepend>
                         <CInputGroupText>
