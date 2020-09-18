@@ -18,7 +18,13 @@ module.exports.login = (req, res) => {
       res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
       res
         .status(200)
-        .json(createResponse(200, { user: user.id, token: token }, "Login successfully"));
+        .json(
+          createResponse(
+            200,
+            { user: user.id, email: user.email, name: user.name, token: token },
+            "Login successfully"
+          )
+        );
     } else {
       res.status(400).json(createResponse(400, null, "Wrong email or password"));
     }
