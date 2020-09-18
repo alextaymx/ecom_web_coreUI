@@ -37,7 +37,7 @@ const Login = () => {
       password,
     };
     axios
-      .post("http://localhost:3001/login", credentials)
+      .post("http://localhost:3001/login", credentials, { withCredentials: true })
       .then((response) => {
         const data = response.data.data;
         const user = { id: data.user };

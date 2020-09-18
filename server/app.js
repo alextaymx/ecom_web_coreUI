@@ -12,9 +12,14 @@ var cors = require("cors");
 const app = express();
 app.listen(3001);
 // middleware
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:3000",
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
 
 // routes
 app.use(authRoutes);
