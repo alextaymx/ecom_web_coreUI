@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const db = require('../database');
+const jwt = require("jsonwebtoken");
+const db = require("../database");
 
 // const requireAuth = (req, res, next) => {
 //   const token = req.cookies.jwt;
@@ -20,25 +20,25 @@ const db = require('../database');
 // };
 
 const checkUser = (req, res, next) => {
-    const token = req.cookies.jwt;
-    if (token) {
-      jwt.verify(token, 'testing', async (err, decodedToken) => {
-        if (err) {
-          res.locals.user = null;
-          next();
-        } else {
-          let user = db.getUserById(decodedToken.id);
-          res.locals.user = user;
-          next();
-        }
-      });
-    } else {
-      res.locals.user = null;
-      next();
-    }
-  };
+  const token = req.cookies.jwt;
+  if (token) {
+    jwt.verify(token, "testing", async (err, decodedToken) => {
+      if (err) {
+        res.locals.user = null;
+        next();
+      } else {
+        let user = db.getUserById(decodedToken.id);
+        res.locals.user = user;
+        next();
+      }
+    });
+  } else {
+    res.locals.user = null;
+    next();
+  }
+};
 
 module.exports = {
-    // requireAuth,
-    checkUser
-}
+  // requireAuth,
+  checkUser,
+};
