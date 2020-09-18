@@ -1,9 +1,9 @@
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const authRoutes = require("./routes/authRoute")
-const productRoutes = require('./routes/productRoute')
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const authRoutes = require("./routes/authRoute");
+const productRoutes = require("./routes/productRoute");
 
-var cors = require('cors')
+var cors = require("cors");
 
 // var corsOptions = {
 //   origin: 'http://example.com',
