@@ -1,6 +1,6 @@
 const { Roles } = require("./constant");
 
-const userList = [
+let userList = [
   {
     id: 1,
     email: "l_weixiang@outlook.com",
@@ -55,6 +55,28 @@ const validateUserPassword = (email, password) => {
   return null;
 };
 
+const insertUser = (email, name, password) => {
+  if (email != null && name != null && password != null) {
+    if (userList.filter((user) => user.email === email).length > 0) {
+      return null;
+    }
+    let newUser = {
+      id: userList.length,
+      email: email,
+      name: name,
+      password: password,
+      role: Roles.User,
+      updated_at: "",
+      created_at: "",
+      permissions: [...Roles.SuperAdmin.permissions],
+    };
+    userList.push(newUser);
+    return newUser;
+  } else {
+    return null;
+  }
+};
+
 const getUserById = (id) => {
   const user_obj = userList.filter((user) => user.id === id);
   return user_obj[0];
@@ -64,4 +86,5 @@ module.exports = {
   userList,
   validateUserPassword,
   getUserById,
+  insertUser,
 };
