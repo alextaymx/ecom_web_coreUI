@@ -11,14 +11,32 @@ import CIcon from "@coreui/icons-react";
 import { useHistory } from "react-router-dom";
 import { logout } from "../actions";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 
 const TheHeaderDropdown = () => {
   let history = useHistory();
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(logout());
-    history.push("/login");
+    axios
+      .get("http://localhost:3001/logout", { withCredentials: true })
+      .then(({ data }) => {
+        // console.log("returned: ", data);
+        dispatch(logout());
+        history.push("/login");
+      })
+      .catch((error) => {
+        if (error.response) {
+          // console.error("err response", error.response);
+          // client received an error response (5xx, 4xx)
+        } else if (error.request) {
+          // console.error("err req", error.request);
+          // client never received a response, or request never left
+        } else {
+          // anything else
+          // console.error("There was an error!", error);
+        }
+      });
   };
 
   return (
