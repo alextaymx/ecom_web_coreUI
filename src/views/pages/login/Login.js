@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import {
+  CAlert,
   CButton,
   CCard,
   CCardBody,
@@ -21,32 +22,41 @@ import axios from "axios";
 
 const Login = () => {
   let history = useHistory();
-  // const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
   // functions
+
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!email || !password) {
       return;
     }
-    // console.log("from user input field ", email, password);
     const credentials = {
       email,
       password,
     };
+
     axios
       .post("http://localhost:3001/login", credentials, { withCredentials: true })
-      .then((response) => {
-        const data = response.data.data;
-        const user = { id: data.user };
-        dispatch(login(user));
-        // console.log("returned: ", data);
+      .then(({ data }) => {
+        setVisible(true);
+        dispatch(login(data.data));
         history.push("/dashboard");
       })
       .catch((error) => {
-        console.error("There was an error!", error);
+        if (error.response) {
+          // console.error("err response", error.response);
+          setVisible(true);
+          // client received an error response (5xx, 4xx)
+        } else if (error.request) {
+          // console.error("err req", error.request);
+          // client never received a response, or request never left
+        } else {
+          // anything else
+          // console.error("There was an error!", error);
+        }
       });
     setEmail("");
     setPassword("");
@@ -63,6 +73,9 @@ const Login = () => {
                   <CForm>
                     <h1>Login</h1>
                     <p className="text-muted">Sign In to your account</p>
+                    <CAlert color="danger" show={visible}>
+                      Login failed! — Please input the correct email and password
+                    </CAlert>
                     <CInputGroup className="mb-3">
                       <CInputGroupPrepend>
                         <CInputGroupText>@</CInputGroupText>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
+  CAlert,
   CButton,
   CCard,
   CCardBody,
@@ -15,26 +16,47 @@ import {
   CRow,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
+import axios from "axios";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
+  const [visible, setVisible] = useState(false);
+  let history = useHistory();
+
   const handleCreate = (e) => {
     e.preventDefault();
     if (!username || !password || !email || password !== repeatedPassword) {
       return;
     }
-
-    console.log(username, email, password);
-    // dispatch({
-    //   type: "ADD_BOOK",
-    //   user: {
-    //     username,
-    //     password,
-    //   },
-    // });
+    // console.log(username, email, password);
+    const registerInfo = {
+      username,
+      email,
+      password,
+    };
+    axios
+      .post("http://localhost:3001/register", registerInfo, { withCredentials: true })
+      .then(({ data }) => {
+        // console.log("returned: ", data);
+        setVisible(false);
+        history.push("/login");
+      })
+      .catch((error) => {
+        if (error.response) {
+          // console.error("err response", error.response);
+          // client received an error response (5xx, 4xx)
+          setVisible(true);
+        } else if (error.request) {
+          // console.error("err req", error.request);
+          // client never received a response, or request never left
+        } else {
+          // anything else
+          // console.error("There was an error!", error);
+        }
+      });
     setUsername("");
     setEmail("");
     setPassword("");
@@ -51,6 +73,9 @@ const Register = () => {
                 <CForm>
                   <h1>Register</h1>
                   <p className="text-muted">Create your account</p>
+                  <CAlert color="danger" show={visible}>
+                    An error occured — Please register again!
+                  </CAlert>
                   <CInputGroup className="mb-3">
                     <CInputGroupPrepend>
                       <CInputGroupText>
