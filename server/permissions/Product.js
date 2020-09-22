@@ -1,16 +1,21 @@
 const { Permissions } = require("../constant");
 const { createResponse } = require("../responseFormat");
+const { ResponseCode } = require("../constant");
 
 const canCreateProduct = (req, res, next) => {
   const user = res.locals.user;
   if (user != null) {
-    if (Permissions.Create_Product in user.permissions) {
+    if (user.permissions.includes(Permissions.Create_Product)) {
       next();
     } else {
-      res.status(400).json(createResponse(400, null, "Permission denied"));
+      res
+        .status(ResponseCode.Permission_denied.code)
+        .json(createResponse(null, ResponseCode.Permission_denied.msg));
     }
   } else {
-    res.status(400).json(createResponse(400, null, "Login to continue"));
+    res
+      .status(ResponseCode.Unauthorized.code)
+      .json(createResponse(null, ResponseCode.Unauthorized.msg));
   }
 };
 
