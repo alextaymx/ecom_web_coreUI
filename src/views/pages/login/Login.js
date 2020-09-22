@@ -39,7 +39,12 @@ const Login = () => {
     };
 
     axios
-      .post("http://localhost:3001/login", credentials, { withCredentials: true })
+      .post(
+        `${
+          process.env.NODE_ENV === "production" ? "" : process.env.REACT_APP_BASE_URL
+        }/login`,
+        credentials
+      )
       .then(({ data }) => {
         setVisible(true);
         dispatch(login(data.data));

@@ -22,7 +22,12 @@ const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
 const WidgetsBrand = lazy(() => import("../widgets/WidgetsBrand.js"));
 
 axios
-  .post("http://localhost:3001/create_product", {}, { withCredentials: true })
+  .post(
+    `${
+      process.env.NODE_ENV === "production" ? "" : process.env.REACT_APP_BASE_URL
+    }/create_product`,
+    {}
+  )
   .then((response) => {
     const data = response.data.data;
     console.log(data);

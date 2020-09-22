@@ -19,7 +19,11 @@ const TheHeaderDropdown = () => {
 
   const handleLogout = () => {
     axios
-      .get("http://localhost:3001/logout", { withCredentials: true })
+      .get(
+        `${
+          process.env.NODE_ENV === "production" ? "" : process.env.REACT_APP_BASE_URL
+        }/logout`
+      )
       .then(({ data }) => {
         // console.log("returned: ", data);
         dispatch(logout());

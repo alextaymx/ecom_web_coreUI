@@ -38,7 +38,12 @@ const Register = () => {
       password,
     };
     axios
-      .post("http://localhost:3001/register", registerInfo, { withCredentials: true })
+      .post(
+        `${
+          process.env.NODE_ENV === "production" ? "" : process.env.REACT_APP_BASE_URL
+        }/register`,
+        registerInfo
+      )
       .then(({ data }) => {
         // console.log("returned: ", data);
         setVisible(false);
