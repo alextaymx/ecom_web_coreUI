@@ -6,6 +6,6 @@ const canCreateUser = (req, res, next) => {
   if (Permissions.Create_User in user.permissions) {
     next();
   } else {
-    res.status(400).json(createResponse(400, null, "Permission denied"));
+    res.status(400).json(createResponse(null, "Permission denied"));
   }
 };
