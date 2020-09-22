@@ -7,26 +7,36 @@ import {
   CDropdownToggle,
   CImg,
 } from "@coreui/react";
+import { freeSet } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 import { useHistory } from "react-router-dom";
 import { logout } from "../actions";
+// redux
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
 const TheHeaderDropdown = () => {
   let history = useHistory();
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.userInfo.user.token);
 
   const handleLogout = () => {
     axios
-      .get("http://localhost:3001/logout", { withCredentials: true })
+      .get("http://localhost:3001/logout", {
+        headers: {
+          Authorization: token,
+        },
+      })
       .then(({ data }) => {
         // console.log("returned: ", data);
+        localStorage.removeItem("loggedInUser");
         dispatch(logout());
         history.push("/login");
       })
       .catch((error) => {
         if (error.response) {
+          console.log(`Bearer ${token}`);
           // console.error("err response", error.response);
           // client received an error response (5xx, 4xx)
         } else if (error.request) {
@@ -108,12 +118,13 @@ const TheHeaderDropdown = () => {
           </CBadge>{" "}
         </CDropdownItem>{" "}
         <CDropdownItem divider />
-        <CDropdownItem>
+        {/* <CDropdownItem>
           <CIcon name="cil-lock-locked" className="mfe-2" />
           Lock Account{" "}
-        </CDropdownItem>{" "}
+        </CDropdownItem>{" "} */}
         <CDropdownItem onClick={handleLogout}>
-          <CIcon name="cil-lock-locked" className="mfe-2" />
+          {/* <CIcon name="cil-account-logout" className="mfe-2" /> */}
+          <CIcon content={freeSet.cilAccountLogout} className="mfe-2" />
           Logout Account
         </CDropdownItem>
       </CDropdownMenu>

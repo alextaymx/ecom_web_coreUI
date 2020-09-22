@@ -7,7 +7,6 @@ const initialState = {
 
 const initialUserState = {
   isLogin: false,
-  token: null,
   user: {},
 };
 
@@ -19,11 +18,11 @@ const changeState = (state = initialState, { type, ...rest }) => {
       return state;
   }
 };
-// action object is destructured to type and others(probably payload)
-const userInfo = (state = initialUserState, { type, ...rest }) => {
+
+const userInfo = (state = initialUserState, { type, payload, ...rest }) => {
   switch (type) {
     case "LOGIN":
-      return { ...state, user: rest.payload, isLogin: true };
+      return { ...state, user: payload.user, isLogin: true };
     case "LOGOUT":
       return { ...state, user: {}, isLogin: false };
     default:
