@@ -18,7 +18,7 @@ import {
 import CIcon from "@coreui/icons-react";
 import { useDispatch } from "react-redux";
 import { login } from "../../../actions";
-import axios from "axios";
+import { onLogin } from "../../../auth/auth";
 
 const Login = () => {
   let history = useHistory();
@@ -28,8 +28,8 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [alertText, setAlertText] = useState("An error occured");
   const dispatch = useDispatch();
-  // functions
 
+  // functions
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -38,32 +38,23 @@ const Login = () => {
       setLoading(false);
       return;
     }
-    const credentials = {
-      email,
-      password,
-    };
-
-    axios
-      .post("http://localhost:3001/login", credentials)
+    onLogin({ email, password })
       .then(({ data }) => {
-        localStorage.setItem("loggedInUser", JSON.stringify(data.data));
-        dispatch(login(data.data));
+        localStorage.setItem("loggedInUser", JSON.stringify(data));
+        dispatch(login(data));
         setLoading(false);
         history.push("/dashboard");
       })
       .catch((error) => {
         if (error.response) {
           setAlertText(error.response.data.message);
-          // console.error("err response", error.response);
-          // client received an error response (5xx, 4xx)
+          // console.error("err response", error.response); // client received an error response (5xx, 4xx)
         } else if (error.request) {
           setAlertText("Server error");
-          // console.error("err req", error.request);
-          // client never received a response, or request never left
+          // console.error("err req", error.request); // client never received a response, or request never left
         } else {
           setAlertText("An error occured");
-          // anything else
-          // console.error("There was an error!", error);
+          // anything else // console.error("There was an error!", error);
         }
         setVisible(true);
         setLoading(false);
