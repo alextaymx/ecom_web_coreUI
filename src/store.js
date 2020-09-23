@@ -6,8 +6,8 @@ const initialState = {
 };
 
 const initialUserState = {
-  isLogin: false,
-  user: {},
+  user: JSON.parse(localStorage.getItem("loggedInUser")) || {},
+  isLogin: JSON.parse(localStorage.getItem("loggedInUser")) ? true : false,
 };
 
 const changeState = (state = initialState, { type, ...rest }) => {
