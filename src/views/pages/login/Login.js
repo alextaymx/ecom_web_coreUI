@@ -25,12 +25,17 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [alertText, setAlertText] = useState("An error occured");
   const dispatch = useDispatch();
   // functions
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setVisible(false);
     if (!email || !password) {
+      setLoading(false);
       return;
     }
     const credentials = {
@@ -41,23 +46,27 @@ const Login = () => {
     axios
       .post("http://localhost:3001/login", credentials)
       .then(({ data }) => {
-        setVisible(false);
         localStorage.setItem("loggedInUser", JSON.stringify(data.data));
         dispatch(login(data.data));
+        setLoading(false);
         history.push("/dashboard");
       })
       .catch((error) => {
         if (error.response) {
+          setAlertText(error.response.data.message);
           // console.error("err response", error.response);
-          setVisible(true);
           // client received an error response (5xx, 4xx)
         } else if (error.request) {
+          setAlertText("Server error");
           // console.error("err req", error.request);
           // client never received a response, or request never left
         } else {
+          setAlertText("An error occured");
           // anything else
           // console.error("There was an error!", error);
         }
+        setVisible(true);
+        setLoading(false);
       });
     setEmail("");
     setPassword("");
@@ -75,7 +84,7 @@ const Login = () => {
                     <h1>Login</h1>
                     <p className="text-muted">Sign In to your account</p>
                     <CAlert color="danger" show={visible}>
-                      Login failed! — Please input the correct email and password
+                      {alertText + " — Please login again!"}
                     </CAlert>
                     <CInputGroup className="mb-3">
                       <CInputGroupPrepend>
@@ -89,20 +98,6 @@ const Login = () => {
                         onChange={(e) => setEmail(e.target.value)}
                       />
                     </CInputGroup>
-                    {/* <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>
-                          <CIcon name="cil-user" />
-                        </CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        type="text"
-                        placeholder="Username"
-                        autoComplete="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                      />
-                    </CInputGroup> */}
                     <CInputGroup className="mb-4">
                       <CInputGroupPrepend>
                         <CInputGroupText>
@@ -119,8 +114,22 @@ const Login = () => {
                     </CInputGroup>
                     <CRow>
                       <CCol xs="6">
-                        <CButton color="primary" className="px-4" onClick={handleLogin}>
-                          Login
+                        <CButton
+                          color="primary"
+                          className="px-4"
+                          onClick={handleLogin}
+                          disabled={loading}>
+                          {loading ? (
+                            <>
+                              <span
+                                className="spinner-grow spinner-grow-sm mr-2"
+                                role="status"
+                                aria-hidden="true"></span>
+                              <span>Logging in...</span>
+                            </>
+                          ) : (
+                            <span>Login</span>
+                          )}
                         </CButton>
                       </CCol>
                       <CCol xs="6" className="text-right">

@@ -24,11 +24,16 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
   const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [alertText, setAlertText] = useState("An error occured");
   let history = useHistory();
 
   const handleCreate = (e) => {
     e.preventDefault();
+    setLoading(true);
+    setVisible(false);
     if (!username || !password || !email || password !== repeatedPassword) {
+      setLoading(false);
       return;
     }
     // console.log(username, email, password);
@@ -41,14 +46,14 @@ const Register = () => {
       .post("http://localhost:3001/register", registerInfo, { withCredentials: true })
       .then(({ data }) => {
         // console.log("returned: ", data);
-        setVisible(false);
+        setLoading(false);
         history.push("/login");
       })
       .catch((error) => {
         if (error.response) {
+          setAlertText(error.response.data.message);
           // console.error("err response", error.response);
           // client received an error response (5xx, 4xx)
-          setVisible(true);
         } else if (error.request) {
           // console.error("err req", error.request);
           // client never received a response, or request never left
@@ -56,6 +61,8 @@ const Register = () => {
           // anything else
           // console.error("There was an error!", error);
         }
+        setVisible(true);
+        setLoading(false);
       });
     setUsername("");
     setEmail("");
@@ -74,7 +81,7 @@ const Register = () => {
                   <h1>Register</h1>
                   <p className="text-muted">Create your account</p>
                   <CAlert color="danger" show={visible}>
-                    An error occured — Please register again!
+                    {alertText + " — Please register again!"}
                   </CAlert>
                   <CInputGroup className="mb-3">
                     <CInputGroupPrepend>
@@ -130,7 +137,17 @@ const Register = () => {
                       onChange={(e) => setRepeatedPassword(e.target.value)}
                     />
                   </CInputGroup>
-                  <CButton color="success" onClick={handleCreate} block>
+                  <CButton
+                    color="success"
+                    onClick={handleCreate}
+                    block
+                    disabled={loading}>
+                    {loading && (
+                      <span
+                        className="spinner-grow spinner-grow-sm mr-3"
+                        role="status"
+                        aria-hidden="true"></span>
+                    )}
                     Create Account
                   </CButton>
                 </CForm>
