@@ -64,7 +64,8 @@
   "scripts": {
     "start": "cd server && npm start",
     "start-client": "react-scripts start",
-    "dev": "concurrently \"npm run start-client\" \"npm run run-build\" ",
+    "dev": "concurrently \"npm run start-client\" \"cd server && npm run dev\" ",
+    "pre-flight": "npm run build && npm run run-build",
     "build": "react-scripts build && (cd server && npm install)",
     "run-build": "cd server && npm run pre-flight",
     "test": "react-scripts test",
