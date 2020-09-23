@@ -11,6 +11,11 @@ const createToken = (id, password) => {
   });
 };
 
+const validateEmail = (email) => {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+};
+
 module.exports.login = (req, res) => {
   const { email, password } = req.body;
   try {
@@ -41,6 +46,16 @@ module.exports.login = (req, res) => {
 module.exports.register = (req, res) => {
   const { email, password, username } = req.body;
   try {
+    if (password.length < 6) {
+      res
+        .status(400)
+        .json(createResponse(null, "The password should contain at least 6 characters."));
+      return;
+    }
+    if (!validateEmail(email)) {
+      res.status(400).json(createResponse(null, "Please input a valid email format."));
+      return;
+    }
     const user = db.insertUser(email, username, password);
     if (user != null) {
       res
