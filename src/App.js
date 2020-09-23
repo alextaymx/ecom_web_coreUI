@@ -1,5 +1,8 @@
-import React from "react";
-import { HashRouter, Route, Switch } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+// import { BrowserRouter, HashRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { login } from "./actions";
 import "./scss/style.scss";
 
 const loading = (
@@ -18,8 +21,16 @@ const Page404 = React.lazy(() => import("./views/pages/page404/Page404"));
 const Page500 = React.lazy(() => import("./views/pages/page500/Page500"));
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (loggedInUser) {
+      dispatch(login(loggedInUser));
+    }
+  }, []);
+
   return (
-    <HashRouter>
+    <BrowserRouter>
       <React.Suspense fallback={loading}>
         <Switch>
           <Route
@@ -49,7 +60,7 @@ const App = () => {
           <Route path="/" name="Home" render={(props) => <TheLayout {...props} />} />
         </Switch>
       </React.Suspense>
-    </HashRouter>
+    </BrowserRouter>
   );
 };
 

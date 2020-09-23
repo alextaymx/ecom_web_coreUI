@@ -39,9 +39,10 @@ const Login = () => {
     };
 
     axios
-      .post("http://localhost:3001/login", credentials, { withCredentials: true })
+      .post("http://localhost:3001/login", credentials)
       .then(({ data }) => {
-        setVisible(true);
+        setVisible(false);
+        localStorage.setItem("loggedInUser", JSON.stringify(data.data));
         dispatch(login(data.data));
         history.push("/dashboard");
       })
