@@ -14,7 +14,7 @@ import { logout } from "../actions";
 // redux
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import axios from "axios";
+import { onLogout } from "../auth/auth";
 
 const TheHeaderDropdown = () => {
   let history = useHistory();
@@ -22,13 +22,8 @@ const TheHeaderDropdown = () => {
   const token = useSelector((state) => state.userInfo.user.token);
 
   const handleLogout = () => {
-    axios
-      .get("http://localhost:3001/logout", {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then(({ data }) => {
+    onLogout(token)
+      .then(() => {
         // console.log("returned: ", data);
         localStorage.removeItem("loggedInUser");
         dispatch(logout());
@@ -36,15 +31,16 @@ const TheHeaderDropdown = () => {
       })
       .catch((error) => {
         if (error.response) {
-          console.log(`Bearer ${token}`);
-          // console.error("err response", error.response);
-          // client received an error response (5xx, 4xx)
+          // console.log(token);
+          //the 3 lines below should be removed , expired token , have to verify with the server
+          localStorage.removeItem("loggedInUser");
+          dispatch(logout());
+          history.push("/login");
+          // console.error("err response", error.response); // client received an error response (5xx, 4xx)
         } else if (error.request) {
-          // console.error("err req", error.request);
-          // client never received a response, or request never left
+          // console.error("err req", error.request); // client never received a response, or request never left
         } else {
-          // anything else
-          // console.error("There was an error!", error);
+          // anything else // console.error("There was an error!", error);
         }
       });
   };
@@ -54,7 +50,7 @@ const TheHeaderDropdown = () => {
       <CDropdownToggle className="c-header-nav-link" caret={false}>
         <div className="c-avatar">
           <CImg
-            src={"avatars/6.jpg"}
+            src={"avatars/0.jpg"}
             className="c-avatar-img"
             alt="admin@bootstrapmaster.com"
           />

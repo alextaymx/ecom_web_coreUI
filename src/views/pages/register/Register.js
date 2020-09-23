@@ -16,7 +16,7 @@ import {
   CRow,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import axios from "axios";
+import { onRegister } from "../../../auth/auth";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -37,13 +37,7 @@ const Register = () => {
       return;
     }
     // console.log(username, email, password);
-    const registerInfo = {
-      username,
-      email,
-      password,
-    };
-    axios
-      .post("http://localhost:3001/register", registerInfo, { withCredentials: true })
+    onRegister({ username, email, password })
       .then(({ data }) => {
         // console.log("returned: ", data);
         setLoading(false);
@@ -52,14 +46,11 @@ const Register = () => {
       .catch((error) => {
         if (error.response) {
           setAlertText(error.response.data.message);
-          // console.error("err response", error.response);
-          // client received an error response (5xx, 4xx)
+          // console.error("err response", error.response); // client received an error response (5xx, 4xx)
         } else if (error.request) {
-          // console.error("err req", error.request);
-          // client never received a response, or request never left
+          // console.error("err req", error.request); // client never received a response, or request never left
         } else {
-          // anything else
-          // console.error("There was an error!", error);
+          // anything else // console.error("There was an error!", error);
         }
         setVisible(true);
         setLoading(false);
@@ -142,13 +133,17 @@ const Register = () => {
                     onClick={handleCreate}
                     block
                     disabled={loading}>
-                    {loading && (
-                      <span
-                        className="spinner-grow spinner-grow-sm mr-3"
-                        role="status"
-                        aria-hidden="true"></span>
+                    {loading ? (
+                      <div>
+                        <span
+                          className="spinner-grow spinner-grow-sm mr-3"
+                          role="status"
+                          aria-hidden="true"></span>
+                        <span>Creating...</span>
+                      </div>
+                    ) : (
+                      <span>Create Account</span>
                     )}
-                    Create Account
                   </CButton>
                 </CForm>
               </CCardBody>

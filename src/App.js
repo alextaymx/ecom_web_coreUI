@@ -22,12 +22,14 @@ const Page500 = React.lazy(() => import("./views/pages/page500/Page500"));
 
 const App = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
+  const autoLogin = () => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
     if (loggedInUser) {
       dispatch(login(loggedInUser));
     }
-  }, []);
+  };
+
+  useEffect(autoLogin, []);
 
   return (
     <BrowserRouter>
