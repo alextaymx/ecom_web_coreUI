@@ -1,6 +1,5 @@
-module.exports.createResponse = (code, data, message) => {
+module.exports.createResponse = (data, message) => {
   return {
-    code,
     data,
     message,
   };

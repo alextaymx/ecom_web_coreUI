@@ -19,3 +19,5 @@
 ### Production environment (Heroku)
 
 - declare env variables for `NODE_ENV`, set it to `production`
+- remove **react-buildpack** - `heroku buildpacks:clear`
+- restart heroku after buildpack removed - `heroku restart`

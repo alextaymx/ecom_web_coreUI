@@ -1,71 +1,90 @@
 const db = require("../database");
 const jwt = require("jsonwebtoken");
 const { createResponse } = require("../responseFormat");
+const { ResponseCode } = require("../constant");
 const maxAge = 3600;
-const createToken = (id) => {
-  return jwt.sign({ id }, "testing", {
+
+//to create jwt token
+const createToken = (id, password) => {
+  return jwt.sign({ id, password }, "testing", {
     expiresIn: maxAge,
   });
 };
+
+const validateEmail = (email) => {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+};
+
 module.exports.login = (req, res) => {
-  console.log(req.body);
   const { email, password } = req.body;
   try {
     const user = db.validateUserPassword(email, password);
-    console.log(user);
     if (user) {
-      const token = createToken(user.id);
-      res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+      const token = createToken(user.id, user.password);
+      // res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
       res
-        .status(200)
+        .status(ResponseCode.Login_success.code)
         .json(
           createResponse(
-            200,
             { user: user.id, email: user.email, name: user.name, token: token },
-            "Login successfully"
+            ResponseCode.Login_success.msg
           )
         );
     } else {
-      res.status(400).json(createResponse(400, null, "Wrong email or password"));
+      res
+        .status(ResponseCode.Login_wrong_input.code)
+        .json(createResponse(null, ResponseCode.Login_wrong_input.msg));
     }
   } catch (err) {
-    console.log(err);
-    res.status(400).json(createResponse(400, null, "Failed to login"));
+    res
+      .status(ResponseCode.Internal_server_error.code)
+      .json(createResponse(null, ResponseCode.Internal_server_error.msg));
   }
 };
 
 module.exports.register = (req, res) => {
-  console.log(req.body);
   const { email, password, username } = req.body;
   try {
+    if (password.length < 6) {
+      res
+        .status(400)
+        .json(createResponse(null, "The password should contain at least 6 characters."));
+      return;
+    }
+    if (!validateEmail(email)) {
+      res.status(400).json(createResponse(null, "Please input a valid email format."));
+      return;
+    }
     const user = db.insertUser(email, username, password);
-    console.log(user);
     if (user != null) {
       res
-        .status(200)
+        .status(ResponseCode.Register_success.code)
         .json(
           createResponse(
-            200,
             { user: user.id, email: user.email, name: user.name },
-            "Register successfully!"
+            ResponseCode.Register_success.msg
           )
         );
     } else {
-      res.status(400).json(createResponse(400, null, "Failed to register!"));
+      res.status(400).json(createResponse(null, "Failed to register!"));
     }
   } catch (err) {
-    console.log(err);
     res
-      .status(400)
-      .json(createResponse(400, null, "Something went wrong! Failed to register!"));
+      .status(ResponseCode.Internal_server_error.code)
+      .json(createResponse(null, ResponseCode.Internal_server_error.msg));
   }
 };
 
 module.exports.logout = (req, res) => {
   if (res.locals.user == null) {
-    res.status(500).json(createResponse(500, null, "This user is not logging in."));
+    res
+      .status(ResponseCode.Unauthorized.code)
+      .json(createResponse(null, ResponseCode.Unauthorized.msg));
   } else {
     res.cookie("jwt", "", { maxAge: 1 });
-    res.status(200).json(createResponse(200, null, "Logout successfully!"));
+    res
+      .status(ResponseCode.Logout_success.code)
+      .json(createResponse(null, ResponseCode.Logout_success));
   }
 };

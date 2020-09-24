@@ -1,37 +1,49 @@
-// import axios from "axios";
+import axios from "axios";
+const rootUrl = `${
+  process.env.NODE_ENV === "production" ? "" : process.env.REACT_APP_BASE_URL
+}/`;
 
-// const loginReq = () => {
-//   const credentials = {
-//     email: "l_weixiang@outlook.com",
-//     password: "testing123",
-//   };
-//   let data;
-//   axios
-//     .post("http://localhost:3001/login", credentials)
-//     .then((response) => {
-//       data = response.data.data;
-//     })
-//     .catch((error) => {
-//       console.error("There was an error!", error);
-//     });
-//   return data;
-// };
+export const onLogin = (payload) => {
+  const URL = `${rootUrl}login`;
+  return axios
+    .post(URL, payload, {
+      method: "POST/GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};
 
-// const logoutReq = () => {
-//   const credentials = {
-//     email: "l_weixiang@outlook.com",
-//     password: "testing123",
-//   };
-//   const headers = {
-//     Authorization: "Bearer my-token",
-//     "My-Custom-Header": "foobar",
-//   };
-//   axios
-//     .post("https://localhost:3001/login", credentials, { headers })
-//     .then((response) => this.setState({ articleId: response.data.id }))
-//     .catch((error) => {
-//       console.error("There was an error!", error);
-//     });
-// };
+export const onRegister = (payload) => {
+  const URL = `${rootUrl}register`;
+  return axios
+    .post(URL, payload, {
+      method: "POST/GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};
 
-// export { loginReq, logoutReq };
+export const onLogout = (token) => {
+  const URL = `${rootUrl}logout`;
+  return axios
+    .get(URL, {
+      method: "POST/GET",
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};

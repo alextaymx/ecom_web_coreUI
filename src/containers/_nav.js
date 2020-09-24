@@ -145,12 +145,12 @@ export default [
       },
     ],
   },
-  {
-    _tag: "CSidebarNavItem",
-    name: "Charts",
-    to: "/charts",
-    icon: "cil-chart-pie",
-  },
+  // {
+  //   _tag: "CSidebarNavItem",
+  //   name: "Charts",
+  //   to: "/charts",
+  //   icon: "cil-chart-pie",
+  // },
   {
     _tag: "CSidebarNavDropdown",
     name: "Icons",

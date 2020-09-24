@@ -7,6 +7,24 @@ const Permissions = {
   Delete_Product: 6,
 };
 
+const ResponseCode = {
+  //Success
+  Login_success: { code: 200, msg: "Login successfully." },
+  Register_success: { code: 200, msg: "Register successfully." },
+  Logout_success: { code: 200, msg: "Logout successfully." },
+  //Errors
+  Unauthorized: { code: 401, msg: "Unauthorized permission." },
+  Login_wrong_input: { code: 401, msg: "Wrong password or username." },
+  Internal_server_error: {
+    code: 500,
+    msg: "Internal Server Error. Try again later.",
+  },
+  Permission_denied: {
+    code: 403,
+    msg: "Permission denied",
+  },
+};
+
 const Roles = {
   SuperAdmin: {
     id: 1,
@@ -32,4 +50,5 @@ const Roles = {
 module.exports = {
   Permissions,
   Roles,
+  ResponseCode,
 };

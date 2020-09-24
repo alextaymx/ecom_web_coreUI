@@ -1,4 +1,5 @@
 const { Roles } = require("./constant");
+const { bcrypt_hash, compare_bcrypt_hash } = require("./utils/bcrypt");
 
 let userList = [
   {
@@ -39,7 +40,7 @@ let userList = [
     role: Roles.User,
     updated_at: "",
     created_at: "",
-    permissions: [...Roles.SuperAdmin.permissions],
+    permissions: [...Roles.User.permissions],
   },
 ];
 
@@ -50,7 +51,7 @@ let userList = [
 const validateUserPassword = (email, password) => {
   const user_obj = userList.filter((user) => user.email === email);
   if (user_obj.length > 0) {
-    if (user_obj[0].password === password) return user_obj[0];
+    if (compare_bcrypt_hash(password, user_obj[0].password)) return user_obj[0];
   }
   return null;
 };
@@ -61,14 +62,14 @@ const insertUser = (email, name, password) => {
       return null;
     }
     let newUser = {
-      id: userList.length,
+      id: userList.length + 1,
       email: email,
       name: name,
-      password: password,
+      password: bcrypt_hash(password),
       role: Roles.User,
       updated_at: "",
       created_at: "",
-      permissions: [...Roles.SuperAdmin.permissions],
+      permissions: [...Roles.User.permissions],
     };
     userList.push(newUser);
     return newUser;
@@ -77,14 +78,19 @@ const insertUser = (email, name, password) => {
   }
 };
 
-const getUserById = (id) => {
+const getUserByIdPassword = (id, password) => {
   const user_obj = userList.filter((user) => user.id === id);
-  return user_obj[0];
+  if (user_obj.length > 0) {
+    if (user_obj[0].password === password) {
+      return user_obj[0];
+    }
+  }
+  return null;
 };
 
 module.exports = {
   userList,
   validateUserPassword,
-  getUserById,
+  getUserByIdPassword,
   insertUser,
 };
