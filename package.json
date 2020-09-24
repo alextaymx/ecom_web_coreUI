@@ -48,6 +48,7 @@
     "typescript": "^3.9.7"
   },
   "devDependencies": {
+    "concurrently": "^5.3.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-html": "^6.1.0",
@@ -57,11 +58,16 @@
     "eslint-plugin-react-hooks": "^3.0.0",
     "jest": "^24.9.0",
     "lint-staged": "^10.3.0",
+    "nodemon": "^2.0.4",
     "prettier": "^2.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "cd server && npm start",
+    "start-client": "react-scripts start",
+    "dev": "concurrently \"npm run start-client\" \"cd server && npm run dev\" ",
+    "pre-flight": "npm run build && npm run run-build",
+    "build": "react-scripts build && (cd server && npm install)",
+    "run-build": "cd server && npm run pre-flight",
     "test": "react-scripts test",
     "test:cov": "npm test -- --coverage --watchAll=false",
     "test:debug": "react-scripts --inspect-brk test --runInBand",

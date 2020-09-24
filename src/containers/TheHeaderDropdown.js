@@ -7,40 +7,38 @@ import {
   CDropdownToggle,
   CImg,
 } from "@coreui/react";
-import { freeSet } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 import { useHistory } from "react-router-dom";
 import { logout } from "../actions";
-// redux
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { onLogout } from "../auth/auth";
+import axios from "axios";
 
 const TheHeaderDropdown = () => {
   let history = useHistory();
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.userInfo.user.token);
 
   const handleLogout = () => {
-    onLogout(token)
-      .then(() => {
+    axios
+      .get(
+        `${
+          process.env.NODE_ENV === "production" ? "" : process.env.REACT_APP_BASE_URL
+        }/logout`
+      )
+      .then(({ data }) => {
         // console.log("returned: ", data);
-        localStorage.removeItem("loggedInUser");
         dispatch(logout());
         history.push("/login");
       })
       .catch((error) => {
         if (error.response) {
-          // console.log(token);
-          //the 3 lines below should be removed , expired token , have to verify with the server
-          localStorage.removeItem("loggedInUser");
-          dispatch(logout());
-          history.push("/login");
-          // console.error("err response", error.response); // client received an error response (5xx, 4xx)
+          // console.error("err response", error.response);
+          // client received an error response (5xx, 4xx)
         } else if (error.request) {
-          // console.error("err req", error.request); // client never received a response, or request never left
+          // console.error("err req", error.request);
+          // client never received a response, or request never left
         } else {
-          // anything else // console.error("There was an error!", error);
+          // anything else
+          // console.error("There was an error!", error);
         }
       });
   };
@@ -50,7 +48,7 @@ const TheHeaderDropdown = () => {
       <CDropdownToggle className="c-header-nav-link" caret={false}>
         <div className="c-avatar">
           <CImg
-            src={"avatars/0.jpg"}
+            src={"avatars/6.jpg"}
             className="c-avatar-img"
             alt="admin@bootstrapmaster.com"
           />
@@ -114,13 +112,12 @@ const TheHeaderDropdown = () => {
           </CBadge>{" "}
         </CDropdownItem>{" "}
         <CDropdownItem divider />
-        {/* <CDropdownItem>
+        <CDropdownItem>
           <CIcon name="cil-lock-locked" className="mfe-2" />
           Lock Account{" "}
-        </CDropdownItem>{" "} */}
+        </CDropdownItem>{" "}
         <CDropdownItem onClick={handleLogout}>
-          {/* <CIcon name="cil-account-logout" className="mfe-2" /> */}
-          <CIcon content={freeSet.cilAccountLogout} className="mfe-2" />
+          <CIcon name="cil-lock-locked" className="mfe-2" />
           Logout Account
         </CDropdownItem>
       </CDropdownMenu>

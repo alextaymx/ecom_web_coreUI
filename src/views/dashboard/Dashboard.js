@@ -1,55 +1,50 @@
 import React, { lazy } from "react";
 import axios from "axios";
 
-// import {
-//   CBadge,
-//   CButton,
-//   CButtonGroup,
-//   CCard,
-//   CCardBody,
-//   CCardFooter,
-//   CCardHeader,
-//   CCol,
-//   CProgress,
-//   CRow,
-//   CCallout,
-// } from "@coreui/react";
-// import CIcon from "@coreui/icons-react";
+import {
+  CBadge,
+  CButton,
+  CButtonGroup,
+  CCard,
+  CCardBody,
+  CCardFooter,
+  CCardHeader,
+  CCol,
+  CProgress,
+  CRow,
+  CCallout,
+} from "@coreui/react";
+import CIcon from "@coreui/icons-react";
 
-// import MainChartExample from "../charts/MainChartExample";
-import { useSelector } from "react-redux";
+import MainChartExample from "../charts/MainChartExample";
 
 const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
 const WidgetsBrand = lazy(() => import("../widgets/WidgetsBrand.js"));
 
-const Dashboard = () => {
-  const token = useSelector((state) => state.userInfo.user.token);
-  axios
-    .post(
-      "http://localhost:3001/create_product",
-      {},
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    )
-    .then((response) => {
-      const data = response.data.data;
-      console.log(data);
-      // const user = { id: data.user };
-      // dispatch(login(user));
-      // console.log("returned: ", data);
-      // history.push("/dashboard");
-    })
-    .catch((error) => {
-      console.error("There was an error!", error);
-    });
+axios
+  .post(
+    `${
+      process.env.NODE_ENV === "production" ? "" : process.env.REACT_APP_BASE_URL
+    }/create_product`,
+    {}
+  )
+  .then((response) => {
+    const data = response.data.data;
+    console.log(data);
+    // const user = { id: data.user };
+    // dispatch(login(user));
+    // console.log("returned: ", data);
+    // history.push("/dashboard");
+  })
+  .catch((error) => {
+    console.error("There was an error!", error);
+  });
 
+const Dashboard = () => {
   return (
     <>
       <WidgetsDropdown />
-      {/* <CCard>
+      <CCard>
         <CCardBody>
           <CRow>
             <CCol sm="5">
@@ -126,11 +121,11 @@ const Dashboard = () => {
             </CCol>
           </CRow>
         </CCardFooter>
-      </CCard>*/}
+      </CCard>
 
       <WidgetsBrand withCharts />
 
-      {/* <CRow>
+      <CRow>
         <CCol>
           <CCard>
             <CCardHeader>
@@ -609,7 +604,7 @@ const Dashboard = () => {
             </CCardBody>
           </CCard>
         </CCol>
-      </CRow> */}
+      </CRow>
     </>
   );
 };
