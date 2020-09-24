@@ -54,7 +54,6 @@ CoreUI is meant to be the UX game changer. Pure & transparent code is devoid of 
 
 ## Installation
 
-
 ### Clone repo
 
 ```bash

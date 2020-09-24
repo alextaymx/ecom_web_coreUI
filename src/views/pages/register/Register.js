@@ -16,7 +16,7 @@ import {
   CRow,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import axios from "axios";
+import { onRegister } from "../../../auth/auth";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -24,43 +24,36 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
   const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [alertText, setAlertText] = useState("An error occured");
   let history = useHistory();
 
   const handleCreate = (e) => {
     e.preventDefault();
+    setLoading(true);
+    setVisible(false);
     if (!username || !password || !email || password !== repeatedPassword) {
+      setLoading(false);
       return;
     }
     // console.log(username, email, password);
-    const registerInfo = {
-      username,
-      email,
-      password,
-    };
-    axios
-      .post(
-        `${
-          process.env.NODE_ENV === "production" ? "" : process.env.REACT_APP_BASE_URL
-        }/register`,
-        registerInfo
-      )
+    onRegister({ username, email, password })
       .then(({ data }) => {
         // console.log("returned: ", data);
-        setVisible(false);
+        setLoading(false);
         history.push("/login");
       })
       .catch((error) => {
         if (error.response) {
-          // console.error("err response", error.response);
-          // client received an error response (5xx, 4xx)
-          setVisible(true);
+          setAlertText(error.response.data.message);
+          // console.error("err response", error.response); // client received an error response (5xx, 4xx)
         } else if (error.request) {
-          // console.error("err req", error.request);
-          // client never received a response, or request never left
+          // console.error("err req", error.request); // client never received a response, or request never left
         } else {
-          // anything else
-          // console.error("There was an error!", error);
+          // anything else // console.error("There was an error!", error);
         }
+        setVisible(true);
+        setLoading(false);
       });
     setUsername("");
     setEmail("");
@@ -79,7 +72,7 @@ const Register = () => {
                   <h1>Register</h1>
                   <p className="text-muted">Create your account</p>
                   <CAlert color="danger" show={visible}>
-                    An error occured — Please register again!
+                    {alertText + " — Please register again!"}
                   </CAlert>
                   <CInputGroup className="mb-3">
                     <CInputGroupPrepend>
@@ -135,8 +128,22 @@ const Register = () => {
                       onChange={(e) => setRepeatedPassword(e.target.value)}
                     />
                   </CInputGroup>
-                  <CButton color="success" onClick={handleCreate} block>
-                    Create Account
+                  <CButton
+                    color="success"
+                    onClick={handleCreate}
+                    block
+                    disabled={loading}>
+                    {loading ? (
+                      <div>
+                        <span
+                          className="spinner-grow spinner-grow-sm mr-3"
+                          role="status"
+                          aria-hidden="true"></span>
+                        <span>Creating...</span>
+                      </div>
+                    ) : (
+                      <span>Create Account</span>
+                    )}
                   </CButton>
                 </CForm>
               </CCardBody>

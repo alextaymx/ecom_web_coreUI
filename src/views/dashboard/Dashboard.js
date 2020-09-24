@@ -1,5 +1,5 @@
 import React, { lazy } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 import {
   CBadge,
@@ -21,24 +21,24 @@ import MainChartExample from "../charts/MainChartExample";
 const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
 const WidgetsBrand = lazy(() => import("../widgets/WidgetsBrand.js"));
 
-axios
-  .post(
-    `${
-      process.env.NODE_ENV === "production" ? "" : process.env.REACT_APP_BASE_URL
-    }/create_product`,
-    {}
-  )
-  .then((response) => {
-    const data = response.data.data;
-    console.log(data);
-    // const user = { id: data.user };
-    // dispatch(login(user));
-    // console.log("returned: ", data);
-    // history.push("/dashboard");
-  })
-  .catch((error) => {
-    console.error("There was an error!", error);
-  });
+// axios
+//   .post(
+//     `${
+//       process.env.NODE_ENV === "production" ? "" : process.env.REACT_APP_BASE_URL
+//     }/create_product`,
+//     {}
+//   )
+//   .then((response) => {
+//     const data = response.data.data;
+//     console.log(data);
+//     // const user = { id: data.user };
+//     // dispatch(login(user));
+//     // console.log("returned: ", data);
+//     // history.push("/dashboard");
+//   })
+//   .catch((error) => {
+//     console.error("There was an error!", error);
+//   });
 
 const Dashboard = () => {
   return (
