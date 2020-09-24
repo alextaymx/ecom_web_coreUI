@@ -18,46 +18,50 @@ import {
 import CIcon from "@coreui/icons-react";
 import { useDispatch } from "react-redux";
 import { login } from "../../../actions";
-import { onLogin } from "../../../auth/auth";
+import axios from "axios";
 
 const Login = () => {
   let history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [alertText, setAlertText] = useState("An error occured");
   const dispatch = useDispatch();
-
   // functions
+
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setVisible(false);
     if (!email || !password) {
-      setLoading(false);
       return;
     }
-    onLogin({ email, password })
+    const credentials = {
+      email,
+      password,
+    };
+
+    axios
+      .post(
+        `${
+          process.env.NODE_ENV === "production" ? "" : process.env.REACT_APP_BASE_URL
+        }/login`,
+        credentials
+      )
       .then(({ data }) => {
-        localStorage.setItem("loggedInUser", JSON.stringify(data));
-        dispatch(login(data));
-        setLoading(false);
+        setVisible(true);
+        dispatch(login(data.data));
         history.push("/dashboard");
       })
       .catch((error) => {
         if (error.response) {
-          setAlertText(error.response.data.message);
-          // console.error("err response", error.response); // client received an error response (5xx, 4xx)
+          // console.error("err response", error.response);
+          setVisible(true);
+          // client received an error response (5xx, 4xx)
         } else if (error.request) {
-          setAlertText("Server error");
-          // console.error("err req", error.request); // client never received a response, or request never left
+          // console.error("err req", error.request);
+          // client never received a response, or request never left
         } else {
-          setAlertText("An error occured");
-          // anything else // console.error("There was an error!", error);
+          // anything else
+          // console.error("There was an error!", error);
         }
-        setVisible(true);
-        setLoading(false);
       });
     setEmail("");
     setPassword("");
@@ -75,7 +79,7 @@ const Login = () => {
                     <h1>Login</h1>
                     <p className="text-muted">Sign In to your account</p>
                     <CAlert color="danger" show={visible}>
-                      {alertText + " — Please login again!"}
+                      Login failed! — Please input the correct email and password
                     </CAlert>
                     <CInputGroup className="mb-3">
                       <CInputGroupPrepend>
@@ -89,6 +93,20 @@ const Login = () => {
                         onChange={(e) => setEmail(e.target.value)}
                       />
                     </CInputGroup>
+                    {/* <CInputGroup className="mb-3">
+                      <CInputGroupPrepend>
+                        <CInputGroupText>
+                          <CIcon name="cil-user" />
+                        </CInputGroupText>
+                      </CInputGroupPrepend>
+                      <CInput
+                        type="text"
+                        placeholder="Username"
+                        autoComplete="username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                      />
+                    </CInputGroup> */}
                     <CInputGroup className="mb-4">
                       <CInputGroupPrepend>
                         <CInputGroupText>
@@ -105,22 +123,8 @@ const Login = () => {
                     </CInputGroup>
                     <CRow>
                       <CCol xs="6">
-                        <CButton
-                          color="primary"
-                          className="px-4"
-                          onClick={handleLogin}
-                          disabled={loading}>
-                          {loading ? (
-                            <>
-                              <span
-                                className="spinner-grow spinner-grow-sm mr-2"
-                                role="status"
-                                aria-hidden="true"></span>
-                              <span>Logging in...</span>
-                            </>
-                          ) : (
-                            <span>Login</span>
-                          )}
+                        <CButton color="primary" className="px-4" onClick={handleLogin}>
+                          Login
                         </CButton>
                       </CCol>
                       <CCol xs="6" className="text-right">
