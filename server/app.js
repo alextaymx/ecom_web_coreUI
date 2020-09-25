@@ -20,8 +20,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 // routes
-app.use(authRoutes);
-app.use(productRoutes);
+app.use("/api", authRoutes);
+app.use("/api/products", productRoutes);
 
 // listen to port
 app.listen(PORT, () => {
