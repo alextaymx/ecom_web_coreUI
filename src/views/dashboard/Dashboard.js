@@ -3,20 +3,25 @@ import React, { lazy } from "react";
 
 import {
   CBadge,
-  CButton,
-  CButtonGroup,
+  // CBadge,
+  // CButton,
+  // CButtonGroup,
   CCard,
   CCardBody,
-  CCardFooter,
+  // CCardFooter,
   CCardHeader,
   CCol,
+  CDataTable,
   CProgress,
   CRow,
-  CCallout,
+  // CCallout,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 
-import MainChartExample from "../charts/MainChartExample";
+// import MainChartExample from "../charts/MainChartExample";
+import Users from "../users/Users";
+import usersData from "../users/UsersData";
+const fields = ["name", "registered", "role", "status"];
 
 const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
 const WidgetsBrand = lazy(() => import("../widgets/WidgetsBrand.js"));
@@ -41,11 +46,25 @@ const WidgetsBrand = lazy(() => import("../widgets/WidgetsBrand.js"));
 //   });
 
 const Dashboard = () => {
+  const getBadge = (status) => {
+    switch (status) {
+      case "Active":
+        return "success";
+      case "Inactive":
+        return "secondary";
+      case "Pending":
+        return "warning";
+      case "Banned":
+        return "danger";
+      default:
+        return "primary";
+    }
+  };
   return (
     <>
       <WidgetsDropdown />
       <CCard>
-        <CCardBody>
+        {/* <CCardBody>
           <CRow>
             <CCol sm="5">
               <h4 id="traffic" className="card-title mb-0">
@@ -120,8 +139,10 @@ const Dashboard = () => {
               <CProgress className="progress-xs mt-2" precision={1} value={40} />
             </CCol>
           </CRow>
-        </CCardFooter>
+        </CCardFooter> */}
       </CCard>
+
+      <Users />
 
       <WidgetsBrand withCharts />
 
@@ -135,7 +156,7 @@ const Dashboard = () => {
             </CCardHeader>
             <CCardBody>
               <CRow>
-                <CCol xs="12" md="6" xl="6">
+                {/* <CCol xs="12" md="6" xl="6">
                   <CRow>
                     <CCol sm="6">
                       <CCallout color="info">
@@ -334,10 +355,36 @@ const Dashboard = () => {
                       <CIcon name="cil-options" />
                     </CButton>
                   </div>
-                </CCol>
+                </CCol> */}
               </CRow>
 
-              <br />
+              {/* <br /> */}
+              <CRow>
+                <CCol>
+                  <CCard>
+                    <CCardHeader>Combined All Table</CCardHeader>
+                    <CCardBody>
+                      <CDataTable
+                        items={usersData}
+                        fields={fields}
+                        hover
+                        striped
+                        bordered
+                        size="sm"
+                        itemsPerPage={10}
+                        pagination
+                        scopedSlots={{
+                          status: (item) => (
+                            <td>
+                              <CBadge color={getBadge(item.status)}>{item.status}</CBadge>
+                            </td>
+                          ),
+                        }}
+                      />
+                    </CCardBody>
+                  </CCard>
+                </CCol>
+              </CRow>
 
               <table className="table table-hover table-outline mb-0 d-none d-sm-table">
                 <thead className="thead-light">
