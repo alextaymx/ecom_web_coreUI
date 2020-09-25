@@ -26,7 +26,7 @@ let userList = [
     id: 3,
     email: "alextay0naruto@gmail.com",
     name: "alextay",
-    password: "alextay123",
+    password: "$2b$10$3y0HlOh/CiyqDvEkdeqImeC/2iHzSDsWT34ETCqyziMRLaojmquga", //asdasd
     role: Roles.SuperAdmin,
     updated_at: "",
     created_at: "",
