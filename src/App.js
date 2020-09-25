@@ -1,8 +1,8 @@
 import React from "react";
 // import React, { useEffect } from "react";
 // import { useDispatch } from "react-redux";
-// import { BrowserRouter, HashRouter, Route, Switch } from "react-router-dom";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
+// import { BrowserRouter, Route, Switch } from "react-router-dom";
 // import { login } from "./actions";
 import "./scss/style.scss";
 
@@ -33,7 +33,7 @@ const App = () => {
   // useEffect(autoLogin, []);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <React.Suspense fallback={loading}>
         <Switch>
           <Route
@@ -63,7 +63,7 @@ const App = () => {
           <Route path="/" name="Home" render={(props) => <TheLayout {...props} />} />
         </Switch>
       </React.Suspense>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
