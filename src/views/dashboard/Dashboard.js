@@ -1,56 +1,70 @@
 import React, { lazy } from "react";
-import axios from "axios";
+// import axios from "axios";
 
-// import {
-//   CBadge,
-//   CButton,
-//   CButtonGroup,
-//   CCard,
-//   CCardBody,
-//   CCardFooter,
-//   CCardHeader,
-//   CCol,
-//   CProgress,
-//   CRow,
-//   CCallout,
-// } from "@coreui/react";
-// import CIcon from "@coreui/icons-react";
+import {
+  CBadge,
+  // CBadge,
+  // CButton,
+  // CButtonGroup,
+  CCard,
+  CCardBody,
+  // CCardFooter,
+  CCardHeader,
+  CCol,
+  CDataTable,
+  CProgress,
+  CRow,
+  // CCallout,
+} from "@coreui/react";
+import CIcon from "@coreui/icons-react";
 
 // import MainChartExample from "../charts/MainChartExample";
-import { useSelector } from "react-redux";
+import Users from "../users/Users";
+import usersData from "../users/UsersData";
+const fields = ["name", "registered", "role", "status"];
 
 const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
 const WidgetsBrand = lazy(() => import("../widgets/WidgetsBrand.js"));
 
-const Dashboard = () => {
-  const token = useSelector((state) => state.userInfo.user.token);
-  axios
-    .post(
-      "http://localhost:3001/create_product",
-      {},
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    )
-    .then((response) => {
-      const data = response.data.data;
-      console.log(data);
-      // const user = { id: data.user };
-      // dispatch(login(user));
-      // console.log("returned: ", data);
-      // history.push("/dashboard");
-    })
-    .catch((error) => {
-      console.error("There was an error!", error);
-    });
+// axios
+//   .post(
+//     `${
+//       process.env.NODE_ENV === "production" ? "" : process.env.REACT_APP_BASE_URL
+//     }/create_product`,
+//     {}
+//   )
+//   .then((response) => {
+//     const data = response.data.data;
+//     console.log(data);
+//     // const user = { id: data.user };
+//     // dispatch(login(user));
+//     // console.log("returned: ", data);
+//     // history.push("/dashboard");
+//   })
+//   .catch((error) => {
+//     console.error("There was an error!", error);
+//   });
 
+const Dashboard = () => {
+  const getBadge = (status) => {
+    switch (status) {
+      case "Active":
+        return "success";
+      case "Inactive":
+        return "secondary";
+      case "Pending":
+        return "warning";
+      case "Banned":
+        return "danger";
+      default:
+        return "primary";
+    }
+  };
   return (
     <>
       <WidgetsDropdown />
-      {/* <CCard>
-        <CCardBody>
+      <CCard>
+        {/* <CCardBody>
           <CRow>
             <CCol sm="5">
               <h4 id="traffic" className="card-title mb-0">
@@ -125,12 +139,14 @@ const Dashboard = () => {
               <CProgress className="progress-xs mt-2" precision={1} value={40} />
             </CCol>
           </CRow>
-        </CCardFooter>
-      </CCard>*/}
+        </CCardFooter> */}
+      </CCard>
+
+      <Users />
 
       <WidgetsBrand withCharts />
 
-      {/* <CRow>
+      <CRow>
         <CCol>
           <CCard>
             <CCardHeader>
@@ -140,7 +156,7 @@ const Dashboard = () => {
             </CCardHeader>
             <CCardBody>
               <CRow>
-                <CCol xs="12" md="6" xl="6">
+                {/* <CCol xs="12" md="6" xl="6">
                   <CRow>
                     <CCol sm="6">
                       <CCallout color="info">
@@ -339,10 +355,36 @@ const Dashboard = () => {
                       <CIcon name="cil-options" />
                     </CButton>
                   </div>
-                </CCol>
+                </CCol> */}
               </CRow>
 
-              <br />
+              {/* <br /> */}
+              <CRow>
+                <CCol>
+                  <CCard>
+                    <CCardHeader>Combined All Table</CCardHeader>
+                    <CCardBody>
+                      <CDataTable
+                        items={usersData}
+                        fields={fields}
+                        hover
+                        striped
+                        bordered
+                        size="sm"
+                        itemsPerPage={10}
+                        pagination
+                        scopedSlots={{
+                          status: (item) => (
+                            <td>
+                              <CBadge color={getBadge(item.status)}>{item.status}</CBadge>
+                            </td>
+                          ),
+                        }}
+                      />
+                    </CCardBody>
+                  </CCard>
+                </CCol>
+              </CRow>
 
               <table className="table table-hover table-outline mb-0 d-none d-sm-table">
                 <thead className="thead-light">
@@ -609,7 +651,7 @@ const Dashboard = () => {
             </CCardBody>
           </CCard>
         </CCol>
-      </CRow> */}
+      </CRow>
     </>
   );
 };

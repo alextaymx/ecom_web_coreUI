@@ -18,14 +18,14 @@ import routes from "../routes";
 
 import {
   TheHeaderDropdown,
-  TheHeaderDropdownMssg,
+  // TheHeaderDropdownMssg,
   TheHeaderDropdownNotif,
-  TheHeaderDropdownTasks,
+  // TheHeaderDropdownTasks,
 } from "./index";
 
 const TheHeader = () => {
   const dispatch = useDispatch();
-  const sidebarShow = useSelector((state) => state.sidebarShow);
+  const sidebarShow = useSelector((state) => state.changeState.sidebarShow);
 
   const toggleSidebar = () => {
     const val = [true, "responsive"].includes(sidebarShow) ? false : "responsive";
@@ -36,7 +36,6 @@ const TheHeader = () => {
     const val = [false, "responsive"].includes(sidebarShow) ? true : "responsive";
     dispatch({ type: "set", sidebarShow: val });
   };
-
   return (
     <CHeader withSubheader>
       <CToggler inHeader className="ml-md-3 d-lg-none" onClick={toggleSidebarMobile} />
@@ -68,8 +67,8 @@ const TheHeader = () => {
 
       <CHeaderNav className="px-3">
         <TheHeaderDropdownNotif />
-        <TheHeaderDropdownTasks />
-        <TheHeaderDropdownMssg />
+        {/* <TheHeaderDropdownTasks />
+        <TheHeaderDropdownMssg /> */}
         <TheHeaderDropdown />
       </CHeaderNav>
 
@@ -79,9 +78,9 @@ const TheHeader = () => {
           routes={routes}
         />
         <div className="d-md-down-none mfe-2 c-subheader-nav">
-          <CLink className="c-subheader-nav-link" href="#">
+          {/* <CLink className="c-subheader-nav-link" href="#">
             <CIcon name="cil-speech" alt="Settings" />
-          </CLink>
+          </CLink> */}
           <CLink className="c-subheader-nav-link" aria-current="page" to="/dashboard">
             <CIcon name="cil-graph" alt="Dashboard" />
             &nbsp;Dashboard

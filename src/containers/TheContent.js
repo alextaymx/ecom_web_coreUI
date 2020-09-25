@@ -5,7 +5,7 @@ import { CContainer, CFade } from "@coreui/react";
 // routes config
 import routes from "../routes.js";
 // redux
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -14,14 +14,13 @@ const loading = (
 );
 
 const TheContent = () => {
-  const isLogin = useSelector((state) => state.userInfo.isLogin);
+  // const isLogin = useSelector((state) => state.userInfo.isLogin);
 
   return (
     <main className="c-main">
       <CContainer fluid>
         <Suspense fallback={loading}>
           <Switch>
-            {" "}
             {routes.map(
               (route, idx) =>
                 route.component && (
@@ -32,20 +31,21 @@ const TheContent = () => {
                     name={route.name}
                     render={(props) => (
                       <CFade>
-                        <route.component {...props} />{" "}
+                        <route.component {...props} />
                       </CFade>
                     )}
                   />
                 )
-            )}{" "}
-            {isLogin ? (
+            )}
+            <Redirect from="/" to="/dashboard" />
+            {/* {isLogin ? (
               <Redirect from="/" to="/dashboard" />
             ) : (
               <Redirect from="/" to="/login" />
-            )}
-          </Switch>{" "}
-        </Suspense>{" "}
-      </CContainer>{" "}
+            )} */}
+          </Switch>
+        </Suspense>
+      </CContainer>
     </main>
   );
 };

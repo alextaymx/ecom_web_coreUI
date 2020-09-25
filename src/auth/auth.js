@@ -1,5 +1,7 @@
 import axios from "axios";
-const rootUrl = "http://localhost:3001/";
+const rootUrl = `${
+  process.env.NODE_ENV === "production" ? "" : process.env.REACT_APP_BASE_URL
+}/`;
 
 export const onLogin = (payload) => {
   const URL = `${rootUrl}login`;
