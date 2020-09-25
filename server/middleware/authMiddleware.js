@@ -1,22 +1,32 @@
 const jwt = require("jsonwebtoken");
 const db = require("../database");
+const { createResponse } = require("../responseFormat");
+const { ResponseCode } = require("../constant");
 
 const checkUser = (req, res, next) => {
   const token = req.headers.authorization;
   if (token) {
     jwt.verify(token, "testing", async (err, decodedToken) => {
       if (err) {
-        res.locals.user = null;
-        next();
+        res
+          .status(ResponseCode.Unauthorized.code)
+          .json(createResponse(null, ResponseCode.Unauthorized.msg));
       } else {
         let user = db.getUserByIdPassword(decodedToken.id, decodedToken.password);
-        res.locals.user = user;
-        next();
+        if (user == null) {
+          res
+            .status(ResponseCode.Unauthorized.code)
+            .json(createResponse(null, ResponseCode.Unauthorized.msg));
+        } else {
+          res.locals.user = user;
+          next();
+        }
       }
     });
   } else {
-    res.locals.user = null;
-    next();
+    res
+      .status(ResponseCode.Unauthorized.code)
+      .json(createResponse(null, ResponseCode.Unauthorized.msg));
   }
 };
 
