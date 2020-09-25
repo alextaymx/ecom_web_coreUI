@@ -131,9 +131,11 @@ const Login = () => {
                       </CCol>
                       <CCol xs="12" className="d-lg-none">
                         <hr />
-                        <CButton color="link" className="px-0" block>
-                          Doesn't have an account? Register now
-                        </CButton>
+                        <Link to="/register">
+                          <CButton color="link" className="px-0" block>
+                            Doesn't have an account? Register now
+                          </CButton>
+                        </Link>
                       </CCol>
                     </CRow>
                   </CForm>
