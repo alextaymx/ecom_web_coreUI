@@ -11,4 +11,6 @@ router.post(
   productController.createProduct
 );
 
+router.get("/getVar/:id", authMiddleware.checkUser, productController.getProduct);
+
 module.exports = router;
