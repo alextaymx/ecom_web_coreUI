@@ -104,8 +104,9 @@ const Login = () => {
                       />
                     </CInputGroup>
                     <CRow>
-                      <CCol xs="6">
+                      <CCol xs="12">
                         <CButton
+                          block
                           color="primary"
                           className="px-4"
                           onClick={handleLogin}
@@ -123,18 +124,27 @@ const Login = () => {
                           )}
                         </CButton>
                       </CCol>
-                      <CCol xs="6" className="text-right">
-                        <CButton color="link" className="px-0">
+                      <CCol xs="12">
+                        <CButton color="link" className="px-0" block>
                           Forgot password?
                         </CButton>
+                      </CCol>
+                      <CCol xs="12" className="d-lg-none">
+                        <hr />
+                        <Link to="/register">
+                          <CButton color="link" className="px-0" block>
+                            Doesn't have an account? Register now
+                          </CButton>
+                        </Link>
                       </CCol>
                     </CRow>
                   </CForm>
                 </CCardBody>
               </CCard>
-              <CCard
+              {/* <CCard
                 className="text-white bg-primary py-5 d-md-down-none"
-                style={{ width: "44%" }}>
+                style={{ width: "44%" }}> */}
+              <CCard className="text-white bg-primary py-5 d-md-down-none">
                 <CCardBody className="text-center">
                   <div>
                     <h2>Sign up</h2>
