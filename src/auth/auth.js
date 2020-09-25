@@ -1,7 +1,7 @@
 import axios from "axios";
 const rootUrl = `${
   process.env.NODE_ENV === "production" ? "" : process.env.REACT_APP_BASE_URL
-}/`;
+}/api/`;
 
 export const onLogin = (payload) => {
   const URL = `${rootUrl}login`;
