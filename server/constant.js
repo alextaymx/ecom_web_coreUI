@@ -12,6 +12,7 @@ const ResponseCode = {
   Login_success: { code: 200, msg: "Login successfully." },
   Register_success: { code: 200, msg: "Register successfully." },
   Logout_success: { code: 200, msg: "Logout successfully." },
+  General_success: { code: 200, msg: "Success." },
   //Errors
   Unauthorized: { code: 401, msg: "Unauthorized permission." },
   Login_wrong_input: { code: 401, msg: "Wrong password or username." },
