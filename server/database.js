@@ -76,6 +76,12 @@ const insertUser = (email, name, password) => {
   }
 };
 
+const addProduct = (newProductVar) => {
+  let productvar = { ...newProductVar, id: productVarList.length };
+  productVarList.push(productvar);
+  return productvar.id;
+};
+
 const getUserByIdPassword = (id, password) => {
   const user_obj = userList.filter((user) => user.id === id);
   if (user_obj.length > 0) {
@@ -128,4 +134,5 @@ module.exports = {
   getUserByIdPassword,
   insertUser,
   productVarList,
+  addProduct,
 };

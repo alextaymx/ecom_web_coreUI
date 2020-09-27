@@ -8,7 +8,7 @@ router.post(
   "/create_product",
   authMiddleware.checkUser,
   permissions.canCreateProduct,
-  productController.createProduct
+  productController.createProductVar
 );
 
 router.get("/getVar/:id", authMiddleware.checkUser, productController.getProduct);

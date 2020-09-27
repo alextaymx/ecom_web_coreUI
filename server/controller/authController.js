@@ -17,8 +17,8 @@ const validateEmail = (email) => {
 };
 
 module.exports.login = (req, res) => {
-  const { email, password } = req.body;
   try {
+    const { email, password } = req.body;
     const user = db.validateUserPassword(email, password);
     if (user) {
       const token = createToken(user.id, user.password);
@@ -44,8 +44,8 @@ module.exports.login = (req, res) => {
 };
 
 module.exports.register = (req, res) => {
-  const { email, password, username } = req.body;
   try {
+    const { email, password, username } = req.body;
     if (password.length < 6) {
       res
         .status(400)
