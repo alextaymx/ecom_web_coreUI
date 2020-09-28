@@ -76,12 +76,6 @@ const insertUser = (email, name, password) => {
   }
 };
 
-const addProduct = (newProductVar) => {
-  let productvar = { ...newProductVar, id: productVarList.length };
-  productVarList.push(productvar);
-  return productvar.id;
-};
-
 const getUserByIdPassword = (id, password) => {
   const user_obj = userList.filter((user) => user.id === id);
   if (user_obj.length > 0) {
@@ -126,7 +120,35 @@ const generateProductVar = (count) => {
   return temp;
 };
 
-let productVarList = generateProductVar(20);
+let productVarList = generateProductVar(3);
+
+const addProductVar = (newProductVar) => {
+  let productvar = { ...newProductVar, id: productVarList.length };
+  productVarList.push(productvar);
+  return productvar.id;
+};
+
+const updateProductVar = (productVar_body) => {
+  productVarList.forEach((productVar, index) => {
+    if (productVar.id === parseInt(productVar_body.product_id)) {
+      productVarList[index] = { ...productVar, ...productVar_body };
+    }
+  });
+};
+
+const deleteProductVar = (product_id) => {
+  productVarList = productVarList.filter(
+    (productVar) => productVar.id !== parseInt(product_id)
+  );
+};
+
+const getProductVar = (product_id) => {
+  if (product_id === "*") {
+    return productVarList;
+  } else {
+    return productVarList.filter((productVar) => productVar.id === parseInt(product_id));
+  }
+};
 
 module.exports = {
   userList,
@@ -134,5 +156,8 @@ module.exports = {
   getUserByIdPassword,
   insertUser,
   productVarList,
-  addProduct,
+  addProductVar,
+  updateProductVar,
+  deleteProductVar,
+  getProductVar,
 };

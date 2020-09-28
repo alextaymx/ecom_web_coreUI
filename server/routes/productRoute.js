@@ -13,4 +13,18 @@ router.post(
 
 router.get("/getVar/:id", authMiddleware.checkUser, productController.getProductVar);
 
+router.post(
+  "/update_productvar",
+  authMiddleware.checkUser,
+  permissions.canUpdateProductVar,
+  productController.updateProductVar
+);
+
+router.post(
+  "/delete_productvar",
+  authMiddleware.checkUser,
+  permissions.canDeleteProductVar,
+  productController.deleteProductVar
+);
+
 module.exports = router;
