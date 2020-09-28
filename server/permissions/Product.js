@@ -36,7 +36,7 @@ const canUpdateProductVar = (req, res, next) => {
 };
 
 module.exports = {
-  canCreateProduct,
+  canCreateProductVar,
   canUpdateProductVar,
   canDeleteProductVar,
 };

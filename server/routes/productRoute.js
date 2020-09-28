@@ -5,12 +5,12 @@ const permissions = require("../permissions/Product");
 
 const router = Router();
 router.post(
-  "/create_product",
+  "/create_productvar",
   authMiddleware.checkUser,
-  permissions.canCreateProduct,
+  permissions.canCreateProductVar,
   productController.createProductVar
 );
 
-router.get("/getVar/:id", authMiddleware.checkUser, productController.getProduct);
+router.get("/getVar/:id", authMiddleware.checkUser, productController.getProductVar);
 
 module.exports = router;
