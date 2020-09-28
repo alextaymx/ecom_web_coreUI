@@ -63,7 +63,6 @@ module.exports.deleteProductVar = (req, res) => {
     deleteProductVar(product_id);
     res.status(200).json(createResponse({ product_id }, "Delete Product successfully"));
   } catch (err) {
-    console.log(err);
     res
       .status(ResponseCode.Internal_server_error.code)
       .json(createResponse(null, ResponseCode.Internal_server_error.msg));
