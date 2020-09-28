@@ -3,27 +3,13 @@ const { productVarList, addProduct } = require("../database");
 const { ResponseCode } = require("../constant");
 module.exports.createProductVar = (req, res) => {
   try {
-    const {
-      itemNo,
-      title,
-      image,
-      brand,
-      remarks,
-      manufacturer,
-      retailPrice,
-      supplyPrice,
-      supplyRate,
-    } = req.body;
+    const { itemNo, retailPrice, supplyPrice, supplyRate, resale } = req.body;
     const newProductVar = {
       itemNo,
-      title,
-      image,
-      brand,
-      remarks,
-      manufacturer,
       retailPrice,
       supplyPrice,
       supplyRate,
+      resale,
     };
     const product_id = addProduct(newProductVar);
     res.status(200).json(createResponse({ product_id }, "Create Product successfully"));
@@ -34,7 +20,7 @@ module.exports.createProductVar = (req, res) => {
   }
 };
 
-module.exports.getProduct = (req, res) => {
+module.exports.getProductVar = (req, res) => {
   const product_id = req.params.id;
   let resultList = [];
   if (product_id === "*") {
