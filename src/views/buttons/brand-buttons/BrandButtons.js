@@ -12,7 +12,6 @@ const BrandButtons = () => {
             <h6>
               Size Small
               <small>
-                {" "}
                 Add this class <code>.btn-sm</code>
               </small>
             </h6>
@@ -160,7 +159,6 @@ const BrandButtons = () => {
             <h6>
               Size Large
               <small>
-                {" "}
                 Add this class <code>.btn-lg</code>
               </small>
             </h6>
@@ -248,7 +246,6 @@ const BrandButtons = () => {
             <h6>
               Size Small
               <small>
-                {" "}
                 Add this class <code>.btn-sm</code>
               </small>
             </h6>
@@ -362,7 +359,6 @@ const BrandButtons = () => {
             <h6>
               Size Large
               <small>
-                {" "}
                 Add this class <code>.btn-lg</code>
               </small>
             </h6>

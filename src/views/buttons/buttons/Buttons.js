@@ -778,7 +778,7 @@ const Buttons = () => {
         <CCardHeader>Sizes</CCardHeader>
         <CCardBody>
           <p>
-            Fancy larger or smaller buttons? Add <code>size="lg"</code> or{" "}
+            Fancy larger or smaller buttons? Add <code>size="lg"</code> or
             <code>size="sm"</code> for additional sizes.
           </p>
           <CRow className="align-items-center">

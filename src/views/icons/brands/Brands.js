@@ -20,7 +20,7 @@ const CoreUIIcons = () => {
   return (
     <CCard>
       <CCardHeader>
-        Brand Icons / as CIcon{" "}
+        Brand Icons / as CIcon
         <div className="card-header-actions">
           <a
             href="https://github.com/coreui/coreui-icons"

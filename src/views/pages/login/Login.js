@@ -18,7 +18,7 @@ import {
 import CIcon from "@coreui/icons-react";
 import { useDispatch } from "react-redux";
 import { login } from "../../../actions";
-import { onLogin } from "../../../auth/auth";
+import { onLogin } from "../../../apiCalls/auth";
 
 const Login = () => {
   let history = useHistory();
@@ -71,7 +71,7 @@ const Login = () => {
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CForm>
+                  <CForm onSubmit={handleLogin}>
                     <h1>Login</h1>
                     <p className="text-muted">Sign In to your account</p>
                     <CAlert color="danger" show={visible}>
@@ -106,10 +106,10 @@ const Login = () => {
                     <CRow>
                       <CCol xs="12">
                         <CButton
+                          type="submit"
                           block
                           color="primary"
                           className="px-4"
-                          onClick={handleLogin}
                           disabled={loading}>
                           {loading ? (
                             <>

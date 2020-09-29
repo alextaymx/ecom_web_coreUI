@@ -7,7 +7,7 @@ const CoreUIIcons = () => {
   return (
     <CCard>
       <CCardHeader>
-        Free Icons / as CIcon{" "}
+        Free Icons / as CIcon
         <div className="card-header-actions">
           <a
             href="https://github.com/coreui/coreui-icons"
