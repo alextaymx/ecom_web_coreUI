@@ -103,21 +103,21 @@ const Collapses = () => {
                   toggleMulti("left");
                 }}>
                 Left
-              </CButton>{" "}
+              </CButton>
               <CButton
                 color="primary"
                 onClick={() => {
                   toggleMulti("right");
                 }}>
                 Right
-              </CButton>{" "}
+              </CButton>
               <CButton
                 color="primary"
                 onClick={() => {
                   toggleMulti("both");
                 }}>
                 Both
-              </CButton>{" "}
+              </CButton>
             </p>
             <CRow>
               <CCol>

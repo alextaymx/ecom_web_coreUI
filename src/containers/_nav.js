@@ -11,6 +11,16 @@ export default [
   },
   {
     _tag: "CSidebarNavTitle",
+    _children: ["Products"],
+  },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Create Product",
+    to: "/createProductVarForm",
+    icon: "cil-plus",
+  },
+  {
+    _tag: "CSidebarNavTitle",
     _children: ["Theme"],
   },
   {

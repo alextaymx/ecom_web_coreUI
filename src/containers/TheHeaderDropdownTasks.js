@@ -25,7 +25,7 @@ const TheHeaderDropdownTasks = () => {
         </CDropdownItem>
         <CDropdownItem className="d-block">
           <div className="small mb-1">
-            Upgrade NPM &amp; Bower{" "}
+            Upgrade NPM &amp; Bower
             <span className="float-right">
               <strong>0%</strong>
             </span>
@@ -34,7 +34,7 @@ const TheHeaderDropdownTasks = () => {
         </CDropdownItem>
         <CDropdownItem className="d-block">
           <div className="small mb-1">
-            ReactJS Version{" "}
+            ReactJS Version
             <span className="float-right">
               <strong>25%</strong>
             </span>
@@ -43,7 +43,7 @@ const TheHeaderDropdownTasks = () => {
         </CDropdownItem>
         <CDropdownItem className="d-block">
           <div className="small mb-1">
-            VueJS Version{" "}
+            VueJS Version
             <span className="float-right">
               <strong>50%</strong>
             </span>
@@ -52,7 +52,7 @@ const TheHeaderDropdownTasks = () => {
         </CDropdownItem>
         <CDropdownItem className="d-block">
           <div className="small mb-1">
-            Add new layouts{" "}
+            Add new layouts
             <span className="float-right">
               <strong>75%</strong>
             </span>
@@ -61,7 +61,7 @@ const TheHeaderDropdownTasks = () => {
         </CDropdownItem>
         <CDropdownItem className="d-block">
           <div className="small mb-1">
-            Angular 2 Cli Version{" "}
+            Angular 2 Cli Version
             <span className="float-right">
               <strong>100%</strong>
             </span>

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { logout } from "../actions";
 const rootUrl = `${
   process.env.NODE_ENV === "production" ? "" : process.env.REACT_APP_BASE_URL
 }/api/`;
@@ -46,4 +47,10 @@ export const onLogout = (token) => {
     .catch((error) => {
       throw error;
     });
+};
+
+export const onLogoutv2 = (dispatch, history) => {
+  localStorage.removeItem("loggedInUser");
+  dispatch(logout());
+  history.push("/login");
 };

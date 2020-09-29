@@ -191,7 +191,7 @@ const ButtonDropdowns = () => {
                 <CDropdownDivider />
                 <CDropdownItem>Another Action</CDropdownItem>
               </CDropdownMenu>
-            </CDropdown>{" "}
+            </CDropdown>
             <CDropdown className="m-1">
               <CDropdownToggle split color="secondary" size="lg">
                 Large split button
@@ -216,7 +216,7 @@ const ButtonDropdowns = () => {
                 <CDropdownDivider />
                 <CDropdownItem>Another Action</CDropdownItem>
               </CDropdownMenu>
-            </CDropdown>{" "}
+            </CDropdown>
             <CDropdown className="m-1">
               <CDropdownToggle color="secondary" size="sm" split>
                 Small split button

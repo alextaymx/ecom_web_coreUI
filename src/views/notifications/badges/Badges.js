@@ -49,7 +49,7 @@ const Badges = () => {
           </CCardBody>
           <CCardFooter>
             <CButton color="secondary">
-              Notifications{" "}
+              Notifications
               <CBadge color="primary" shape="pill" style={{ position: "static" }}>
                 9
               </CBadge>

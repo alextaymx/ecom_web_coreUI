@@ -14,7 +14,7 @@ import { logout } from "../actions";
 // redux
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { onLogout } from "../auth/auth";
+import { onLogout } from "../apiCalls/auth";
 
 const TheHeaderDropdown = () => {
   let history = useHistory();
@@ -54,70 +54,70 @@ const TheHeaderDropdown = () => {
             className="c-avatar-img"
             alt="admin@bootstrapmaster.com"
           />
-        </div>{" "}
-      </CDropdownToggle>{" "}
+        </div>
+      </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownItem header tag="div" color="light" className="text-center">
-          <strong> Account </strong>{" "}
-        </CDropdownItem>{" "}
+          <strong> Account </strong>
+        </CDropdownItem>
         <CDropdownItem>
           <CIcon name="cil-bell" className="mfe-2" />
-          Updates{" "}
+          Updates
           <CBadge color="info" className="mfs-auto">
-            42{" "}
-          </CBadge>{" "}
-        </CDropdownItem>{" "}
+            42
+          </CBadge>
+        </CDropdownItem>
         <CDropdownItem>
           <CIcon name="cil-envelope-open" className="mfe-2" />
-          Messages{" "}
+          Messages
           <CBadge color="success" className="mfs-auto">
-            42{" "}
-          </CBadge>{" "}
-        </CDropdownItem>{" "}
+            42
+          </CBadge>
+        </CDropdownItem>
         <CDropdownItem>
           <CIcon name="cil-task" className="mfe-2" />
-          Tasks{" "}
+          Tasks
           <CBadge color="danger" className="mfs-auto">
-            42{" "}
-          </CBadge>{" "}
-        </CDropdownItem>{" "}
+            42
+          </CBadge>
+        </CDropdownItem>
         <CDropdownItem>
           <CIcon name="cil-comment-square" className="mfe-2" />
-          Comments{" "}
+          Comments
           <CBadge color="warning" className="mfs-auto">
-            42{" "}
-          </CBadge>{" "}
-        </CDropdownItem>{" "}
+            42
+          </CBadge>
+        </CDropdownItem>
         <CDropdownItem header tag="div" color="light" className="text-center">
-          <strong> Settings </strong>{" "}
-        </CDropdownItem>{" "}
+          <strong> Settings </strong>
+        </CDropdownItem>
         <CDropdownItem>
           <CIcon name="cil-user" className="mfe-2" />
-          Profile{" "}
-        </CDropdownItem>{" "}
+          Profile
+        </CDropdownItem>
         <CDropdownItem>
           <CIcon name="cil-settings" className="mfe-2" />
-          Settings{" "}
-        </CDropdownItem>{" "}
+          Settings
+        </CDropdownItem>
         <CDropdownItem>
           <CIcon name="cil-credit-card" className="mfe-2" />
-          Payments{" "}
+          Payments
           <CBadge color="secondary" className="mfs-auto">
-            42{" "}
-          </CBadge>{" "}
-        </CDropdownItem>{" "}
+            42
+          </CBadge>
+        </CDropdownItem>
         <CDropdownItem>
           <CIcon name="cil-file" className="mfe-2" />
-          Projects{" "}
+          Projects
           <CBadge color="primary" className="mfs-auto">
-            42{" "}
-          </CBadge>{" "}
-        </CDropdownItem>{" "}
+            42
+          </CBadge>
+        </CDropdownItem>
         <CDropdownItem divider />
         {/* <CDropdownItem>
           <CIcon name="cil-lock-locked" className="mfe-2" />
-          Lock Account{" "}
-        </CDropdownItem>{" "} */}
+          Lock Account
+        </CDropdownItem> */}
         <CDropdownItem onClick={handleLogout}>
           {/* <CIcon name="cil-account-logout" className="mfe-2" /> */}
           <CIcon content={freeSet.cilAccountLogout} className="mfe-2" />

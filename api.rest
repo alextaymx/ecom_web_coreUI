@@ -1,8 +1,19 @@
-POST  http://localhost:3001/login
-Content-Type: application/json
-# authorization: Bearer 3211f78e-1adc-4dd6-9d36-ca4b866409c2
+# POST  http://localhost:3001/login
+# Content-Type: application/json
+# # authorization: Bearer 3211f78e-1adc-4dd6-9d36-ca4b866409c2
 
-{ 
-   "email": "test1", 
-   "password": "test1"
+# { 
+#    "email": "test1", 
+#    "password": "test1"
+# }
+POST http://localhost:3001/api/products/create_productvar
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywicGFzc3dvcmQiOiIkMmIkMTAkM3kwSGxPaC9DaXlxRHZFa2RlcUltZUMvMmlIelNEc1dUMzRFVENxeXppTVJMYW9qbXF1Z2EiLCJpYXQiOjE2MDEzMjcxNzIsImV4cCI6MTYwMTMzMDc3Mn0.CI2mOaTq-NQEReNxij0P51RSyx-E_Em7f5Ey6mlxFr8
+
+{
+    "itemNo":2313,
+    "retailPrice":"10",
+    "supplyPrice":"10",
+    "supplyRate":"5",
+    "resale":true
 }

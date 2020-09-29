@@ -16,7 +16,7 @@ import {
   CRow,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import { onRegister } from "../../../auth/auth";
+import { onRegister } from "../../../apiCalls/auth";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -68,7 +68,7 @@ const Register = () => {
           <CCol md="9" lg="7" xl="6">
             <CCard className="mx-4">
               <CCardBody className="p-4">
-                <CForm>
+                <CForm onSubmit={handleCreate}>
                   <h1>Register</h1>
                   <p className="text-muted">Create your account</p>
                   <CAlert color="danger" show={visible}>
@@ -128,11 +128,7 @@ const Register = () => {
                       onChange={(e) => setRepeatedPassword(e.target.value)}
                     />
                   </CInputGroup>
-                  <CButton
-                    color="success"
-                    onClick={handleCreate}
-                    block
-                    disabled={loading}>
+                  <CButton type="submit" color="success" block disabled={loading}>
                     {loading ? (
                       <div>
                         <span

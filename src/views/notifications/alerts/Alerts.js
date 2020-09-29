@@ -48,7 +48,6 @@ const Alerts = () => {
             <CCardHeader>
               Alerts
               <small>
-                {" "}
                 use <code>.alert-link</code> to provide links
               </small>
             </CCardHeader>

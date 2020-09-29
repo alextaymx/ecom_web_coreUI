@@ -591,7 +591,7 @@ const BasicForms = () => {
             <CCardFooter>
               <CButton type="submit" size="sm" color="primary">
                 <CIcon name="cil-scrubber" /> Submit
-              </CButton>{" "}
+              </CButton>
               <CButton type="reset" size="sm" color="danger">
                 <CIcon name="cil-ban" /> Reset
               </CButton>
@@ -631,7 +631,7 @@ const BasicForms = () => {
             <CCardFooter>
               <CButton type="submit" size="sm" color="primary">
                 <CIcon name="cil-scrubber" /> Submit
-              </CButton>{" "}
+              </CButton>
               <CButton type="reset" size="sm" color="danger">
                 <CIcon name="cil-ban" /> Reset
               </CButton>
@@ -699,7 +699,7 @@ const BasicForms = () => {
             <CCardFooter>
               <CButton type="submit" size="sm" color="primary">
                 <CIcon name="cil-user" /> Login
-              </CButton>{" "}
+              </CButton>
               <CButton type="reset" size="sm" color="danger">
                 <CIcon name="cil-ban" /> Reset
               </CButton>
@@ -1042,7 +1042,6 @@ const BasicForms = () => {
             <CCardHeader>
               Use the grid for big devices!
               <small>
-                {" "}
                 <code>.col-lg-*</code> <code>.col-md-*</code> <code>.col-sm-*</code>
               </small>
             </CCardHeader>
@@ -1114,7 +1113,6 @@ const BasicForms = () => {
             <CCardHeader>
               Input Grid for small devices!
               <small>
-                {" "}
                 <code>.col-*</code>
               </small>
             </CCardHeader>

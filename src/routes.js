@@ -1,5 +1,10 @@
 import React from "react";
+// my own components
+const CreateProductVarForm = React.lazy(() =>
+  import("./views/base/forms/CreateProductVarForm")
+);
 
+// template components
 const Toaster = React.lazy(() => import("./views/notifications/toaster/Toaster"));
 const Tables = React.lazy(() => import("./views/base/tables/Tables"));
 
@@ -45,6 +50,10 @@ const Users = React.lazy(() => import("./views/users/Users"));
 const User = React.lazy(() => import("./views/users/User"));
 
 const routes = [
+  // own components
+  { path: "/createProductVarForm", name: "Forms", component: CreateProductVarForm },
+
+  //template components
   { path: "/", exact: true, name: "Home" },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
   { path: "/theme", name: "Theme", component: Colors, exact: true },
