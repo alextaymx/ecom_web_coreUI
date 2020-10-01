@@ -100,8 +100,8 @@ const generateOrder = (count) => {
   for (let i = 0; i < count; i++) {
     temp.push({
       id: i,
-      orderNumber: faker.random.number,
-      receiveNumber: faker.random.number,
+      orderNumber: faker.random.number(),
+      receiveNumber: faker.random.number(),
       createdAt: faker.date.past(),
       updatedAt: faker.date.recent(),
     });

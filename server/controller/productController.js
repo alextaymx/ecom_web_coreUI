@@ -1,8 +1,16 @@
 const { createResponse } = require("../responseFormat");
 const { getProduct, addProduct, updateProduct, deleteProduct } = require("../database");
 const { ResponseCode } = require("../constant");
+const { checkParams } = require("../utils/checkParams");
+
 module.exports.createProduct = (req, res) => {
   try {
+    if (!checkParams(["masterSku", "variations"], req.body)) {
+      res
+        .status(ResponseCode.Input_missing.code)
+        .json(createResponse(null, ResponseCode.Input_missing.msg));
+      return;
+    }
     const { masterSku, variations } = req.body;
     const newProduct = {
       masterSku,
