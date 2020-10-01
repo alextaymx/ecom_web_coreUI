@@ -1,7 +1,8 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/authRoute");
-const productRoutes = require("./routes/productVarRoute");
+const productVarRoutes = require("./routes/productVarRoute");
+const productRoutes = require("./routes/productRoute");
 const path = require("path");
 const cors = require("cors");
 
@@ -21,7 +22,8 @@ app.use(cookieParser());
 
 // routes
 app.use("/api", authRoutes);
-app.use("/api/products", productRoutes);
+app.use("/api/products", productRoutes, productVarRoutes);
+// app.use("/api/products", productVarRoutes);
 
 // listen to port
 app.listen(PORT, () => {
