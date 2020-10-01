@@ -16,55 +16,32 @@ import {
   CRow,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import React, { useReducer } from "react";
-import { createProductVarAPI } from "../../../apiCalls/post";
-import { useSelector } from "react-redux";
+import React from "react";
+// import { createProductVarAPI } from "../../../apiCalls/post";
+// import { useSelector } from "react-redux";
+import { startCase, pick, omit } from "lodash";
+// const initialState = {
+//   itemNo: "",
+//   retailPrice: "",
+//   supplyPrice: "",
+//   supplyRate: "",
+//   resale: "false",
+// };
 
-const initialState = {
-  itemNo: "",
-  retailPrice: "",
-  supplyPrice: "",
-  supplyRate: "",
-  resale: "false",
-};
+// const reducer = (state, { field, value }) => {
+//   if (field === "reset") {
+//     return initialState;
+//   }
+//   return {
+//     ...state,
+//     [field]: value,
+//   };
+// };
 
-const reducer = (state, { field, value }) => {
-  if (field === "reset") {
-    return initialState;
-  }
-  return {
-    ...state,
-    [field]: value,
-  };
-};
-
-function CreateProductVarForm() {
-  const token = useSelector((state) => state.userInfo.user.token);
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const { itemNo, retailPrice, supplyPrice, supplyRate, resale } = state;
-
-  const onChange = (e) => {
-    dispatch({ field: e.target.name, value: e.target.value });
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    createProductVarAPI(state, token)
-      .then((data) => {
-        console.log("returned data: ", data, state);
-        dispatch({ field: "reset" });
-      })
-      .catch((error) => {
-        if (error.response) {
-          // console.error("err response", error.response); // client received an error response (5xx, 4xx)
-        } else if (error.request) {
-          // console.error("err req", error.request); // client never received a response, or request never left
-        } else {
-          // anything else // console.error("There was an error!", error);
-        }
-      });
-  };
-
+function CreateProductVarForm({ field, handleFormSubmit, onChange, decrementStep }) {
+  const inputField = omit(field, "retailPrice", "supplyPrice", "resale");
+  const monetaryInputField = pick(field, "retailPrice", "supplyPrice");
+  // const radioInput = pick(field, "resale");
   return (
     <>
       <CRow alignHorizontal="center">
@@ -74,82 +51,55 @@ function CreateProductVarForm() {
             <CCardBody>
               <CForm action="" method="post" onSubmit={handleFormSubmit}>
                 <CFormGroup row className="my-0">
-                  <CCol sm="6">
-                    <CFormGroup>
-                      <CLabel htmlFor="itemNo">Item Number</CLabel>
-                      <CInputGroup>
-                        <CInputGroupPrepend>
-                          <CInputGroupText>
-                            <CIcon name="cil-asterisk" />
-                          </CInputGroupText>
-                        </CInputGroupPrepend>
-                        <CInput
-                          type="text"
-                          id="itemNo"
-                          name="itemNo"
-                          autoComplete="on"
-                          placeholder="Enter item number"
-                          value={itemNo}
-                          onChange={onChange}
-                          required
-                        />
-                      </CInputGroup>
-                    </CFormGroup>
-                  </CCol>
-                  <CCol sm="6">
-                    <CFormGroup>
-                      <CLabel htmlFor="retailPrice">Retail Price</CLabel>
-                      <CInputGroup>
-                        <CInputGroupPrepend>
-                          <CInputGroupText>RM</CInputGroupText>
-                        </CInputGroupPrepend>
-                        <CInput
-                          id="retailPrice"
-                          placeholder="Enter retail price"
-                          name="retailPrice"
-                          value={retailPrice}
-                          onChange={onChange}
-                        />
-                      </CInputGroup>
-                    </CFormGroup>
-                  </CCol>
-                  <CCol sm="6">
-                    <CFormGroup>
-                      <CLabel htmlFor="itemNo">Supply Price</CLabel>
-                      <CInputGroup>
-                        <CInputGroupPrepend>
-                          <CInputGroupText>RM</CInputGroupText>
-                        </CInputGroupPrepend>
-                        <CInput
-                          id="supplyPrice"
-                          name="supplyPrice"
-                          placeholder="Enter supply price"
-                          value={supplyPrice}
-                          onChange={onChange}
-                          required
-                        />
-                      </CInputGroup>
-                    </CFormGroup>
-                  </CCol>
-                  <CCol sm="6">
-                    <CFormGroup>
-                      <CLabel htmlFor="supplyRate">Supply Rate</CLabel>
-                      <CInputGroup>
-                        <CInputGroupPrepend>
-                          <CInputGroupText>RM</CInputGroupText>
-                        </CInputGroupPrepend>
-                        <CInput
-                          id="supplyRate"
-                          placeholder="Enter supply rate"
-                          name="supplyRate"
-                          value={supplyRate}
-                          onChange={onChange}
-                          required
-                        />
-                      </CInputGroup>
-                    </CFormGroup>
-                  </CCol>
-                  <CCol sm="6">
+                  {Object.keys(inputField).map((key, index) => {
+                    // console.log(key, inputField[key], index, typeof key);
+                    const displayName = startCase(key);
+                    return (
+                      <CCol sm="4" key={index}>
+                        <CFormGroup>
+                          <CLabel htmlFor={key}>{displayName}</CLabel>
+                          <CInput
+                            type="text"
+                            id={key}
+                            name={key}
+                            // autoComplete="on"
+                            placeholder={`Enter ${displayName}`}
+                            value={inputField[key]}
+                            onChange={onChange}
+                            required
+                          />
+                        </CFormGroup>
+                      </CCol>
+                    );
+                  })}
+                  {Object.keys(monetaryInputField).map((key, index) => {
+                    // console.log(key, inputField[key], index, typeof key);
+                    const displayName = startCase(key);
+                    return (
+                      <CCol sm="4" key={index}>
+                        <CFormGroup>
+                          <CLabel htmlFor={key}>{displayName}</CLabel>
+                          <CInputGroup>
+                            <CInputGroupPrepend>
+                              <CInputGroupText>RM</CInputGroupText>
+                            </CInputGroupPrepend>
+                            <CInput
+                              type="text"
+                              id={key}
+                              name={key}
+                              // autoComplete="on"
+                              placeholder={`Enter ${displayName}`}
+                              value={monetaryInputField[key]}
+                              onChange={onChange}
+                              required
+                            />
+                          </CInputGroup>
+                        </CFormGroup>
+                      </CCol>
+                    );
+                  })}
+
+                  <CCol sm="4">
                     <CFormGroup>
                       <CLabel>Resale</CLabel>
                       <CFormGroup variant="custom-radio">
@@ -159,7 +109,7 @@ function CreateProductVarForm() {
                           name="resale"
                           value="true"
                           onChange={onChange}
-                          checked={resale === "true"}
+                          checked={field.resale === "true"}
                         />
                         <CLabel variant="custom-checkbox" htmlFor="resale-radio-yes">
                           Yes
@@ -172,7 +122,7 @@ function CreateProductVarForm() {
                           name="resale"
                           value="false"
                           onChange={onChange}
-                          checked={resale === "false"}
+                          checked={field.resale === "false"}
                         />
                         <CLabel variant="custom-checkbox" htmlFor="resale-radio-no">
                           No
@@ -183,6 +133,9 @@ function CreateProductVarForm() {
                 </CFormGroup>
 
                 <CFormGroup className="form-actions">
+                  <CButton onClick={decrementStep} color="secondary">
+                    Back
+                  </CButton>
                   <CButton type="submit" color="primary">
                     Create
                   </CButton>
