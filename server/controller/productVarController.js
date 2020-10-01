@@ -11,7 +11,16 @@ module.exports.createProductVar = (req, res) => {
   try {
     if (
       !checkParams(
-        ["itemNo", "retailPrice", "supplyPrice", "supplyRate", "resale", "image"],
+        [
+          "itemNo",
+          "retailPrice",
+          "supplyPrice",
+          "supplyRate",
+          "resale",
+          "image",
+          "orderType",
+          "orders",
+        ],
         req.body
       )
     ) {
@@ -20,7 +29,30 @@ module.exports.createProductVar = (req, res) => {
         .json(createResponse(null, ResponseCode.Input_missing.msg));
       return;
     }
-    const { itemNo, retailPrice, supplyPrice, supplyRate, resale, image } = req.body;
+    const {
+      itemNo,
+      retailPrice,
+      supplyPrice,
+      supplyRate,
+      resale,
+      image,
+      title,
+      chineseTitle,
+      version,
+      brand,
+      numberOfKind,
+      remarks,
+      packages,
+      packageSize,
+      manufacturer,
+      moq,
+      ct,
+      orderType,
+      orderBy,
+      releaseBy,
+      orders,
+      supplier,
+    } = req.body;
     const newProductVar = {
       itemNo,
       retailPrice,
@@ -28,22 +60,22 @@ module.exports.createProductVar = (req, res) => {
       supplyRate,
       resale,
       image,
-      title: null,
-      chineseTitle: null,
-      version: null,
-      brand: null,
-      numberOfKind: null,
-      remarks: null,
-      package: null,
-      packageSize: null,
-      manufacturer: null,
-      moq: null,
-      ct: null,
-      orderType: null,
-      orderBy: null,
-      releaseBy: null,
-      orders: [],
-      supplier: [],
+      title: title ? title : null,
+      chineseTitle: chineseTitle ? chineseTitle : null,
+      version: version ? version : null,
+      brand: brand ? brand : null,
+      numberOfKind: numberOfKind ? numberOfKind : null,
+      remarks: remarks ? remarks : null,
+      package: packages ? packages : null,
+      packageSize: packageSize ? packageSize : null,
+      manufacturer: manufacturer ? manufacturer : null,
+      moq: moq ? moq : null,
+      ct: ct ? ct : null,
+      orderType: orderType ? orderType : null,
+      orderBy: orderBy ? orderBy : null,
+      releaseBy: releaseBy ? releaseBy : null,
+      orders: orders,
+      supplier: supplier ? supplier : null,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
