@@ -8,16 +8,37 @@ const {
 const { ResponseCode } = require("../constant");
 module.exports.createProductVar = (req, res) => {
   try {
-    const { itemNo, retailPrice, supplyPrice, supplyRate, resale } = req.body;
+    const { itemNo, retailPrice, supplyPrice, supplyRate, resale, image } = req.body;
     const newProductVar = {
       itemNo,
       retailPrice,
       supplyPrice,
       supplyRate,
       resale,
+      image,
+      title: null,
+      chineseTitle: null,
+      version: null,
+      brand: null,
+      numberOfKind: null,
+      remarks: null,
+      package: null,
+      packageSize: null,
+      manufacturer: null,
+      moq: null,
+      ct: null,
+      orderType: null,
+      orderBy: null,
+      releaseBy: null,
+      orders: [],
+      supplier: [],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     };
     const product_id = addProductVar(newProductVar);
-    res.status(200).json(createResponse({ product_id }, "Create Product successfully"));
+    res
+      .status(200)
+      .json(createResponse({ product_id }, "Create Product Variation successfully"));
   } catch (err) {
     res
       .status(ResponseCode.Internal_server_error.code)
@@ -44,11 +65,18 @@ module.exports.updateProductVar = (req, res) => {
     if (!("product_id" in req_body)) {
       throw 500;
     }
+    if (getProductVar(req_body.product_id).length === 0) {
+      res.status(400).json(createResponse(null, "Product Variation not found"));
+      return;
+    }
     updateProductVar(req_body);
     res
       .status(200)
       .json(
-        createResponse({ product_id: req_body.product_id }, "Update Product successfully")
+        createResponse(
+          { product_id: req_body.product_id },
+          "Update Product Variation successfully"
+        )
       );
   } catch (err) {
     res
@@ -60,8 +88,14 @@ module.exports.updateProductVar = (req, res) => {
 module.exports.deleteProductVar = (req, res) => {
   try {
     const { product_id } = req.body;
+    if (getProductVar(product_id).length === 0) {
+      res.status(400).json(createResponse(null, "Product Variation not found"));
+      return;
+    }
     deleteProductVar(product_id);
-    res.status(200).json(createResponse({ product_id }, "Delete Product successfully"));
+    res
+      .status(200)
+      .json(createResponse({ product_id }, "Delete Product Variation successfully"));
   } catch (err) {
     res
       .status(ResponseCode.Internal_server_error.code)

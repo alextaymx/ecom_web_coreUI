@@ -2,6 +2,11 @@ const { Roles } = require("./constant");
 const { bcrypt_hash, compare_bcrypt_hash } = require("./utils/bcrypt");
 const faker = require("faker");
 const faker_cn = require("faker/locale/zh_CN");
+const getRandomNum = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min);
+};
 
 let userList = [
   {
@@ -150,6 +155,50 @@ const getProductVar = (product_id) => {
   }
 };
 
+const generateProduct = (count) => {
+  let temp = [];
+  for (let i = 0; i < count; i++) {
+    temp.push({
+      id: i,
+      masterSku: faker.random.uuid(),
+      remarks: null,
+      createdAt: faker.date.past(),
+      updatedAt: faker.date.past(),
+      createdBy: getRandomNum(1, userList.length + 1),
+      variations: [getRandomNum(0, productVarList.length)],
+    });
+  }
+  return temp;
+};
+
+let productList = generateProduct(20);
+
+const addProduct = (newProduct) => {
+  let product = { ...newProduct, id: productList.length };
+  productList.push(product);
+  return product.id;
+};
+
+const updateProduct = (product_body) => {
+  productList.forEach((product, index) => {
+    if (product.id === parseInt(product_body.product_id)) {
+      productList[index] = { ...product, ...product_body };
+    }
+  });
+};
+
+const deleteProduct = (product_id) => {
+  productList = productList.filter((product) => product.id !== parseInt(product_id));
+};
+
+const getProduct = (product_id) => {
+  if (product_id === "*") {
+    return productList;
+  } else {
+    return productList.filter((productVar) => productVar.id === parseInt(product_id));
+  }
+};
+
 module.exports = {
   userList,
   validateUserPassword,
@@ -160,4 +209,8 @@ module.exports = {
   updateProductVar,
   deleteProductVar,
   getProductVar,
+  getProduct,
+  addProduct,
+  updateProduct,
+  deleteProduct,
 };
