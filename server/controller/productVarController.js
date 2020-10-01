@@ -48,7 +48,11 @@ module.exports.createProductVar = (req, res) => {
 
 module.exports.getProductVar = (req, res) => {
   const product_id = req.params.id;
-  let resultList = getProductVar(product_id);
+  let page = 1;
+  if ("page" in req.query) {
+    page = req.query.page;
+  }
+  let resultList = getProductVar(product_id, page);
   res
     .status(ResponseCode.General_success.code)
     .json(

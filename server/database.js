@@ -2,10 +2,14 @@ const { Roles } = require("./constant");
 const { bcrypt_hash, compare_bcrypt_hash } = require("./utils/bcrypt");
 const faker = require("faker");
 const faker_cn = require("faker/locale/zh_CN");
-const getRandomNum = (min, max) => {
+const getRandomNum = (min, max, count) => {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min);
+  let result = [];
+  for (let i = 0; i < count; i++) {
+    result.push(Math.floor(Math.random() * (max - min) + min));
+  }
+  return [...new Set(result)];
 };
 
 let userList = [
@@ -90,7 +94,48 @@ const getUserByIdPassword = (id, password) => {
   }
   return null;
 };
+/*Order*/
+const generateOrder = (count) => {
+  let temp = [];
+  for (let i = 0; i < count; i++) {
+    temp.push({
+      id: i,
+      orderNumber: faker.random.number,
+      receiveNumber: faker.random.number,
+      createdAt: faker.date.past(),
+      updatedAt: faker.date.recent(),
+    });
+  }
+  return temp;
+};
+let orderList = generateOrder(20);
+const addOrder = (newOrder) => {
+  let order = { ...newOrder, id: orderList.length };
+  orderList.push(order);
+  return order.id;
+};
 
+const updateOrder = (order_body) => {
+  orderList.forEach((order, index) => {
+    if (order.id === parseInt(order_body.order_id)) {
+      orderList[index] = { ...order, ...order_body };
+    }
+  });
+};
+
+const deleteOrder = (order_id) => {
+  orderList = orderList.filter((order) => order.id !== parseInt(order_id));
+};
+
+const getOrder = (order_id, page_num) => {
+  if (order_id === "*") {
+    return orderList.slice(10 * (page_num - 1), 10 * page_num);
+  } else {
+    return orderList.filter((order) => order.id === parseInt(order_id));
+  }
+};
+
+/*Product Variation*/
 const generateProductVar = (count) => {
   let temp = [];
   for (let i = 0; i < count; i++) {
@@ -125,7 +170,7 @@ const generateProductVar = (count) => {
   return temp;
 };
 
-let productVarList = generateProductVar(3);
+let productVarList = generateProductVar(20);
 
 const addProductVar = (newProductVar) => {
   let productvar = { ...newProductVar, id: productVarList.length };
@@ -147,14 +192,15 @@ const deleteProductVar = (product_id) => {
   );
 };
 
-const getProductVar = (product_id) => {
+const getProductVar = (product_id, page_num) => {
   if (product_id === "*") {
-    return productVarList;
+    return productVarList.slice(10 * (page_num - 1), 10 * page_num);
   } else {
     return productVarList.filter((productVar) => productVar.id === parseInt(product_id));
   }
 };
 
+/*Product*/
 const generateProduct = (count) => {
   let temp = [];
   for (let i = 0; i < count; i++) {
@@ -164,8 +210,8 @@ const generateProduct = (count) => {
       remarks: null,
       createdAt: faker.date.past(),
       updatedAt: faker.date.past(),
-      createdBy: getRandomNum(1, userList.length + 1),
-      variations: [getRandomNum(0, productVarList.length)],
+      createdBy: getRandomNum(1, userList.length + 1, 1)[0],
+      variations: [getRandomNum(0, productVarList.length, 5)],
     });
   }
   return temp;
@@ -191,9 +237,9 @@ const deleteProduct = (product_id) => {
   productList = productList.filter((product) => product.id !== parseInt(product_id));
 };
 
-const getProduct = (product_id) => {
+const getProduct = (product_id, page_num) => {
   if (product_id === "*") {
-    return productList;
+    return productList.slice(10 * (page_num - 1), 10 * page_num);
   } else {
     return productList.filter((productVar) => productVar.id === parseInt(product_id));
   }
@@ -213,4 +259,8 @@ module.exports = {
   addProduct,
   updateProduct,
   deleteProduct,
+  getOrder,
+  addOrder,
+  updateOrder,
+  deleteOrder,
 };
