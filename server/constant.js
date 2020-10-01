@@ -24,6 +24,10 @@ const ResponseCode = {
     code: 403,
     msg: "Permission denied",
   },
+  Input_missing: {
+    code: 400,
+    msg: "Some inputs are missing",
+  },
 };
 
 const Roles = {

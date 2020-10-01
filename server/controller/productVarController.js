@@ -6,8 +6,20 @@ const {
   deleteProductVar,
 } = require("../database");
 const { ResponseCode } = require("../constant");
+const { checkParams } = require("../utils/checkParams");
 module.exports.createProductVar = (req, res) => {
   try {
+    if (
+      !checkParams(
+        ["itemNo", "retailPrice", "supplyPrice", "supplyRate", "resale", "image"],
+        req.body
+      )
+    ) {
+      res
+        .status(ResponseCode.Input_missing.code)
+        .json(createResponse(null, ResponseCode.Input_missing.msg));
+      return;
+    }
     const { itemNo, retailPrice, supplyPrice, supplyRate, resale, image } = req.body;
     const newProductVar = {
       itemNo,
