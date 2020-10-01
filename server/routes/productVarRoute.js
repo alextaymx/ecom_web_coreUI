@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const productController = require("../controller/productVarController");
 const authMiddleware = require("../middleware/authMiddleware");
-const permissions = require("../permissions/Product");
+const permissions = require("../permissions/ProductVariation");
 
 const router = Router();
 router.post(
