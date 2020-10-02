@@ -22,9 +22,9 @@ import { useSelector } from "react-redux";
 import CreateProductVarForm from "./CreateProductVarForm";
 import CreateProductForm from "./CreateProductForm";
 import { pick, omit } from "lodash";
+import { produce } from "immer";
 
 const initialState = {
-  masterSKU: "",
   itemNo: "",
   title: "",
   chineseTitle: "",
@@ -46,20 +46,41 @@ const initialState = {
   supplyRate: "",
   resale: "false",
 };
+const initialProductState = {
+  masterSKU: "",
+  remarks: "",
+  productVar: [initialState],
+};
 
-const reducer = (state, { field, value }) => {
-  if (field === "reset") {
-    return initialState;
+const reducer = (state, { action, field, value, index }) => {
+  switch (action) {
+    case "reset":
+      return initialProductState;
+    case "addVar":
+      return {
+        ...state,
+        productVar: [...state.productVar, initialState],
+      };
+    case "product":
+      return {
+        ...state,
+        [field]: value,
+      };
+    case "productVar":
+      return {
+        ...state,
+        productVar: produce(state.productVar, (draft) => {
+          draft[index][field] = value;
+        }),
+      };
+
+    default:
   }
-  return {
-    ...state,
-    [field]: value,
-  };
 };
 
 function CreateProduct() {
   const token = useSelector((state) => state.userInfo.user.token);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialProductState);
   // const { itemNo, retailPrice, supplyPrice, supplyRate, resale } = state;
   const [step, setStep] = useState(1);
   const incrementStep = () => {
@@ -68,18 +89,29 @@ function CreateProduct() {
   const decrementStep = () => {
     setStep(Math.max(step - 1, 1));
   };
-
-  const onChange = (e) => {
-    dispatch({ field: e.target.name, value: e.target.value });
+  const addProductVar = () => {
+    dispatch({ action: "addVar" });
   };
 
+  const productOnChange = (e) => {
+    dispatch({ action: "product", field: e.target.name, value: e.target.value });
+  };
+  const productVarOnChange = (index, e) => {
+    dispatch({
+      action: "productVar",
+      field: e.target.name,
+      value: e.target.value,
+      index,
+    });
+  };
+  // console.log(state);
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log(state);
     createProductVarAPI(state, token)
       .then((data) => {
         console.log("returned data: ", data, state);
-        dispatch({ field: "reset" });
+        dispatch({ action: "reset" });
       })
       .catch((error) => {
         if (error.response) {
@@ -97,16 +129,17 @@ function CreateProduct() {
         <CreateProductForm
           incrementStep={incrementStep}
           field={pick(state, "masterSKU", "remarks")}
-          onChange={onChange}
+          productOnChange={productOnChange}
         />
       );
     case 2:
       return (
         <CreateProductVarForm
           decrementStep={decrementStep}
-          field={omit(state, "masterSKU", "remarks")}
-          onChange={onChange}
+          fieldArr={state.productVar}
+          productVarOnChange={productVarOnChange}
           handleFormSubmit={handleFormSubmit}
+          addProductVar={addProductVar}
         />
       );
 

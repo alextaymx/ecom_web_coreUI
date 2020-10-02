@@ -18,7 +18,7 @@ import {
 import React from "react";
 import { startCase } from "lodash";
 
-function CreateProductForm({ field, onChange, incrementStep }) {
+function CreateProductForm({ field, productOnChange, incrementStep }) {
   // const radioInput = pick(field, "resale");
   return (
     <>
@@ -43,7 +43,7 @@ function CreateProductForm({ field, onChange, incrementStep }) {
                             // autoComplete="on"
                             placeholder={`Enter ${displayName}`}
                             value={field[key]}
-                            onChange={onChange}
+                            onChange={productOnChange}
                             required
                           />
                         </CFormGroup>
