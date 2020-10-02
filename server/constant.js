@@ -7,6 +7,17 @@ const Permissions = {
   Delete_Product: 6,
 };
 
+const OrderType = {
+  Order: 1,
+  PreOrder: 2,
+};
+
+const Regions = {
+  Hong_Kong: 1,
+  China: 2,
+  Malaysia: 3,
+};
+
 const ResponseCode = {
   //Success
   Login_success: { code: 200, msg: "Login successfully." },
@@ -56,4 +67,6 @@ module.exports = {
   Permissions,
   Roles,
   ResponseCode,
+  OrderType,
+  Regions,
 };
