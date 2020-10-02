@@ -1,7 +1,14 @@
 const { createResponse } = require("../responseFormat");
-const { getProduct, addProduct, updateProduct, deleteProduct } = require("../database");
+const {
+  getProduct,
+  addProduct,
+  updateProduct,
+  deleteProduct,
+  productVarList,
+} = require("../database");
 const { ResponseCode } = require("../constant");
 const { checkParams } = require("../utils/checkParams");
+const { mainCreate } = require("./productVarController");
 
 module.exports.createProduct = (req, res) => {
   try {
@@ -11,11 +18,21 @@ module.exports.createProduct = (req, res) => {
         .json(createResponse(null, ResponseCode.Input_missing.msg));
       return;
     }
-    const { masterSku, variations } = req.body;
+    const { masterSku, variations, remarks } = req.body;
+    let productVar_id = [];
+    variations.forEach((productVar) => {
+      productVar_id.push(mainCreate(productVar));
+    });
+    if (productVar_id.includes(null)) {
+      res
+        .status(ResponseCode.Input_missing.code)
+        .json(createResponse(null, "Some inputs are missing for product variations."));
+      return;
+    }
     const newProduct = {
       masterSku,
-      variations,
-      remarks: null,
+      variations: productVar_id,
+      remarks: remarks ? remarks : null,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       createdBy: res.locals.user.id,

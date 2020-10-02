@@ -30,6 +30,7 @@ module.exports.createSupplier = (req, res) => {
     const supplier_id = addSupplier(newSupplier);
     res.status(200).json(createResponse({ supplier_id }, "Create Supplier successfully"));
   } catch (err) {
+    console.log(err);
     res
       .status(ResponseCode.Internal_server_error.code)
       .json(createResponse(null, ResponseCode.Internal_server_error.msg));

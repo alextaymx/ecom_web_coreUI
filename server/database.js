@@ -165,7 +165,7 @@ const generateProductVar = (count) => {
       createdAt: faker.date.past(),
       updatedAt: faker.date.past(),
       orders: getRandomNum(0, orderList.length, 3),
-      supplier: [],
+      supplier: null,
     });
   }
   return temp;
@@ -268,6 +268,13 @@ const generateSupplier = (count) => {
 let supplierList = generateSupplier(20);
 const addSupplier = (newSupplier) => {
   let supplier = { ...newSupplier, id: supplierList.length };
+  supplier.products.forEach((productVar_id) => {
+    productVarList.forEach((productVar, index) => {
+      if (productVar_id === productVar.id) {
+        productVarList[index].supplier = supplier.id;
+      }
+    });
+  });
   supplierList.push(supplier);
   return supplier.id;
 };
