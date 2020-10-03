@@ -4,6 +4,7 @@ const authRoutes = require("./routes/authRoute");
 const productVarRoutes = require("./routes/productVarRoute");
 const productRoutes = require("./routes/productRoute");
 const orderRoutes = require("./routes/orderRoute");
+const supplierRoutes = require("./routes/supplierRoute");
 const path = require("path");
 const cors = require("cors");
 
@@ -25,6 +26,7 @@ app.use(cookieParser());
 app.use("/api", authRoutes);
 app.use("/api/products", productRoutes, productVarRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/suppliers", supplierRoutes);
 // app.use("/api/products", productVarRoutes);
 
 // listen to port

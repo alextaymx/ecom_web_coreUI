@@ -1,4 +1,4 @@
-const { Roles } = require("./constant");
+const { Roles, OrderType } = require("./constant");
 const { bcrypt_hash, compare_bcrypt_hash } = require("./utils/bcrypt");
 const faker = require("faker");
 const faker_cn = require("faker/locale/zh_CN");
@@ -10,6 +10,16 @@ const getRandomNum = (min, max, count) => {
     result.push(Math.floor(Math.random() * (max - min) + min));
   }
   return [...new Set(result)];
+};
+
+const getElementByIndexArr = (array, index_arr) => {
+  let result = [];
+  array.forEach((element) => {
+    if (index_arr.includes(element.id)) {
+      result.push(element);
+    }
+  });
+  return result;
 };
 
 let userList = [
@@ -94,6 +104,7 @@ const getUserByIdPassword = (id, password) => {
   }
   return null;
 };
+
 /*Order*/
 const generateOrder = (count) => {
   let temp = [];
@@ -157,14 +168,14 @@ const generateProductVar = (count) => {
       retailPrice: faker.commerce.price(),
       supplyPrice: faker.commerce.price(),
       supplyRate: 0,
-      orderType: null,
+      orderType: OrderType.Order,
       orderBy: faker.date.past(),
       releaseBy: faker.date.future(),
       resale: true,
       createdAt: faker.date.past(),
       updatedAt: faker.date.past(),
-      orders: [],
-      supplier: [],
+      orders: getRandomNum(0, orderList.length, 3),
+      supplier: null,
     });
   }
   return temp;
@@ -196,7 +207,7 @@ const getProductVar = (product_id, page_num) => {
   if (product_id === "*") {
     return productVarList.slice(10 * (page_num - 1), 10 * page_num);
   } else {
-    return productVarList.filter((productVar) => productVar.id === parseInt(product_id));
+    return getElementByIndexArr(productVarList, product_id);
   }
 };
 
@@ -211,7 +222,7 @@ const generateProduct = (count) => {
       createdAt: faker.date.past(),
       updatedAt: faker.date.past(),
       createdBy: getRandomNum(1, userList.length + 1, 1)[0],
-      variations: [getRandomNum(0, productVarList.length, 5)],
+      variations: getRandomNum(0, productVarList.length, 5),
     });
   }
   return temp;
@@ -245,6 +256,80 @@ const getProduct = (product_id, page_num) => {
   }
 };
 
+/*Supplier*/
+const generateSupplier = (count) => {
+  let temp = [];
+  for (let i = 0; i < count; i++) {
+    temp.push({
+      id: i,
+      name: faker.name.findName(),
+      address: faker.address.streetAddress(),
+      email: faker.internet.email(),
+      telNo: faker.phone.phoneNumber(),
+      faxNo: faker.phone.phoneNumber(),
+      website: faker.internet.url(),
+      createdAt: faker.date.past(),
+      updatedAt: faker.date.past(),
+      products: getRandomNum(0, productVarList.length, 2),
+    });
+  }
+  return temp;
+};
+let supplierList = generateSupplier(20);
+const addSupplier = (newSupplier) => {
+  let supplier = { ...newSupplier, id: supplierList.length };
+  supplier.products.forEach((productVar_id) => {
+    productVarList.forEach((productVar, index) => {
+      if (productVar_id === productVar.id) {
+        productVarList[index].supplier = supplier.id;
+      }
+    });
+  });
+  supplierList.push(supplier);
+  return supplier.id;
+};
+
+const updateSupplier = (supplier_body) => {
+  supplierList.forEach((supplier, index) => {
+    if (supplier.id === parseInt(supplier_body.supplier_id)) {
+      supplierList[index] = { ...supplier, ...supplier_body };
+    }
+  });
+};
+
+const deleteSupplier = (supplier_id) => {
+  supplierList = supplierList.filter((supplier) => supplier.id !== parseInt(supplier_id));
+};
+
+const getSupplier = (supplier_id, page_num) => {
+  if (supplier_id === "*") {
+    return supplierList.slice(10 * (page_num - 1), 10 * page_num);
+  } else {
+    return supplierList.filter((supplier) => supplier.id === parseInt(supplier_id));
+  }
+};
+
+// const getTable = (table) => {
+//   switch (table) {
+//     case "supplier":
+//       return supplierList;
+//     case "order":
+//       return orderList;
+//     case "product":
+//       return productList;
+//     case "productVar":
+//       return productVarList;
+//     default:
+//       return null;
+//   }
+// };
+
+// const dbAdd = (tableName, newObj) => {
+//   let obj = { ...newObj, id: supplierList.length };
+//   supplierList.push(supplier);
+//   return supplier.id;
+// };
+
 module.exports = {
   userList,
   validateUserPassword,
@@ -263,4 +348,8 @@ module.exports = {
   addOrder,
   updateOrder,
   deleteOrder,
+  getSupplier,
+  addSupplier,
+  updateSupplier,
+  deleteSupplier,
 };

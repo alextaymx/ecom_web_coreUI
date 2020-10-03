@@ -7,79 +7,88 @@ const {
 } = require("../database");
 const { ResponseCode } = require("../constant");
 const { checkParams } = require("../utils/checkParams");
-module.exports.createProductVar = (req, res) => {
+
+const mainCreate = (obj) => {
+  if (
+    !checkParams(
+      [
+        "itemNo",
+        "retailPrice",
+        "supplyPrice",
+        "supplyRate",
+        "resale",
+        "image",
+        "orderType",
+        "orders",
+      ],
+      obj
+    )
+  ) {
+    return null;
+  }
+  const {
+    itemNo,
+    retailPrice,
+    supplyPrice,
+    supplyRate,
+    resale,
+    image,
+    title,
+    chineseTitle,
+    version,
+    brand,
+    numberOfKind,
+    remarks,
+    packages,
+    packageSize,
+    manufacturer,
+    moq,
+    ct,
+    orderType,
+    orderBy,
+    releaseBy,
+    orders,
+    supplier,
+  } = obj;
+  const newProductVar = {
+    itemNo,
+    retailPrice,
+    supplyPrice,
+    supplyRate,
+    resale,
+    image,
+    title: title ? title : null,
+    chineseTitle: chineseTitle ? chineseTitle : null,
+    version: version ? version : null,
+    brand: brand ? brand : null,
+    numberOfKind: numberOfKind ? numberOfKind : null,
+    remarks: remarks ? remarks : null,
+    package: packages ? packages : null,
+    packageSize: packageSize ? packageSize : null,
+    manufacturer: manufacturer ? manufacturer : null,
+    moq: moq ? moq : null,
+    ct: ct ? ct : null,
+    orderType: orderType ? orderType : null,
+    orderBy: orderBy ? orderBy : null,
+    releaseBy: releaseBy ? releaseBy : null,
+    orders: orders,
+    supplier: supplier ? supplier : null,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+  const product_id = addProductVar(newProductVar);
+  return product_id;
+};
+
+const createProductVar = (req, res) => {
   try {
-    if (
-      !checkParams(
-        [
-          "itemNo",
-          "retailPrice",
-          "supplyPrice",
-          "supplyRate",
-          "resale",
-          "image",
-          "orderType",
-          "orders",
-        ],
-        req.body
-      )
-    ) {
+    const product_id = mainCreate(req.body);
+    if (product_id == null) {
       res
         .status(ResponseCode.Input_missing.code)
         .json(createResponse(null, ResponseCode.Input_missing.msg));
       return;
     }
-    const {
-      itemNo,
-      retailPrice,
-      supplyPrice,
-      supplyRate,
-      resale,
-      image,
-      title,
-      chineseTitle,
-      version,
-      brand,
-      numberOfKind,
-      remarks,
-      packages,
-      packageSize,
-      manufacturer,
-      moq,
-      ct,
-      orderType,
-      orderBy,
-      releaseBy,
-      orders,
-      supplier,
-    } = req.body;
-    const newProductVar = {
-      itemNo,
-      retailPrice,
-      supplyPrice,
-      supplyRate,
-      resale,
-      image,
-      title: title ? title : null,
-      chineseTitle: chineseTitle ? chineseTitle : null,
-      version: version ? version : null,
-      brand: brand ? brand : null,
-      numberOfKind: numberOfKind ? numberOfKind : null,
-      remarks: remarks ? remarks : null,
-      package: packages ? packages : null,
-      packageSize: packageSize ? packageSize : null,
-      manufacturer: manufacturer ? manufacturer : null,
-      moq: moq ? moq : null,
-      ct: ct ? ct : null,
-      orderType: orderType ? orderType : null,
-      orderBy: orderBy ? orderBy : null,
-      releaseBy: releaseBy ? releaseBy : null,
-      orders: orders,
-      supplier: supplier ? supplier : null,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-    const product_id = addProductVar(newProductVar);
     res
       .status(200)
       .json(createResponse({ product_id }, "Create Product Variation successfully"));
@@ -90,8 +99,8 @@ module.exports.createProductVar = (req, res) => {
   }
 };
 
-module.exports.getProductVar = (req, res) => {
-  const product_id = req.params.id;
+const getProductVars = (req, res) => {
+  const product_id = req.query.product_id;
   let page = 1;
   if ("page" in req.query) {
     page = req.query.page;
@@ -107,7 +116,7 @@ module.exports.getProductVar = (req, res) => {
     );
 };
 
-module.exports.updateProductVar = (req, res) => {
+const updateProductVars = (req, res) => {
   try {
     const req_body = req.body;
     if (!("product_id" in req_body)) {
@@ -133,7 +142,7 @@ module.exports.updateProductVar = (req, res) => {
   }
 };
 
-module.exports.deleteProductVar = (req, res) => {
+const deleteProductVars = (req, res) => {
   try {
     const { product_id } = req.body;
     if (getProductVar(product_id).length === 0) {
@@ -149,4 +158,12 @@ module.exports.deleteProductVar = (req, res) => {
       .status(ResponseCode.Internal_server_error.code)
       .json(createResponse(null, ResponseCode.Internal_server_error.msg));
   }
+};
+
+module.exports = {
+  getProductVars,
+  createProductVar,
+  mainCreate,
+  updateProductVars,
+  deleteProductVars,
 };
