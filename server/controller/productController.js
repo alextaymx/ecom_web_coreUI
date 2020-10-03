@@ -36,6 +36,7 @@ module.exports.createProduct = (req, res) => {
     const product_id = addProduct(newProduct);
     res.status(200).json(createResponse({ product_id }, "Create Product successfully"));
   } catch (err) {
+    console.log(err);
     res
       .status(ResponseCode.Internal_server_error.code)
       .json(createResponse(null, ResponseCode.Internal_server_error.msg));
@@ -43,23 +44,29 @@ module.exports.createProduct = (req, res) => {
 };
 
 module.exports.getProduct = (req, res) => {
-  const product_id = req.params.id;
-  let page = 1;
-  if ("page" in req.query) {
-    page = req.query.page;
+  try {
+    const product_id = req.params.id;
+    let page = 1;
+    if ("page" in req.query) {
+      page = req.query.page;
+    }
+    let resultList = _.cloneDeep(getProduct(product_id, page));
+    resultList.forEach((result, index) => {
+      resultList[index] = processProduct(result);
+    });
+    res
+      .status(ResponseCode.General_success.code)
+      .json(
+        createResponse(
+          { resultList: resultList },
+          resultList.length > 0 ? ResponseCode.General_success.msg : "No content"
+        )
+      );
+  } catch (err) {
+    res
+      .status(ResponseCode.Internal_server_error.code)
+      .json(createResponse(null, ResponseCode.Internal_server_error.msg));
   }
-  let resultList = _.cloneDeep(getProduct(product_id, page));
-  resultList.forEach((result, index) => {
-    resultList = processProduct(result);
-  });
-  res
-    .status(ResponseCode.General_success.code)
-    .json(
-      createResponse(
-        { resultList: resultList },
-        resultList.length > 0 ? ResponseCode.General_success.msg : "No content"
-      )
-    );
 };
 
 module.exports.updateProduct = (req, res) => {
