@@ -21,6 +21,7 @@ import CIcon from "@coreui/icons-react";
 // import MainChartExample from "../charts/MainChartExample";
 import Users from "../users/Users";
 import usersData from "../users/UsersData";
+import Products from "../base/tables/Products";
 const fields = ["name", "registered", "role", "status"];
 
 const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
@@ -62,6 +63,7 @@ const Dashboard = () => {
   };
   return (
     <>
+      <Products />
       <WidgetsDropdown />
       <CCard>
         {/* <CCardBody>
