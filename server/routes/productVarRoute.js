@@ -9,7 +9,7 @@ router.post(
   productController.createProductVar
 );
 
-router.get("/getVar/:id", authMiddleware.checkUser, productController.getProductVars);
+router.get("/getVar", authMiddleware.checkUser, productController.getProductVars);
 
 router.post(
   "/update_productvar",

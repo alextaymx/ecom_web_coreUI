@@ -12,6 +12,16 @@ const getRandomNum = (min, max, count) => {
   return [...new Set(result)];
 };
 
+const getElementByIndexArr = (array, index_arr) => {
+  let result = [];
+  array.forEach((element) => {
+    if (index_arr.includes(element.id)) {
+      result.push(element);
+    }
+  });
+  return result;
+};
+
 let userList = [
   {
     id: 1,
@@ -197,7 +207,7 @@ const getProductVar = (product_id, page_num) => {
   if (product_id === "*") {
     return productVarList.slice(10 * (page_num - 1), 10 * page_num);
   } else {
-    return productVarList.filter((productVar) => productVar.id === parseInt(product_id));
+    return getElementByIndexArr(productVarList, product_id);
   }
 };
 
@@ -212,7 +222,7 @@ const generateProduct = (count) => {
       createdAt: faker.date.past(),
       updatedAt: faker.date.past(),
       createdBy: getRandomNum(1, userList.length + 1, 1)[0],
-      variations: [getRandomNum(0, productVarList.length, 5)],
+      variations: getRandomNum(0, productVarList.length, 5),
     });
   }
   return temp;

@@ -1,11 +1,5 @@
 const { createResponse } = require("../responseFormat");
-const {
-  getProduct,
-  addProduct,
-  updateProduct,
-  deleteProduct,
-  productVarList,
-} = require("../database");
+const { getProduct, addProduct, updateProduct, deleteProduct } = require("../database");
 const { ResponseCode } = require("../constant");
 const { checkParams } = require("../utils/checkParams");
 const { mainCreate } = require("./productVarController");
