@@ -22,7 +22,7 @@ export default [
   {
     _tag: "CSidebarNavItem",
     name: "Update Product",
-    to: "/updateProductForm",
+    to: "/updateProductVarForm",
     icon: "cil-pencil",
   },
 

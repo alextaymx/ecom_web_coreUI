@@ -18,3 +18,19 @@ export const createProductAPI = (payload, token) => {
       throw error;
     });
 };
+
+export const updateProductVarAPI = (payload, token) => {
+  const URL = `${rootUrl}/products/update_productvar`;
+  return axios
+    .post(URL, payload, {
+      method: "POST/GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: token,
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};

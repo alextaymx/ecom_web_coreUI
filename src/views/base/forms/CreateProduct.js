@@ -1,21 +1,21 @@
-import {
-  CButton,
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CForm,
-  CFormGroup,
-  CInput,
-  CInputGroup,
-  // CInputGroupAppend,
-  CInputGroupPrepend,
-  CInputGroupText,
-  CInputRadio,
-  CLabel,
-  CRow,
-} from "@coreui/react";
-import CIcon from "@coreui/icons-react";
+// import {
+//   CButton,
+//   CCard,
+//   CCardBody,
+//   CCardHeader,
+//   CCol,
+//   CForm,
+//   CFormGroup,
+//   CInput,
+//   CInputGroup,
+//   CInputGroupAppend,
+//   CInputGroupPrepend,
+//   CInputGroupText,
+//   CInputRadio,
+//   CLabel,
+//   CRow,
+// } from "@coreui/react";
+// import CIcon from "@coreui/icons-react";
 import React, { useReducer, useState } from "react";
 import { createProductAPI } from "../../../apiCalls/post";
 import { useSelector } from "react-redux";
@@ -23,7 +23,7 @@ import CreateProductVarForm from "./CreateProductVarForm";
 import CreateProductForm from "./CreateProductForm";
 import { omit } from "lodash";
 import { produce } from "immer";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 // const initialState = {
 //   itemNo: "",

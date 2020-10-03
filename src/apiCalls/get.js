@@ -3,8 +3,8 @@ const rootUrl = `${
   process.env.NODE_ENV === "production" ? "" : process.env.REACT_APP_BASE_URL
 }/api`;
 
-export const getProductAPI = (token, payload = "*") => {
-  const URL = `${rootUrl}/products/get/${payload}?page=1`;
+export const getProductAPI = (token, page = 1, payload = "*") => {
+  const URL = `${rootUrl}/products/get/${payload}?page=${page}`;
   return axios
     .get(URL, {
       method: "POST/GET",

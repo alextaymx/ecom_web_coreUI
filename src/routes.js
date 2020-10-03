@@ -5,6 +5,9 @@ const CreateProduct = React.lazy(() => import("./views/base/forms/CreateProduct"
 const UpdateProductForm = React.lazy(() =>
   import("./views/base/forms/UpdateProductForm")
 );
+const UpdateProductVarForm = React.lazy(() =>
+  import("./views/base/forms/UpdateProductVarForm")
+);
 
 // template components
 const Toaster = React.lazy(() => import("./views/notifications/toaster/Toaster"));
@@ -62,6 +65,11 @@ const routes = [
     path: "/updateProductForm",
     name: "UpdateProductForm",
     component: UpdateProductForm,
+  },
+  {
+    path: "/updateProductVarForm",
+    name: "UpdateProductVarForm",
+    component: UpdateProductVarForm,
   },
 
   //template components
