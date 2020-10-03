@@ -100,7 +100,7 @@ const createProductVar = (req, res) => {
 };
 
 const getProductVars = (req, res) => {
-  const product_id = req.query.product_id;
+  const product_id = req.params.id;
   let page = 1;
   if ("page" in req.query) {
     page = req.query.page;

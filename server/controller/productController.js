@@ -3,6 +3,7 @@ const { getProduct, addProduct, updateProduct, deleteProduct } = require("../dat
 const { ResponseCode } = require("../constant");
 const { checkParams } = require("../utils/checkParams");
 const { mainCreate } = require("./productVarController");
+const { processProduct } = require("../utils/dbProcessData");
 
 module.exports.createProduct = (req, res) => {
   try {
@@ -46,7 +47,10 @@ module.exports.getProduct = (req, res) => {
   if ("page" in req.query) {
     page = req.query.page;
   }
-  let resultList = getProduct(product_id, page);
+  let resultList = JSON.parse(JSON.stringify(getProduct(product_id, page)));
+  resultList.forEach((result, index) => {
+    resultList[index] = processProduct(result);
+  });
   res
     .status(ResponseCode.General_success.code)
     .json(

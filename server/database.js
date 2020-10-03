@@ -12,16 +12,6 @@ const getRandomNum = (min, max, count) => {
   return [...new Set(result)];
 };
 
-const getElementByIndexArr = (array, index_arr) => {
-  let result = [];
-  array.forEach((element) => {
-    if (index_arr.includes(element.id)) {
-      result.push(element);
-    }
-  });
-  return result;
-};
-
 let userList = [
   {
     id: 1,
@@ -181,7 +171,7 @@ const generateProductVar = (count) => {
   return temp;
 };
 
-let productVarList = generateProductVar(20);
+let productVarList = generateProductVar(3);
 
 const addProductVar = (newProductVar) => {
   let productvar = { ...newProductVar, id: productVarList.length };
@@ -207,7 +197,7 @@ const getProductVar = (product_id, page_num) => {
   if (product_id === "*") {
     return productVarList.slice(10 * (page_num - 1), 10 * page_num);
   } else {
-    return getElementByIndexArr(productVarList, product_id);
+    return productVarList.filter((productVar) => productVar.id === parseInt(product_id));
   }
 };
 
@@ -340,14 +330,17 @@ module.exports = {
   updateProductVar,
   deleteProductVar,
   getProductVar,
+  productList,
   getProduct,
   addProduct,
   updateProduct,
   deleteProduct,
+  orderList,
   getOrder,
   addOrder,
   updateOrder,
   deleteOrder,
+  supplierList,
   getSupplier,
   addSupplier,
   updateSupplier,
