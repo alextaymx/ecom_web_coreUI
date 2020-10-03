@@ -7,6 +7,7 @@ const {
 } = require("../database");
 const { ResponseCode } = require("../constant");
 const { checkParams } = require("../utils/checkParams");
+const { processSupplier } = require("../utils/dbProcessData");
 module.exports.createSupplier = (req, res) => {
   try {
     if (!checkParams(["name", "products"], req.body)) {
@@ -43,7 +44,10 @@ module.exports.getSupplier = (req, res) => {
   if ("page" in req.query) {
     page = req.query.page;
   }
-  let resultList = getSupplier(supplier_id, page);
+  let resultList = JSON.parse(JSON.stringify(getSupplier(supplier_id, page)));
+  resultList.forEach((result, index) => {
+    resultList[index] = processSupplier(result);
+  });
   res
     .status(ResponseCode.General_success.code)
     .json(
