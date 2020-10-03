@@ -6,17 +6,7 @@
 #    "email": "test1", 
 #    "password": "test1"
 # }
-# POST http://localhost:3001/api/products/create_productvar
-# Content-Type: application/json
-# Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywicGFzc3dvcmQiOiIkMmIkMTAkM3kwSGxPaC9DaXlxRHZFa2RlcUltZUMvMmlIelNEc1dUMzRFVENxeXppTVJMYW9qbXF1Z2EiLCJpYXQiOjE2MDEzMjcxNzIsImV4cCI6MTYwMTMzMDc3Mn0.CI2mOaTq-NQEReNxij0P51RSyx-E_Em7f5Ey6mlxFr8
 
-# {
-#     "itemNo":2313,
-#     "retailPrice":"10",
-#     "supplyPrice":"10",
-#     "supplyRate":"5",
-#     "resale":true
-# }
 # POST http://localhost:3001/api/login
 # Content-Type: application/json
 
@@ -26,6 +16,48 @@
 # }
 
 
-GET http://localhost:3001/api/products/get/1
+# GET http://localhost:3001/api/products/get/1
+# Content-Type: application/json
+# Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywicGFzc3dvcmQiOiIkMmIkMTAkM3kwSGxPaC9DaXlxRHZFa2RlcUltZUMvMmlIelNEc1dUMzRFVENxeXppTVJMYW9qbXF1Z2EiLCJpYXQiOjE2MDE1ODQxMzksImV4cCI6MTYwMTU4NzczOX0.EVny7MxgECcbCtHR_uJFqE-KlBlN5zyKgrfS4B-KGk8
+
+POST http://localhost:3001/api/products/create_product
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywicGFzc3dvcmQiOiIkMmIkMTAkM3kwSGxPaC9DaXlxRHZFa2RlcUltZUMvMmlIelNEc1dUMzRFVENxeXppTVJMYW9qbXF1Z2EiLCJpYXQiOjE2MDE1ODQxMzksImV4cCI6MTYwMTU4NzczOX0.EVny7MxgECcbCtHR_uJFqE-KlBlN5zyKgrfS4B-KGk8
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywicGFzc3dvcmQiOiIkMmIkMTAkM3kwSGxPaC9DaXlxRHZFa2RlcUltZUMvMmlIelNEc1dUMzRFVENxeXppTVJMYW9qbXF1Z2EiLCJpYXQiOjE2MDE2NzM5MDgsImV4cCI6MTYwMTY3NzUwOH0.BhnjMiAOQ8oShYD7tIod-lK1tokPnN3A0asCPGZlkxI
+
+{
+    "masterSku":"asdsad",
+    "remarks":"asdasd",
+    "variations":[
+        {
+            "itemNo":2313,
+            "retailPrice":"10",
+            "supplyPrice":"10",
+            "supplyRate":"5",
+            "resale":true,
+            "orderType":1,
+            "orders":1,
+            "image":1,
+            "chineseTitle":"asdsad"
+        },
+        {
+            "itemNo":2314,
+        
+            "supplyPrice":"10",
+            "supplyRate":"5",
+            "resale":true,
+            "orderType":1,
+            "orders":1,
+            "image":1,
+            "chineseTitle":"asdsad"
+        }
+    ]
+}
+{"masterSKU":"A123","remarks":"wow",
+"variations":[{"itemNo":"123","title":"Cat",
+"chineseTitle":"Alibaba","image":"https://picsum.photos/200",
+"version":"v1.2","brand":"Wow","numberOfKind":"1",
+"remarks":"Faulty","package":"Node package",
+"packageSize":"Big","manufacturer":"Ecom","moq":"1",
+"ct":"2","orderBy":"12-12-2020","releaseBy":"3-3-2020",
+"orderType":"Special","orders":"a","supplier":"alex","
+retailPrice":"999","supplyPrice":"888","supplyRate":"777","resale":"false"}]} 

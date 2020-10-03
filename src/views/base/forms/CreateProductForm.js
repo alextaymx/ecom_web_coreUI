@@ -1,4 +1,5 @@
 import {
+  CAlert,
   CButton,
   CCard,
   CCardBody,
@@ -15,11 +16,16 @@ import {
   CLabel,
   CRow,
 } from "@coreui/react";
-import React from "react";
+import React, { useState } from "react";
 import { startCase } from "lodash";
 
-function CreateProductForm({ field, productOnChange, incrementStep }) {
-  // const radioInput = pick(field, "resale");
+function CreateProductForm({
+  field,
+  productOnChange,
+  incrementStep,
+  visible,
+  setVisible,
+}) {
   return (
     <>
       <CRow alignHorizontal="center">
@@ -27,6 +33,13 @@ function CreateProductForm({ field, productOnChange, incrementStep }) {
           <CCard>
             <CCardHeader>Create Product</CCardHeader>
             <CCardBody>
+              <CAlert
+                color="success"
+                show={visible}
+                closeButton
+                onShowChange={setVisible}>
+                Product created successfully! {visible}
+              </CAlert>
               <CForm action="" method="post" onSubmit={incrementStep}>
                 <CFormGroup row className="my-0">
                   {Object.keys(field).map((key, index) => {

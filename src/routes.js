@@ -1,9 +1,7 @@
 import React from "react";
-import CreateProduct from "./views/base/forms/CreateProduct";
+
 // my own components
-const CreateProductVarForm = React.lazy(() =>
-  import("./views/base/forms/CreateProductVarForm")
-);
+const CreateProduct = React.lazy(() => import("./views/base/forms/CreateProduct"));
 const UpdateProductForm = React.lazy(() =>
   import("./views/base/forms/UpdateProductForm")
 );

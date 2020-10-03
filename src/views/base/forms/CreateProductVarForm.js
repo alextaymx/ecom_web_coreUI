@@ -6,7 +6,6 @@ import {
   CCol,
   CForm,
   CFormGroup,
-  CHeader,
   CInput,
   CInputGroup,
   // CInputGroupAppend,
@@ -60,13 +59,16 @@ function CreateProductVarForm({
                     productVar,
                     "retailPrice",
                     "supplyPrice",
-                    "resale"
+                    "resale",
+                    "orderBy",
+                    "releaseBy"
                   );
                   const monetaryInputField = pick(
                     productVar,
                     "retailPrice",
                     "supplyPrice"
                   );
+                  const dateInputField = pick(productVar, "orderBy", "releaseBy");
                   return (
                     <CCard accentColor="info" key={arrIndex}>
                       <CCardHeader>{`Product Variation ${arrIndex + 1}`}</CCardHeader>
@@ -97,7 +99,7 @@ function CreateProductVarForm({
                             // console.log(key, inputField[key], index, typeof key);
                             const displayName = startCase(key);
                             return (
-                              <CCol sm="4" key={index}>
+                              <CCol sm="2" key={index}>
                                 <CFormGroup>
                                   <CLabel htmlFor={key}>{displayName}</CLabel>
                                   <CInputGroup>
@@ -119,17 +121,44 @@ function CreateProductVarForm({
                               </CCol>
                             );
                           })}
+                          {Object.keys(dateInputField).map((key, index) => {
+                            // console.log(key, inputField[key], index, typeof key);
+                            const displayName = startCase(key);
+                            return (
+                              <CCol sm="2" key={index}>
+                                <CFormGroup>
+                                  <CLabel htmlFor="date-input">{displayName}</CLabel>
 
-                          <CCol sm="4">
+                                  <CInput
+                                    type="date"
+                                    id="date-input"
+                                    name={key}
+                                    placeholder="date"
+                                    onChange={(e) => productVarOnChange(arrIndex, e)}
+                                  />
+                                </CFormGroup>
+                              </CCol>
+                            );
+                          })}
+                          {/* <CCol sm="4">
                             <CFormGroup>
                               <CLabel>Resale</CLabel>
                               <CFormGroup variant="custom-radio">
                                 <CInputRadio
                                   custom
                                   id="resale-radio-yes"
-                                  name="resale"
+                                  name={`resale${arrIndex}`}
                                   value="true"
-                                  onChange={(e) => productVarOnChange(arrIndex, e)}
+                                  onChange={(e) => {
+                                    const fakeEvent = {
+                                      target: {
+                                        name: "resale",
+                                        value: e.target.value,
+                                      },
+                                    };
+                                    console.log(arrIndex);
+                                    productVarOnChange(arrIndex, fakeEvent);
+                                  }}
                                   checked={productVar.resale === "true"}
                                 />
                                 <CLabel
@@ -142,9 +171,18 @@ function CreateProductVarForm({
                                 <CInputRadio
                                   custom
                                   id="resale-radio-no"
-                                  name="resale"
+                                  name={`resale${arrIndex}`}
                                   value="false"
-                                  onChange={(e) => productVarOnChange(arrIndex, e)}
+                                  onChange={(e) => {
+                                    const fakeEvent = {
+                                      target: {
+                                        name: "resale",
+                                        value: e.target.value,
+                                      },
+                                    };
+                                    console.log(arrIndex);
+                                    productVarOnChange(arrIndex, fakeEvent);
+                                  }}
                                   checked={productVar.resale === "false"}
                                 />
                                 <CLabel
@@ -154,7 +192,7 @@ function CreateProductVarForm({
                                 </CLabel>
                               </CFormGroup>
                             </CFormGroup>
-                          </CCol>
+                          </CCol> */}
                         </CFormGroup>
                       </CCardBody>
                     </CCard>

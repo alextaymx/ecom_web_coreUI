@@ -17,39 +17,69 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import React, { useReducer, useState } from "react";
-import { createProductVarAPI } from "../../../apiCalls/post";
+import { createProductAPI } from "../../../apiCalls/post";
 import { useSelector } from "react-redux";
 import CreateProductVarForm from "./CreateProductVarForm";
 import CreateProductForm from "./CreateProductForm";
-import { pick, omit } from "lodash";
+import { omit } from "lodash";
 import { produce } from "immer";
+import { useLocation } from "react-router-dom";
 
+// const initialState = {
+//   itemNo: "",
+//   title: "",
+//   chineseTitle: "",
+//   version: "",
+//   brand: "",
+//   numberOfKind: "",
+//   remarks: "",
+//   package: "",
+//   packageSize: "",
+//   manufacturer: "",
+//   moq: "",
+//   ct: "",
+//   orderBy: "",
+//   releaseBy: "",
+//   order: "",
+//   supplier: "",
+//   retailPrice: "",
+//   supplyPrice: "",
+//   supplyRate: "",
+//   resale: "false",
+// };
+// const initialProductState = {
+//   masterSKU: "",
+//   remarks: "",
+//   variations: [initialState],
+// };
 const initialState = {
-  itemNo: "",
-  title: "",
-  chineseTitle: "",
-  version: "",
-  brand: "",
-  numberOfKind: "",
-  remarks: "",
-  package: "",
-  packageSize: "",
-  manufacturer: "",
-  moq: "",
-  ct: "",
-  orderBy: "",
-  releaseBy: "",
-  order: "",
-  supplier: "",
-  retailPrice: "",
-  supplyPrice: "",
-  supplyRate: "",
+  itemNo: "123",
+  title: "Cat",
+  chineseTitle: "Alibaba",
+  image: "https://picsum.photos/200",
+  version: "v1.2",
+  brand: "Wow",
+  numberOfKind: "1",
+  remarks: "Faulty",
+  package: "Node package",
+  packageSize: "Big",
+  manufacturer: "Ecom",
+  moq: "1",
+  ct: "2",
+  orderBy: "2020-01-01",
+  releaseBy: "2020-01-01",
+  orderType: "Special",
+  orders: "a",
+  supplier: "alex",
+  retailPrice: "999",
+  supplyPrice: "888",
+  supplyRate: "777",
   resale: "false",
 };
 const initialProductState = {
-  masterSKU: "",
-  remarks: "",
-  productVar: [initialState],
+  masterSku: "A123",
+  remarks: "wow",
+  variations: [initialState],
 };
 
 const reducer = (state, { action, field, value, index }) => {
@@ -59,7 +89,7 @@ const reducer = (state, { action, field, value, index }) => {
     case "addVar":
       return {
         ...state,
-        productVar: [...state.productVar, initialState],
+        variations: [...state.variations, initialState],
       };
     case "product":
       return {
@@ -69,7 +99,7 @@ const reducer = (state, { action, field, value, index }) => {
     case "productVar":
       return {
         ...state,
-        productVar: produce(state.productVar, (draft) => {
+        variations: produce(state.variations, (draft) => {
           draft[index][field] = value;
         }),
       };
@@ -83,6 +113,7 @@ function CreateProduct() {
   const [state, dispatch] = useReducer(reducer, initialProductState);
   // const { itemNo, retailPrice, supplyPrice, supplyRate, resale } = state;
   const [step, setStep] = useState(1);
+  const [visible, setVisible] = useState(0);
   const incrementStep = () => {
     setStep(Math.min(step + 1, 2));
   };
@@ -107,11 +138,13 @@ function CreateProduct() {
   // console.log(state);
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(state);
-    createProductVarAPI(state, token)
+    createProductAPI(state, token)
       .then((data) => {
         console.log("returned data: ", data, state);
         dispatch({ action: "reset" });
+        setVisible(5);
+        setStep(1);
+        // window.location.reload(false);
       })
       .catch((error) => {
         if (error.response) {
@@ -128,15 +161,17 @@ function CreateProduct() {
       return (
         <CreateProductForm
           incrementStep={incrementStep}
-          field={pick(state, "masterSKU", "remarks")}
+          field={omit(state, "variations")}
           productOnChange={productOnChange}
+          visible={visible}
+          setVisible={setVisible}
         />
       );
     case 2:
       return (
         <CreateProductVarForm
           decrementStep={decrementStep}
-          fieldArr={state.productVar}
+          fieldArr={state.variations}
           productVarOnChange={productVarOnChange}
           handleFormSubmit={handleFormSubmit}
           addProductVar={addProductVar}

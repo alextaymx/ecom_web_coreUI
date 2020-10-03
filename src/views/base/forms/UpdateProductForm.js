@@ -17,7 +17,7 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import React, { useReducer } from "react";
-import { createProductVarAPI } from "../../../apiCalls/post";
+import { createProductAPI } from "../../../apiCalls/post";
 import { useSelector } from "react-redux";
 import { getProductAPI } from "../../../apiCalls/get";
 
@@ -66,7 +66,7 @@ function CreateProductVarForm() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    createProductVarAPI(state, token)
+    createProductAPI(state, token)
       .then((data) => {
         console.log("returned data: ", data, state);
         dispatch({ field: "reset" });
