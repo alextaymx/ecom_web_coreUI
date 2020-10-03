@@ -2,6 +2,9 @@ const { productVarList, supplierList, orderList, productList } = require("../dat
 const _ = require("lodash");
 
 const getElementByIndexArr = (input_list, index_arr) => {
+  if (!Array.isArray(index_arr)) {
+    return [];
+  }
   let result = [];
   input_list.forEach((element) => {
     if (index_arr.includes(element.id)) {
