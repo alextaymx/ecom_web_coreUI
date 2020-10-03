@@ -1,4 +1,5 @@
 const { productVarList, supplierList, orderList, productList } = require("../database");
+const _ = require("lodash");
 
 const getElementByIndexArr = (input_list, index_arr) => {
   let result = [];
@@ -21,7 +22,8 @@ const processProductVar = (productVar) => {
 const processProduct = (product) => {
   product.variations = getElementByIndexArr(productVarList, product.variations);
   product.variations.forEach((productVar, index) => {
-    product.variations[index] = processProductVar(productVar);
+    let temp = _.cloneDeep(product.variations[index]);
+    product.variations[index] = processProductVar(temp);
   });
   return product;
 };
@@ -29,7 +31,8 @@ const processProduct = (product) => {
 const processSupplier = (supplier) => {
   supplier.products = getElementByIndexArr(productVarList, supplier.products);
   supplier.products.forEach((productVar, index) => {
-    supplier.products[index] = processProductVar(productVar);
+    let temp = _.cloneDeep(supplier.products[index]);
+    supplier.products[index] = processProductVar(temp);
   });
   return supplier;
 };

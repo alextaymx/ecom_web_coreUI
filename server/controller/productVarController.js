@@ -7,6 +7,8 @@ const {
 } = require("../database");
 const { ResponseCode } = require("../constant");
 const { checkParams } = require("../utils/checkParams");
+const _ = require("lodash");
+const { processProductVar } = require("../utils/dbProcessData");
 
 const mainCreate = (obj) => {
   if (
@@ -105,7 +107,10 @@ const getProductVars = (req, res) => {
   if ("page" in req.query) {
     page = req.query.page;
   }
-  let resultList = getProductVar(product_id, page);
+  let resultList = _.cloneDeep(getProductVar(product_id, page));
+  resultList.forEach((productVar, index) => {
+    resultList[index] = processProductVar(productVar);
+  });
   res
     .status(ResponseCode.General_success.code)
     .json(

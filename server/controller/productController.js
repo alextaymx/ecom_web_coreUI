@@ -4,6 +4,7 @@ const { ResponseCode } = require("../constant");
 const { checkParams } = require("../utils/checkParams");
 const { mainCreate } = require("./productVarController");
 const { processProduct } = require("../utils/dbProcessData");
+const _ = require("lodash");
 
 module.exports.createProduct = (req, res) => {
   try {
@@ -47,9 +48,9 @@ module.exports.getProduct = (req, res) => {
   if ("page" in req.query) {
     page = req.query.page;
   }
-  let resultList = JSON.parse(JSON.stringify(getProduct(product_id, page)));
+  let resultList = _.cloneDeep(getProduct(product_id, page));
   resultList.forEach((result, index) => {
-    resultList[index] = processProduct(result);
+    resultList = processProduct(result);
   });
   res
     .status(ResponseCode.General_success.code)
