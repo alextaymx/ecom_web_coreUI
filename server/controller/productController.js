@@ -4,7 +4,7 @@ const {
   addProduct,
   updateProduct,
   deleteProduct,
-  getLengthOfTable,
+  getTableInfo,
 } = require("../database");
 const { ResponseCode } = require("../constant");
 const { checkParams } = require("../utils/checkParams");
@@ -59,16 +59,14 @@ module.exports.getProduct = (req, res) => {
     resultList.forEach((result, index) => {
       resultList[index] = processProduct(result);
     });
+    const tableInfo = getTableInfo("product");
     res.status(ResponseCode.General_success.code).json(
       createResponse(
         {
           resultList: resultList,
-          totalProducts: getLengthOfTable("product"),
+          totalProducts: tableInfo.size,
           currentPage: page,
-          totalPage:
-            getLengthOfTable("product") % 10 != 0
-              ? parseInt(getLengthOfTable("product") / 10) + 1
-              : getLengthOfTable("product") / 10,
+          totalPage: tableInfo.totalPages,
         },
         resultList.length > 0 ? ResponseCode.General_success.msg : "No content"
       )

@@ -16,9 +16,10 @@ const getElementByIndexArr = (input_list, index_arr) => {
 
 const processProductVar = (productVar) => {
   productVar.orders = getElementByIndexArr(orderList, productVar.orders);
-  productVar.supplier = productVar.supplier
-    ? getElementByIndexArr(supplierList, [productVar.supplier])[0]
-    : null;
+  productVar.supplier =
+    productVar.supplier != null
+      ? getElementByIndexArr(supplierList, [productVar.supplier])[0]
+      : null;
   return productVar;
 };
 
