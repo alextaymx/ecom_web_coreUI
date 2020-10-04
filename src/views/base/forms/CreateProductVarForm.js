@@ -15,7 +15,7 @@ import {
   CLabel,
   CRow,
 } from "@coreui/react";
-import CIcon from "@coreui/icons-react";
+// import CIcon from "@coreui/icons-react";
 import React from "react";
 // import { createProductVarAPI } from "../../../apiCalls/post";
 // import { useSelector } from "react-redux";
@@ -99,7 +99,7 @@ function CreateProductVarForm({
                             // console.log(key, inputField[key], index, typeof key);
                             const displayName = startCase(key);
                             return (
-                              <CCol sm="2" key={index}>
+                              <CCol sm="4" key={index}>
                                 <CFormGroup>
                                   <CLabel htmlFor={key}>{displayName}</CLabel>
                                   <CInputGroup>
@@ -125,7 +125,7 @@ function CreateProductVarForm({
                             // console.log(key, inputField[key], index, typeof key);
                             const displayName = startCase(key);
                             return (
-                              <CCol sm="2" key={index}>
+                              <CCol sm="4" key={index}>
                                 <CFormGroup>
                                   <CLabel htmlFor="date-input">{displayName}</CLabel>
 
@@ -134,6 +134,7 @@ function CreateProductVarForm({
                                     id="date-input"
                                     name={key}
                                     placeholder="date"
+                                    value={dateInputField[key]}
                                     onChange={(e) => productVarOnChange(arrIndex, e)}
                                   />
                                 </CFormGroup>

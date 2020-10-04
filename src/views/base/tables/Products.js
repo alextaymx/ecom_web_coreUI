@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   CBadge,
   CCard,
@@ -14,8 +14,12 @@ import {
 } from "@coreui/react";
 // import usersData from "../../users/UsersData";
 import CIcon from "@coreui/icons-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProductAPI } from "../../../apiCalls/get";
+import { deleteProductAPI, deleteProductVarAPI } from "../../../apiCalls/post";
+import produce from "immer";
+import { onLogoutv2 } from "../../../apiCalls/auth";
+import { pick } from "lodash";
 // import { findLastIndex } from "lodash";
 
 const productVarFields = [
@@ -49,7 +53,7 @@ const fields = [
   { key: "createdBy", _style: { width: "14%" } },
   {
     key: "operations",
-    label: "",
+    label: "Operations",
     _style: { width: "11%" },
     sorter: false,
     filter: false,
@@ -84,67 +88,92 @@ const getBadge = (status) => {
 const Products = () => {
   const token = useSelector((state) => state.userInfo.user.token);
   const [productData, setProductData] = useState([]);
-
-  // useEffect(() => {
-  //   getProductAPI(token)
-  //     .then(({ data }) => {
-  //       setProductData(data.resultList);
-  //       // console.log("returned data: ", [data.resultList]);
-  //     })
-  //     .catch((error) => {
-  //       if (error.response) {
-  //         // console.error("err response", error.response); // client received an error response (5xx, 4xx)
-  //       } else if (error.request) {
-  //         // console.error("err req", error.request); // client never received a response, or request never left
-  //       } else {
-  //         // anything else // console.error("There was an error!", error);
-  //       }
-  //     });
-  //   return () => {};
-  // }, []);
-  const getEntireProductList = async (pageNo = 1) => {
-    const { data } = await getProductAPI(token, pageNo);
-    const results = data.resultList;
-    console.log(results);
-    console.log("Retreiving data from API for page : " + pageNo);
-    if (results.length > 0) {
-      return results.concat(await getEntireProductList(pageNo + 1));
-    } else {
-      return results;
-    }
-  };
-  useEffect(() => {
-    const entireList = async () => {
-      const entireList = await getEntireProductList();
-      console.log(entireList);
-      setProductData(entireList);
-    };
-    entireList();
-    return () => {};
-  }, []);
-
-  const [details, setDetails] = useState([]);
+  const [dropdowns, setDropdowns] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [fetchTrigger, setFetchTrigger] = useState(0);
   let history = useHistory();
-  // const [items, setItems] = useState(usersData)
+  const dispatch = useDispatch();
 
-  const toggleDetails = (index) => {
-    const position = details.indexOf(index);
-    let newDetails = details.slice();
+  useEffect(() => {
+    setLoading(true);
+    getProductAPI(token, currentPage)
+      .then(({ data }) => {
+        setProductData(data.resultList);
+        setTotalPages(data.totalPage);
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          onLogoutv2(dispatch);
+          // console.error("err response", error.response); // client received an error response (5xx, 4xx)
+        } else if (error.request) {
+          // console.error("err req", error.request); // client never received a response, or request never left
+        } else {
+          // anything else // console.error("There was an error!", error);
+        }
+        setTimeout(() => {
+          setFetchTrigger(fetchTrigger + 1);
+        }, 2000);
+      });
+  }, [dispatch, token, currentPage, fetchTrigger]);
+
+  const toggleDropdown = (index) => {
+    const position = dropdowns.indexOf(index);
+    let newDetails = dropdowns.slice();
     if (position !== -1) {
       newDetails.splice(position, 1);
     } else {
-      newDetails = [...details, index];
+      newDetails = [...dropdowns, index];
     }
-    setDetails(newDetails);
+    setDropdowns(newDetails);
   };
-
+  const handleEditProduct = (item) => {
+    // console.log(item);
+    const productFields = pick(item, "id", "masterSku", "remarks");
+    history.push({
+      pathname: "/updateProductForm",
+      // search: "?query=abc",
+      state: productFields,
+    });
+  };
   const handleEditProductVar = (varItem) => {
-    console.log(varItem);
+    // console.log(varItem);
     history.push({
       pathname: "/updateProductVarForm",
       // search: "?query=abc",
       state: varItem,
     });
+  };
+  const handleDeleteProduct = ({ id }, index) => {
+    deleteProductAPI({ product_id: id }, token)
+      .then((data) => {
+        console.log(productData);
+        setProductData(
+          produce(productData, (draft) => {
+            draft.splice(index, 1);
+            // delete draft[index];
+          })
+        );
+        // console.log("returned data: ", [data.resultList]);
+      })
+      .catch((error) => {});
+  };
+  const handleDeleteProductVar = ({ id }, varIndex, index) => {
+    deleteProductVarAPI({ product_id: id }, token)
+      .then((data) => {
+        // console.log(productData[index].variations[varIndex]);
+        setProductData(
+          produce(productData, (draft) => {
+            draft[index].variations.splice(varIndex, 1);
+            // delete draft[index].variations[varIndex];
+          })
+        );
+        // console.log("returned data: ", [data.resultList]);
+      })
+      .catch((error) => {});
   };
 
   return (
@@ -157,22 +186,33 @@ const Products = () => {
               <CDataTable
                 items={productData}
                 fields={fields}
+                loading={loading}
+                hover
+                cleaner
                 // hover
                 // striped
-                bordered
-                itemsPerPage={5}
-                pagination
+                // outlined
+                // border
+                responsive
+                // pagination
                 tableFilter
                 columnFilter
-                itemsPerPageSelect
                 sorter
-                onPageChange={(page) => console.log(page)}
+                // onRowClick={(item, index) => {
+                //   toggleDropdown(index);
+                // }}
+                // onPageChange={(page) => console.log(page)}
+                // itemsPerPageSelect
+                itemsPerPageSelect={{ external: true }}
+                itemsPerPage={itemsPerPage}
+                onPaginationChange={setItemsPerPage}
                 scopedSlots={{
                   remarks: (item) => (
                     <td>
-                      <CBadge color={getBadge(item.remarks)}>
-                        {item.status == null ? "No remark" : item.status}
-                      </CBadge>
+                      {item.remarks ? item.remarks : "No remark"}
+                      {/* <CBadge color={getBadge(item.remarks)}>
+                        {item.remarks == null ? "No remark" : item.remarks}
+                      </CBadge> */}
                     </td>
                   ),
                   operations: (item, index) => {
@@ -185,7 +225,7 @@ const Products = () => {
                           shape="pill"
                           size="sm"
                           onClick={() => {
-                            toggleDetails(index);
+                            handleEditProduct(item, index);
                           }}>
                           <CIcon name="cil-pencil" />
                         </CButton>
@@ -196,7 +236,7 @@ const Products = () => {
                           shape="pill"
                           size="sm"
                           onClick={() => {
-                            toggleDetails(index);
+                            handleDeleteProduct(item, index);
                           }}>
                           <CIcon name="cil-trash" />
                         </CButton>
@@ -210,9 +250,9 @@ const Products = () => {
                           shape="pill"
                           size="sm"
                           onClick={() => {
-                            toggleDetails(index);
+                            toggleDropdown(index);
                           }}>
-                          {details.includes(index) ? (
+                          {dropdowns.includes(index) ? (
                             <CIcon name="cil-chevron-bottom" />
                           ) : (
                             <CIcon name="cil-chevron-right" />
@@ -224,8 +264,8 @@ const Products = () => {
                   details: (item, index) => {
                     // console.log(item);
                     return (
-                      <CCollapse show={details.includes(index)}>
-                        <CCard borderColor="info" className="my-3">
+                      <CCollapse show={dropdowns.includes(index)}>
+                        <CCard borderColor="info" className="m-3">
                           <CCardHeader>Product variations</CCardHeader>
                           <CCardBody>
                             {/* <h4>{item.masterSku}</h4>
@@ -239,11 +279,14 @@ const Products = () => {
                             <CDataTable
                               items={item.variations}
                               fields={productVarFields}
-                              hover
-                              striped
-                              bordered
+                              // hover
+                              // striped
+                              // outlined
+                              sorter
+                              border
                               size="sm"
-                              itemsPerPage={10}
+                              itemsPerPage={5}
+                              // addTableClasses="table-light"
                               pagination
                               // clickableRows
                               // onRowClick={(varItem, varIndex) => {
@@ -251,6 +294,9 @@ const Products = () => {
                               //   history.push(`/users/${varItem.id}`);
                               // }}
                               scopedSlots={{
+                                supplier: (varItem) => {
+                                  return <td>{varItem.supplier.name}</td>;
+                                },
                                 resale: (varItem) => {
                                   return (
                                     <td>
@@ -279,7 +325,11 @@ const Products = () => {
                                         shape="pill"
                                         size="sm"
                                         onClick={() => {
-                                          toggleDetails(varindex);
+                                          handleDeleteProductVar(
+                                            varItem,
+                                            varindex,
+                                            index
+                                          );
                                         }}>
                                         <CIcon name="cil-trash" />
                                       </CButton>
@@ -295,37 +345,18 @@ const Products = () => {
                   },
                 }}
               />
-            </CCardBody>
-          </CCard>
-        </CCol>
-      </CRow>
-
-      {/* <CRow>
-        <CCol>
-          <CCard>
-            <CCardHeader>Combined All Table</CCardHeader>
-            <CCardBody>
-              <CDataTable
-                items={usersData}
-                fields={oldfields}
-                hover
-                striped
-                bordered
-                size="sm"
-                itemsPerPage={10}
-                pagination
-                scopedSlots={{
-                  status: (item) => (
-                    <td>
-                      <CBadge color={getBadge(item.status)}>{item.status}</CBadge>
-                    </td>
-                  ),
-                }}
+              <CPagination
+                pages={totalPages}
+                activePage={currentPage}
+                onActivePageChange={setCurrentPage}
+                // arrows={totalPages < 5 && false}
+                // doubleArrows={totalPages < 5 && false}
+                className={totalPages < 2 ? "d-none" : ""}
               />
             </CCardBody>
           </CCard>
         </CCol>
-      </CRow> */}
+      </CRow>
     </>
   );
 };

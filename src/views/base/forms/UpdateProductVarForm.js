@@ -15,14 +15,14 @@ import {
   CLabel,
   CRow,
 } from "@coreui/react";
-import CIcon from "@coreui/icons-react";
+// import CIcon from "@coreui/icons-react";
 import React, { useReducer } from "react";
 // import { createProductVarAPI } from "../../../apiCalls/post";
 // import { useSelector } from "react-redux";
 import { startCase, pick, omit } from "lodash";
 import { Redirect, useHistory, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import produce from "immer";
+// import produce from "immer";
 import _ from "lodash";
 import { updateProductVarAPI } from "../../../apiCalls/post";
 // const initialState = {
@@ -99,7 +99,8 @@ function UpdateProductVarForm() {
     "resale",
     "orderBy",
     "releaseBy",
-    "orders"
+    "orders",
+    "suppliers"
   );
   const monetaryInputField = pick(state, "retailPrice", "supplyPrice");
   const dateInputField = pick(state, "orderBy", "releaseBy");
@@ -183,26 +184,21 @@ function UpdateProductVarForm() {
                               </CCol>
                             );
                           })}
-                          {/* <CCol sm="4">
+                          <CCol sm="4">
                             <CFormGroup>
                               <CLabel>Resale</CLabel>
                               <CFormGroup variant="custom-radio">
                                 <CInputRadio
                                   custom
                                   id="resale-radio-yes"
-                                  name={`resale${arrIndex}`}
+                                  name={`resale`}
                                   value="true"
                                   onChange={(e) => {
-                                    const fakeEvent = {
-                                      target: {
-                                        name: "resale",
-                                        value: e.target.value,
-                                      },
-                                    };
-                                    console.log(arrIndex);
-                                    productVarOnChange(arrIndex, fakeEvent);
+                                    productVarOnChange(e);
                                   }}
-                                  checked={productVar.resale === "true"}
+                                  checked={
+                                    state.resale === true || state.resale === "true"
+                                  }
                                 />
                                 <CLabel
                                   variant="custom-checkbox"
@@ -214,19 +210,14 @@ function UpdateProductVarForm() {
                                 <CInputRadio
                                   custom
                                   id="resale-radio-no"
-                                  name={`resale${arrIndex}`}
+                                  name={`resale`}
                                   value="false"
                                   onChange={(e) => {
-                                    const fakeEvent = {
-                                      target: {
-                                        name: "resale",
-                                        value: e.target.value,
-                                      },
-                                    };
-                                    console.log(arrIndex);
-                                    productVarOnChange(arrIndex, fakeEvent);
+                                    productVarOnChange(e);
                                   }}
-                                  checked={productVar.resale === "false"}
+                                  checked={
+                                    state.resale === false || state.resale === "false"
+                                  }
                                 />
                                 <CLabel
                                   variant="custom-checkbox"
@@ -235,7 +226,7 @@ function UpdateProductVarForm() {
                                 </CLabel>
                               </CFormGroup>
                             </CFormGroup>
-                          </CCol> */}
+                          </CCol>
                         </CFormGroup>
                       </CCardBody>
                     </CCard>
