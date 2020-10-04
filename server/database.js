@@ -11,19 +11,26 @@ const getRandomNum = (min, max, count) => {
   }
   return [...new Set(result)];
 };
-const getLengthOfTable = (table) => {
+const getTableInfo = (table) => {
+  let size = 0;
   switch (table) {
     case "productVar":
-      return productVarList.length;
+      size = productVarList.length;
+      break;
     case "product":
-      return productList.length;
+      size = productList.length;
+      break;
     case "supplier":
-      return supplierList.length;
+      size = supplierList.length;
+      break;
     case "order":
-      return orderList.length;
+      size = orderList.length;
+      break;
     default:
-      return 0;
+      return {};
   }
+  const totalPages = size % 10 !== 0 ? size / 10 + 1 : size / 10;
+  return { size, totalPages };
 };
 
 let userList = [
@@ -280,8 +287,10 @@ const generateSupplier = (count) => {
       website: faker.internet.url(),
       createdAt: faker.date.past(),
       updatedAt: faker.date.past(),
-      products: getRandomNum(0, productVarList.length, 2),
+      products: [i * 2, i * 2 + 1],
     });
+    productVarList[i * 2].supplier = i;
+    productVarList[i * 2 + 1].supplier = i;
   }
   return temp;
 };
@@ -365,5 +374,5 @@ module.exports = {
   addSupplier,
   updateSupplier,
   deleteSupplier,
-  getLengthOfTable,
+  getTableInfo,
 };
