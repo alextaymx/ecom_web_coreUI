@@ -29,7 +29,7 @@ const getTableInfo = (table) => {
     default:
       return {};
   }
-  const totalPages = size % 10 !== 0 ? size / 10 + 1 : size / 10;
+  const totalPages = size % 10 !== 0 ? parseInt(size / 10) + 1 : parseInt(size / 10);
   return { size, totalPages };
 };
 
