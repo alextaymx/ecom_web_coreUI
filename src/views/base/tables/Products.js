@@ -295,7 +295,11 @@ const Products = () => {
                               // }}
                               scopedSlots={{
                                 supplier: (varItem) => {
-                                  return <td>{varItem.supplier.name}</td>;
+                                  return (
+                                    <td>
+                                      {varItem.supplier ? varItem.supplier.name : ""}
+                                    </td>
+                                  );
                                 },
                                 resale: (varItem) => {
                                   return (

@@ -40,7 +40,7 @@ const TheSidebar = () => {
       <CSidebarNav>
         <CCreateElement
           items={
-            process.env.NODE_ENV === "production" ? navigation : productionNavigation
+            process.env.NODE_ENV === "production" ? productionNavigation : navigation
           }
           components={{
             CSidebarNavDivider,
