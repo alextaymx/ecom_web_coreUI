@@ -27,6 +27,7 @@ import {
   cibPaypal,
   cibGooglePay,
   cibCcAmex,
+  cibEventbrite,
 } from "@coreui/icons";
 import { cifUs, cifBr, cifIn, cifFr, cifEs, cifPl } from "@coreui/icons";
 import {
@@ -234,6 +235,7 @@ export const icons = Object.assign(
     cifPl,
   },
   {
+    cibEventbrite,
     cibSkype,
     cibFacebook,
     cibTwitter,

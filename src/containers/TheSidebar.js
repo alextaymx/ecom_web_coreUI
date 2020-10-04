@@ -15,6 +15,7 @@ import CIcon from "@coreui/icons-react";
 
 // sidebar nav config
 import navigation from "./_nav";
+import productionNavigation from "./_productionNav";
 
 const TheSidebar = () => {
   const dispatch = useDispatch();
@@ -27,10 +28,20 @@ const TheSidebar = () => {
       <CSidebarBrand className="d-md-down-none" to="/">
         <CIcon className="c-sidebar-brand-full" name="logo-negative" height={35} />
         <CIcon className="c-sidebar-brand-minimized" name="sygnet" height={35} />
+        {/* <CIcon className="c-sidebar-brand-full" name="cib-Eventbrite" height={35} />
+        <h1 className="c-sidebar-brand-full" height={35}>
+          com
+        </h1>
+        <h2 className="c-sidebar-brand-full" height={35}>
+          Web
+        </h2> */}
+        <CIcon className="c-sidebar-brand-minimized" name="cib-Eventbrite" height={35} />
       </CSidebarBrand>
       <CSidebarNav>
         <CCreateElement
-          items={navigation}
+          items={
+            process.env.NODE_ENV === "production" ? navigation : productionNavigation
+          }
           components={{
             CSidebarNavDivider,
             CSidebarNavDropdown,

@@ -5,6 +5,7 @@ import CIcon from "@coreui/icons-react";
 import usersData from "./UsersData";
 
 const User = ({ match }) => {
+  console.log(match);
   const user = usersData.find((user) => user.id.toString() === match.params.id);
   const userDetails = user
     ? Object.entries(user)

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   CBadge,
   CCard,
@@ -12,70 +12,15 @@ import {
   CButton,
   CCollapse,
 } from "@coreui/react";
-import usersData from "../../users/UsersData";
+// import usersData from "../../users/UsersData";
 import CIcon from "@coreui/icons-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProductAPI } from "../../../apiCalls/get";
-import { findLastIndex } from "lodash";
-
-const productVarData = [
-  {
-    id: 1,
-    itemNo: 93443,
-    title: "Unbranded Steel Bacon",
-    chineseTitle: "Fantastic Cotton Chicken",
-    image: "http://placeimg.com/640/480/animals",
-    version: "v1.2.5",
-    brand: "Bugatti",
-    numberOfKind: 55412,
-    remarks:
-      "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive",
-    package: null,
-    packageSize: null,
-    manufacturer: "Dooley LLC",
-    moq: null,
-    ct: null,
-    retailPrice: "709.00",
-    supplyPrice: "379.00",
-    supplyRate: 0,
-    orderType: 1,
-    orderBy: "2020-01-03T03:16:28.533Z",
-    releaseBy: "2021-08-06T15:30:00.032Z",
-    resale: false,
-    createdAt: "2020-06-24T23:55:37.610Z",
-    updatedAt: "2020-07-27T22:18:10.586Z",
-    orders: [5, 3],
-    supplier: null,
-  },
-  {
-    id: 2,
-    itemNo: 69197,
-    title: "Refined Metal Ball",
-    chineseTitle: "Fantastic Concrete Towels",
-    image: "http://placeimg.com/640/480/animals",
-    version: "v1.2.5",
-    brand: "Land Rover",
-    numberOfKind: 54195,
-    remarks:
-      "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
-    package: null,
-    packageSize: null,
-    manufacturer: "Dicki - Murazik",
-    moq: null,
-    ct: null,
-    retailPrice: "184.00",
-    supplyPrice: "958.00",
-    supplyRate: 0,
-    orderType: 1,
-    orderBy: "2020-06-27T02:05:54.808Z",
-    releaseBy: "2021-08-25T15:22:00.790Z",
-    resale: true,
-    createdAt: "2020-05-21T04:48:44.935Z",
-    updatedAt: "2019-11-16T16:52:52.050Z",
-    orders: [0, 8, 15],
-    supplier: null,
-  },
-];
+import { deleteProductAPI, deleteProductVarAPI } from "../../../apiCalls/post";
+import produce from "immer";
+import { onLogoutv2 } from "../../../apiCalls/auth";
+import { pick } from "lodash";
+// import { findLastIndex } from "lodash";
 
 const productVarFields = [
   "itemNo",
@@ -92,20 +37,6 @@ const productVarFields = [
     sorter: false,
     filter: false,
   },
-  // {
-  //   key: "edit_product",
-  //   label: "",
-  //   _style: { width: "1%" },
-  //   sorter: false,
-  //   filter: false,
-  // },
-  // {
-  //   key: "delete_product",
-  //   label: "",
-  //   _style: { width: "1%" },
-  //   sorter: false,
-  //   filter: false,
-  // },
 ];
 
 const fields = [
@@ -122,7 +53,7 @@ const fields = [
   { key: "createdBy", _style: { width: "14%" } },
   {
     key: "operations",
-    label: "",
+    label: "Operations",
     _style: { width: "11%" },
     sorter: false,
     filter: false,
@@ -142,53 +73,107 @@ const fields = [
   //   filter: false,
   // },
 ];
+const getBadge = (status) => {
+  switch (status) {
+    case null:
+      return "secondary";
+    case true:
+      return "success";
+    case false:
+      return "danger";
+    default:
+      return "primary";
+  }
+};
 const Products = () => {
   const token = useSelector((state) => state.userInfo.user.token);
   const [productData, setProductData] = useState([]);
+  const [dropdowns, setDropdowns] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [fetchTrigger, setFetchTrigger] = useState(0);
+  let history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getProductAPI(token)
+    setLoading(true);
+    getProductAPI(token, currentPage)
       .then(({ data }) => {
         setProductData(data.resultList);
-        console.log("returned data: ", data.resultList);
+        setTotalPages(data.totalPage);
+        setLoading(false);
       })
       .catch((error) => {
         if (error.response) {
+          onLogoutv2(dispatch);
           // console.error("err response", error.response); // client received an error response (5xx, 4xx)
         } else if (error.request) {
           // console.error("err req", error.request); // client never received a response, or request never left
         } else {
           // anything else // console.error("There was an error!", error);
         }
+        setTimeout(() => {
+          setFetchTrigger(fetchTrigger + 1);
+        }, 2000);
       });
-    return () => {};
-  }, []);
+  }, [dispatch, token, currentPage, fetchTrigger]);
 
-  const [details, setDetails] = useState([]);
-  // const [items, setItems] = useState(usersData)
-
-  const toggleDetails = (index) => {
-    const position = details.indexOf(index);
-    let newDetails = details.slice();
+  const toggleDropdown = (index) => {
+    const position = dropdowns.indexOf(index);
+    let newDetails = dropdowns.slice();
     if (position !== -1) {
       newDetails.splice(position, 1);
     } else {
-      newDetails = [...details, index];
+      newDetails = [...dropdowns, index];
     }
-    setDetails(newDetails);
+    setDropdowns(newDetails);
   };
-
-  const getBadge = (status) => {
-    switch (status) {
-      case null:
-        return "secondary";
-      case true:
-        return "success";
-      case false:
-        return "danger";
-      default:
-        return "primary";
-    }
+  const handleEditProduct = (item) => {
+    // console.log(item);
+    const productFields = pick(item, "id", "masterSku", "remarks");
+    history.push({
+      pathname: "/updateProductForm",
+      // search: "?query=abc",
+      state: productFields,
+    });
+  };
+  const handleEditProductVar = (varItem) => {
+    // console.log(varItem);
+    history.push({
+      pathname: "/updateProductVarForm",
+      // search: "?query=abc",
+      state: varItem,
+    });
+  };
+  const handleDeleteProduct = ({ id }, index) => {
+    deleteProductAPI({ product_id: id }, token)
+      .then((data) => {
+        console.log(productData);
+        setProductData(
+          produce(productData, (draft) => {
+            draft.splice(index, 1);
+            // delete draft[index];
+          })
+        );
+        // console.log("returned data: ", [data.resultList]);
+      })
+      .catch((error) => {});
+  };
+  const handleDeleteProductVar = ({ id }, varIndex, index) => {
+    deleteProductVarAPI({ product_id: id }, token)
+      .then((data) => {
+        // console.log(productData[index].variations[varIndex]);
+        setProductData(
+          produce(productData, (draft) => {
+            draft[index].variations.splice(varIndex, 1);
+            // delete draft[index].variations[varIndex];
+          })
+        );
+        // console.log("returned data: ", [data.resultList]);
+      })
+      .catch((error) => {});
   };
 
   return (
@@ -201,22 +186,33 @@ const Products = () => {
               <CDataTable
                 items={productData}
                 fields={fields}
+                loading={loading}
+                hover
+                cleaner
                 // hover
                 // striped
-                bordered
-                itemsPerPage={5}
-                pagination
+                // outlined
+                // border
+                responsive
+                // pagination
                 tableFilter
                 columnFilter
-                itemsPerPageSelect
                 sorter
-                onPageChange={(page) => console.log(page)}
+                // onRowClick={(item, index) => {
+                //   toggleDropdown(index);
+                // }}
+                // onPageChange={(page) => console.log(page)}
+                // itemsPerPageSelect
+                itemsPerPageSelect={{ external: true }}
+                itemsPerPage={itemsPerPage}
+                onPaginationChange={setItemsPerPage}
                 scopedSlots={{
                   remarks: (item) => (
                     <td>
-                      <CBadge color={getBadge(item.remarks)}>
-                        {item.status == null ? "No remark" : item.status}
-                      </CBadge>
+                      {item.remarks ? item.remarks : "No remark"}
+                      {/* <CBadge color={getBadge(item.remarks)}>
+                        {item.remarks == null ? "No remark" : item.remarks}
+                      </CBadge> */}
                     </td>
                   ),
                   operations: (item, index) => {
@@ -229,7 +225,7 @@ const Products = () => {
                           shape="pill"
                           size="sm"
                           onClick={() => {
-                            toggleDetails(index);
+                            handleEditProduct(item, index);
                           }}>
                           <CIcon name="cil-pencil" />
                         </CButton>
@@ -240,29 +236,13 @@ const Products = () => {
                           shape="pill"
                           size="sm"
                           onClick={() => {
-                            toggleDetails(index);
+                            handleDeleteProduct(item, index);
                           }}>
                           <CIcon name="cil-trash" />
                         </CButton>
                       </td>
                     );
                   },
-                  // delete_product: (item, index) => {
-                  //   return (
-                  //     <td className="py-2">
-                  //       <CButton
-                  //         color="danger"
-                  //         variant="ghost"
-                  //         shape="pill"
-                  //         size="sm"
-                  //         onClick={() => {
-                  //           toggleDetails(index);
-                  //         }}>
-                  //         <CIcon name="cil-trash" />
-                  //       </CButton>
-                  //     </td>
-                  //   );
-                  // },
                   show_details: (item, index) => {
                     return (
                       <td className="py-2">
@@ -270,9 +250,9 @@ const Products = () => {
                           shape="pill"
                           size="sm"
                           onClick={() => {
-                            toggleDetails(index);
+                            toggleDropdown(index);
                           }}>
-                          {details.includes(index) ? (
+                          {dropdowns.includes(index) ? (
                             <CIcon name="cil-chevron-bottom" />
                           ) : (
                             <CIcon name="cil-chevron-right" />
@@ -284,10 +264,11 @@ const Products = () => {
                   details: (item, index) => {
                     // console.log(item);
                     return (
-                      <CCollapse show={details.includes(index)}>
-                        <CCardBody>
-                          <h6>Product variations</h6>
-                          {/* <h4>{item.masterSku}</h4>
+                      <CCollapse show={dropdowns.includes(index)}>
+                        <CCard borderColor="info" className="m-3">
+                          <CCardHeader>Product variations</CCardHeader>
+                          <CCardBody>
+                            {/* <h4>{item.masterSku}</h4>
                           <p className="text-muted">User since: {item.registered}</p>
                           <CButton size="sm" color="info">
                             User Settings
@@ -295,106 +276,87 @@ const Products = () => {
                           <CButton size="sm" color="danger" className="ml-1">
                             Delete
                           </CButton> */}
-                          <CDataTable
-                            items={productVarData}
-                            fields={productVarFields}
-                            hover
-                            striped
-                            bordered
-                            size="sm"
-                            itemsPerPage={10}
-                            pagination
-                            scopedSlots={{
-                              resale: (item) => {
-                                return (
-                                  <td>
-                                    <CBadge color={getBadge(item.resale)}>
-                                      {item.resale == true ? "true" : "false"}
-                                    </CBadge>
-                                  </td>
-                                );
-                              },
-                              operations: (item, index) => {
-                                return (
-                                  <td className="py-2">
-                                    <CButton
-                                      color="info"
-                                      variant="ghost"
-                                      shape="pill"
-                                      size="sm"
-                                      onClick={() => {
-                                        toggleDetails(index);
-                                      }}>
-                                      <CIcon name="cil-pencil" />
-                                    </CButton>
-                                    <CButton
-                                      color="danger"
-                                      variant="ghost"
-                                      shape="pill"
-                                      size="sm"
-                                      onClick={() => {
-                                        toggleDetails(index);
-                                      }}>
-                                      <CIcon name="cil-trash" />
-                                    </CButton>
-                                  </td>
-                                );
-                              },
-                              // delete_product: (item, index) => {
-                              //   return (
-                              //     <td className="py-2">
-                              //       <CButton
-                              //         color="danger"
-                              //         variant="ghost"
-                              //         shape="pill"
-                              //         size="sm"
-                              //         onClick={() => {
-                              //           toggleDetails(index);
-                              //         }}>
-                              //         <CIcon name="cil-trash" />
-                              //       </CButton>
-                              //     </td>
-                              //   );
-                              // },
-                            }}
-                          />
-                        </CCardBody>
+                            <CDataTable
+                              items={item.variations}
+                              fields={productVarFields}
+                              // hover
+                              // striped
+                              // outlined
+                              sorter
+                              border
+                              size="sm"
+                              itemsPerPage={5}
+                              // addTableClasses="table-light"
+                              pagination
+                              // clickableRows
+                              // onRowClick={(varItem, varIndex) => {
+                              //   console.log("special", item, index, varItem, varIndex);
+                              //   history.push(`/users/${varItem.id}`);
+                              // }}
+                              scopedSlots={{
+                                supplier: (varItem) => {
+                                  return <td>{varItem.supplier.name}</td>;
+                                },
+                                resale: (varItem) => {
+                                  return (
+                                    <td>
+                                      <CBadge color={getBadge(varItem.resale)}>
+                                        {varItem.resale === true ? "true" : "false"}
+                                      </CBadge>
+                                    </td>
+                                  );
+                                },
+                                operations: (varItem, varindex) => {
+                                  return (
+                                    <td className="py-2">
+                                      <CButton
+                                        color="info"
+                                        variant="ghost"
+                                        shape="pill"
+                                        size="sm"
+                                        onClick={() => {
+                                          handleEditProductVar(varItem);
+                                        }}>
+                                        <CIcon name="cil-pencil" />
+                                      </CButton>
+                                      <CButton
+                                        color="danger"
+                                        variant="ghost"
+                                        shape="pill"
+                                        size="sm"
+                                        onClick={() => {
+                                          handleDeleteProductVar(
+                                            varItem,
+                                            varindex,
+                                            index
+                                          );
+                                        }}>
+                                        <CIcon name="cil-trash" />
+                                      </CButton>
+                                    </td>
+                                  );
+                                },
+                              }}
+                            />
+                          </CCardBody>
+                        </CCard>
                       </CCollapse>
                     );
                   },
                 }}
               />
-            </CCardBody>
-          </CCard>
-        </CCol>
-      </CRow>
-
-      {/* <CRow>
-        <CCol>
-          <CCard>
-            <CCardHeader>Combined All Table</CCardHeader>
-            <CCardBody>
-              <CDataTable
-                items={usersData}
-                fields={oldfields}
-                hover
-                striped
-                bordered
-                size="sm"
-                itemsPerPage={10}
-                pagination
-                scopedSlots={{
-                  status: (item) => (
-                    <td>
-                      <CBadge color={getBadge(item.status)}>{item.status}</CBadge>
-                    </td>
-                  ),
-                }}
+              <CPagination
+                pages={totalPages}
+                activePage={currentPage}
+                onActivePageChange={setCurrentPage}
+                // arrows={totalPages < 5 && false}
+                // doubleArrows={totalPages < 5 && false}
+                className={totalPages < 2 ? "d-none" : ""}
               />
             </CCardBody>
           </CCard>
         </CCol>
-      </CRow> */}
+      </CRow>
     </>
   );
 };

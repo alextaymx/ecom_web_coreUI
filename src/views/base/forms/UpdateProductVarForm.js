@@ -16,10 +16,15 @@ import {
   CRow,
 } from "@coreui/react";
 // import CIcon from "@coreui/icons-react";
-import React from "react";
+import React, { useReducer } from "react";
 // import { createProductVarAPI } from "../../../apiCalls/post";
 // import { useSelector } from "react-redux";
 import { startCase, pick, omit } from "lodash";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+// import produce from "immer";
+import _ from "lodash";
+import { updateProductVarAPI } from "../../../apiCalls/post";
 // const initialState = {
 //   itemNo: "",
 //   retailPrice: "",
@@ -38,45 +43,87 @@ import { startCase, pick, omit } from "lodash";
 //   };
 // };
 
-function CreateProductVarForm({
-  fieldArr,
-  handleFormSubmit,
-  productVarOnChange,
-  decrementStep,
-  addProductVar,
-}) {
+const reducer = (state, { action, field, value, initialProductState }) => {
+  switch (action) {
+    case "reset":
+      return initialProductState;
+    case "productVar":
+      return {
+        ...state,
+        [field]: value,
+      };
+    default:
+      return state;
+  }
+};
+const changedKeys = (o1, o2) => {
+  var keys = _.union(_.keys(o1), _.keys(o2));
+  return _.filter(keys, (key) => {
+    // return !_.eq(o1[key].toString(), o2[key].toString());
+    return o1[key] !== o2[key];
+  });
+};
+function UpdateProductVarForm() {
   // const radioInput = pick(field, "resale");
+  const history = useHistory();
+  const location = useLocation();
+  const token = useSelector((state) => state.userInfo.user.token);
+  const [state, dispatch] = useReducer(reducer, location.state);
+  const productVarOnChange = (e) => {
+    dispatch({
+      action: "productVar",
+      field: e.target.name,
+      value: e.target.value,
+    });
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const changedKey = changedKeys(state, location.state);
+    if (changedKey.length !== 0) {
+      const updatePayload = { product_id: state.id, ..._.pick(state, changedKey) };
+
+      updateProductVarAPI(updatePayload, token)
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {});
+    }
+    history.goBack();
+  };
+  const inputField = omit(
+    state,
+    "id",
+    "retailPrice",
+    "supplyPrice",
+    "resale",
+    "orderBy",
+    "releaseBy",
+    "orders",
+    "suppliers"
+  );
+  const monetaryInputField = pick(state, "retailPrice", "supplyPrice");
+  const dateInputField = pick(state, "orderBy", "releaseBy");
   return (
     <>
-      <CRow alignHorizontal="center">
-        <CCol md="12">
-          <CCard>
-            <CCardHeader>Create Product Variation</CCardHeader>
-            <CCardBody>
-              <CForm action="" method="post" onSubmit={handleFormSubmit}>
-                {fieldArr.map((productVar, arrIndex) => {
-                  const inputField = omit(
-                    productVar,
-                    "retailPrice",
-                    "supplyPrice",
-                    "resale",
-                    "orderBy",
-                    "releaseBy"
-                  );
-                  const monetaryInputField = pick(
-                    productVar,
-                    "retailPrice",
-                    "supplyPrice"
-                  );
-                  const dateInputField = pick(productVar, "orderBy", "releaseBy");
-                  return (
-                    <CCard accentColor="info" key={arrIndex}>
-                      <CCardHeader>{`Product Variation ${arrIndex + 1}`}</CCardHeader>
+      {location.state ? (
+        <CRow alignHorizontal="center">
+          <CCol md="12">
+            <CCard>
+              <CCardHeader>Edit Product Variation</CCardHeader>
+              <CCardBody>
+                <CForm action="" method="post" onSubmit={handleFormSubmit}>
+                  {state && (
+                    <CCard accentColor="info">
+                      <CCardHeader>{`Product Variation id: ${state.id}`}</CCardHeader>
                       <CCardBody>
                         <CFormGroup row className="my-0">
                           {Object.keys(inputField).map((key, index) => {
                             // console.log(key, inputField[key], index, typeof key);
                             const displayName = startCase(key);
+                            inputField[key] =
+                              inputField[key] === null ? "" : inputField[key];
+
                             return (
                               <CCol sm="4" key={index}>
                                 <CFormGroup>
@@ -88,8 +135,7 @@ function CreateProductVarForm({
                                     // autoComplete="on"
                                     placeholder={`Enter ${displayName}`}
                                     value={inputField[key]}
-                                    onChange={(e) => productVarOnChange(arrIndex, e)}
-                                    required
+                                    onChange={(e) => productVarOnChange(e)}
                                   />
                                 </CFormGroup>
                               </CCol>
@@ -113,8 +159,7 @@ function CreateProductVarForm({
                                       // autoComplete="on"
                                       placeholder={`Enter ${displayName}`}
                                       value={monetaryInputField[key]}
-                                      onChange={(e) => productVarOnChange(arrIndex, e)}
-                                      required
+                                      onChange={(e) => productVarOnChange(e)}
                                     />
                                   </CInputGroup>
                                 </CFormGroup>
@@ -128,39 +173,32 @@ function CreateProductVarForm({
                               <CCol sm="4" key={index}>
                                 <CFormGroup>
                                   <CLabel htmlFor="date-input">{displayName}</CLabel>
-
                                   <CInput
                                     type="date"
                                     id="date-input"
                                     name={key}
                                     placeholder="date"
-                                    value={dateInputField[key]}
-                                    onChange={(e) => productVarOnChange(arrIndex, e)}
+                                    onChange={(e) => productVarOnChange(e)}
                                   />
                                 </CFormGroup>
                               </CCol>
                             );
                           })}
-                          {/* <CCol sm="4">
+                          <CCol sm="4">
                             <CFormGroup>
                               <CLabel>Resale</CLabel>
                               <CFormGroup variant="custom-radio">
                                 <CInputRadio
                                   custom
                                   id="resale-radio-yes"
-                                  name={`resale${arrIndex}`}
+                                  name={`resale`}
                                   value="true"
                                   onChange={(e) => {
-                                    const fakeEvent = {
-                                      target: {
-                                        name: "resale",
-                                        value: e.target.value,
-                                      },
-                                    };
-                                    console.log(arrIndex);
-                                    productVarOnChange(arrIndex, fakeEvent);
+                                    productVarOnChange(e);
                                   }}
-                                  checked={productVar.resale === "true"}
+                                  checked={
+                                    state.resale === true || state.resale === "true"
+                                  }
                                 />
                                 <CLabel
                                   variant="custom-checkbox"
@@ -172,19 +210,14 @@ function CreateProductVarForm({
                                 <CInputRadio
                                   custom
                                   id="resale-radio-no"
-                                  name={`resale${arrIndex}`}
+                                  name={`resale`}
                                   value="false"
                                   onChange={(e) => {
-                                    const fakeEvent = {
-                                      target: {
-                                        name: "resale",
-                                        value: e.target.value,
-                                      },
-                                    };
-                                    console.log(arrIndex);
-                                    productVarOnChange(arrIndex, fakeEvent);
+                                    productVarOnChange(e);
                                   }}
-                                  checked={productVar.resale === "false"}
+                                  checked={
+                                    state.resale === false || state.resale === "false"
+                                  }
                                 />
                                 <CLabel
                                   variant="custom-checkbox"
@@ -193,30 +226,26 @@ function CreateProductVarForm({
                                 </CLabel>
                               </CFormGroup>
                             </CFormGroup>
-                          </CCol> */}
+                          </CCol>
                         </CFormGroup>
                       </CCardBody>
                     </CCard>
-                  );
-                })}
-                <CFormGroup className="form-actions">
-                  <CButton onClick={decrementStep} color="secondary">
-                    Back
-                  </CButton>
-                  <CButton onClick={addProductVar} color="warning">
-                    Add Variation
-                  </CButton>
-                  <CButton type="submit" color="primary">
-                    Create
-                  </CButton>
-                </CFormGroup>
-              </CForm>
-            </CCardBody>
-          </CCard>
-        </CCol>
-      </CRow>
+                  )}
+                  <CFormGroup className="form-actions">
+                    <CButton type="submit" color="primary">
+                      Update
+                    </CButton>
+                  </CFormGroup>
+                </CForm>
+              </CCardBody>
+            </CCard>
+          </CCol>
+        </CRow>
+      ) : (
+        <Redirect from="/updateProductVarForm" to="/dashboard" />
+      )}
     </>
   );
 }
 
-export default CreateProductVarForm;
+export default UpdateProductVarForm;

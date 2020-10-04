@@ -49,8 +49,8 @@ export const onLogout = (token) => {
     });
 };
 
-export const onLogoutv2 = (dispatch, history) => {
+export const onLogoutv2 = (dispatch, history = null) => {
   localStorage.removeItem("loggedInUser");
   dispatch(logout());
-  history.push("/login");
+  // history.push("/login");
 };

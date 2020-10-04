@@ -1,5 +1,9 @@
 export default [
   {
+    _tag: "CSidebarNavTitle",
+    _children: ["Main"],
+  },
+  {
     _tag: "CSidebarNavItem",
     name: "Dashboard",
     to: "/dashboard",
@@ -19,12 +23,12 @@ export default [
     to: "/createProduct",
     icon: "cil-plus",
   },
-  {
-    _tag: "CSidebarNavItem",
-    name: "Update Product",
-    to: "/updateProductForm",
-    icon: "cil-pencil",
-  },
+  // {
+  //   _tag: "CSidebarNavItem",
+  //   name: "Update Product",
+  //   to: "/updateProductVarForm",
+  //   icon: "cil-pencil",
+  // },
 
   {
     _tag: "CSidebarNavTitle",
