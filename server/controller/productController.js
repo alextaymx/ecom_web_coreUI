@@ -1,5 +1,11 @@
 const { createResponse } = require("../responseFormat");
-const { getProduct, addProduct, updateProduct, deleteProduct } = require("../database");
+const {
+  getProduct,
+  addProduct,
+  updateProduct,
+  deleteProduct,
+  getLengthOfTable,
+} = require("../database");
 const { ResponseCode } = require("../constant");
 const { checkParams } = require("../utils/checkParams");
 const { mainCreate } = require("./productVarController");
@@ -36,7 +42,6 @@ module.exports.createProduct = (req, res) => {
     const product_id = addProduct(newProduct);
     res.status(200).json(createResponse({ product_id }, "Create Product successfully"));
   } catch (err) {
-    console.log(err);
     res
       .status(ResponseCode.Internal_server_error.code)
       .json(createResponse(null, ResponseCode.Internal_server_error.msg));
@@ -54,14 +59,20 @@ module.exports.getProduct = (req, res) => {
     resultList.forEach((result, index) => {
       resultList[index] = processProduct(result);
     });
-    res
-      .status(ResponseCode.General_success.code)
-      .json(
-        createResponse(
-          { resultList: resultList },
-          resultList.length > 0 ? ResponseCode.General_success.msg : "No content"
-        )
-      );
+    res.status(ResponseCode.General_success.code).json(
+      createResponse(
+        {
+          resultList: resultList,
+          totalProducts: getLengthOfTable("product"),
+          currentPage: page,
+          totalPage:
+            getLengthOfTable("product") % 10 != 0
+              ? parseInt(getLengthOfTable("product") / 10) + 1
+              : getLengthOfTable("product") / 10,
+        },
+        resultList.length > 0 ? ResponseCode.General_success.msg : "No content"
+      )
+    );
   } catch (err) {
     res
       .status(ResponseCode.Internal_server_error.code)
