@@ -11,6 +11,20 @@ const getRandomNum = (min, max, count) => {
   }
   return [...new Set(result)];
 };
+const getLengthOfTable = (table) => {
+  switch (table) {
+    case "productVar":
+      return productVarList.length;
+    case "product":
+      return productList.length;
+    case "supplier":
+      return supplierList.length;
+    case "order":
+      return orderList.length;
+    default:
+      return 0;
+  }
+};
 
 let userList = [
   {
@@ -164,14 +178,14 @@ const generateProductVar = (count) => {
       resale: true,
       createdAt: faker.date.past(),
       updatedAt: faker.date.past(),
-      orders: getRandomNum(0, orderList.length, 3),
+      orders: [i],
       supplier: null,
     });
   }
   return temp;
 };
 
-let productVarList = generateProductVar(3);
+let productVarList = generateProductVar(40);
 
 const addProductVar = (newProductVar) => {
   let productvar = { ...newProductVar, id: productVarList.length };
@@ -188,6 +202,12 @@ const updateProductVar = (productVar_body) => {
 };
 
 const deleteProductVar = (product_id) => {
+  productList.forEach((product) => {
+    if (product.variations.includes(product_id)) {
+      let index = product.variations.indexOf(product_id);
+      product.variations.splice(index, 1);
+    }
+  });
   productVarList = productVarList.filter(
     (productVar) => productVar.id !== parseInt(product_id)
   );
@@ -212,7 +232,7 @@ const generateProduct = (count) => {
       createdAt: faker.date.past(),
       updatedAt: faker.date.past(),
       createdBy: getRandomNum(1, userList.length + 1, 1)[0],
-      variations: getRandomNum(0, productVarList.length, 5),
+      variations: [i * 2, i * 2 + 1],
     });
   }
   return temp;
@@ -345,4 +365,5 @@ module.exports = {
   addSupplier,
   updateSupplier,
   deleteSupplier,
+  getLengthOfTable,
 };
