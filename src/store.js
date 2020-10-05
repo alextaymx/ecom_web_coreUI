@@ -3,6 +3,8 @@ import { combineReducers } from "redux";
 
 const initialState = {
   sidebarShow: "responsive",
+  asideShow: false,
+  darkMode: false,
 };
 
 const initialUserState = {

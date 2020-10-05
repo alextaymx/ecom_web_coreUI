@@ -7,6 +7,7 @@ import TheHeaderDropdownNotif from "./TheHeaderDropdownNotif";
 import TheHeaderDropdownTasks from "./TheHeaderDropdownTasks";
 import TheLayout from "./TheLayout";
 import TheSidebar from "./TheSidebar";
+import TheAside from "./TheAside";
 
 export {
   TheContent,
@@ -18,4 +19,5 @@ export {
   TheHeaderDropdownTasks,
   TheLayout,
   TheSidebar,
+  TheAside,
 };
