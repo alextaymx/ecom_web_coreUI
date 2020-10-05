@@ -19,11 +19,11 @@ const MainChartExample = (attributes) => {
     for (let i = 0; i <= elements; i++) {
       data1.push(random(50, 200));
       data2.push(random(80, 100));
-      data3.push(65);
+      data3.push(random(40, 110));
     }
     return [
       {
-        label: "My First dataset",
+        label: "Number of products",
         backgroundColor: hexToRgba(brandInfo, 10),
         borderColor: brandInfo,
         pointHoverBackgroundColor: brandInfo,
@@ -31,15 +31,15 @@ const MainChartExample = (attributes) => {
         data: data1,
       },
       {
-        label: "My Second dataset",
-        backgroundColor: "transparent",
+        label: "Number of orders",
+        backgroundColor: hexToRgba(brandSuccess, 10),
         borderColor: brandSuccess,
         pointHoverBackgroundColor: brandSuccess,
         borderWidth: 2,
         data: data2,
       },
       {
-        label: "My Third dataset",
+        label: "Number of users",
         backgroundColor: "transparent",
         borderColor: brandDanger,
         pointHoverBackgroundColor: brandDanger,

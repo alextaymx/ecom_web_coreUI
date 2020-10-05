@@ -16,11 +16,11 @@ const WidgetsDropdown = () => {
   // render
   return (
     <CRow>
-      <CCol sm="6" lg="3">
+      <CCol sm="6" lg="4">
         <CWidgetDropdown
           color="gradient-primary"
-          header="9.823"
-          text="Members online"
+          header="1234"
+          text="Products available"
           footerSlot={
             <ChartLineSimple
               pointed
@@ -46,11 +46,11 @@ const WidgetsDropdown = () => {
         </CWidgetDropdown>
       </CCol>
 
-      <CCol sm="6" lg="3">
+      <CCol sm="6" lg="4">
         <CWidgetDropdown
           color="gradient-info"
-          header="9.823"
-          text="Members online"
+          header="9823"
+          text="Orders created"
           footerSlot={
             <ChartLineSimple
               pointed
@@ -77,11 +77,11 @@ const WidgetsDropdown = () => {
         </CWidgetDropdown>
       </CCol>
 
-      <CCol sm="6" lg="3">
+      <CCol sm="6" lg="4">
         <CWidgetDropdown
           color="gradient-warning"
-          header="9.823"
-          text="Members online"
+          header="311"
+          text="Users registered"
           footerSlot={
             <ChartLineSimple
               className="mt-3"
@@ -108,7 +108,7 @@ const WidgetsDropdown = () => {
         </CWidgetDropdown>
       </CCol>
 
-      <CCol sm="6" lg="3">
+      {/* <CCol sm="6" lg="6">
         <CWidgetDropdown
           color="gradient-danger"
           header="9.823"
@@ -134,7 +134,7 @@ const WidgetsDropdown = () => {
             </CDropdownMenu>
           </CDropdown>
         </CWidgetDropdown>
-      </CCol>
+      </CCol> */}
     </CRow>
   );
 };

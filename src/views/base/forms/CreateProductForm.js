@@ -46,7 +46,7 @@ function CreateProductForm({
                     // console.log(key, field[key], index, typeof key);
                     const displayName = startCase(key);
                     return (
-                      <CCol sm="4" key={index}>
+                      <CCol sm="6" key={index}>
                         <CFormGroup>
                           <CLabel htmlFor={key}>{displayName}</CLabel>
                           <CInput

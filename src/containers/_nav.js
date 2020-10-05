@@ -7,7 +7,7 @@ export default [
     _tag: "CSidebarNavItem",
     name: "Dashboard",
     to: "/dashboard",
-    icon: "cil-speedometer",
+    icon: "cil-chart",
     badge: {
       color: "info",
       text: "NEW",
@@ -19,16 +19,16 @@ export default [
   },
   {
     _tag: "CSidebarNavItem",
+    name: "Product List",
+    to: "/productList",
+    icon: "cil-list",
+  },
+  {
+    _tag: "CSidebarNavItem",
     name: "Create Product",
     to: "/createProduct",
     icon: "cil-plus",
   },
-  // {
-  //   _tag: "CSidebarNavItem",
-  //   name: "Update Product",
-  //   to: "/updateProductVarForm",
-  //   icon: "cil-pencil",
-  // },
 
   {
     _tag: "CSidebarNavTitle",
