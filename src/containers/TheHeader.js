@@ -26,6 +26,7 @@ import {
 const TheHeader = () => {
   const dispatch = useDispatch();
   const sidebarShow = useSelector((state) => state.changeState.sidebarShow);
+  const asideShow = useSelector((state) => state.changeState.asideShow);
 
   const toggleSidebar = () => {
     const val = [true, "responsive"].includes(sidebarShow) ? false : "responsive";
@@ -35,6 +36,10 @@ const TheHeader = () => {
   const toggleSidebarMobile = () => {
     const val = [false, "responsive"].includes(sidebarShow) ? true : "responsive";
     dispatch({ type: "set", sidebarShow: val });
+  };
+
+  const toggleAside = () => {
+    dispatch({ type: "set", asideShow: !asideShow });
   };
   return (
     <CHeader withSubheader>
@@ -70,6 +75,9 @@ const TheHeader = () => {
         {/* <TheHeaderDropdownTasks />
         <TheHeaderDropdownMssg /> */}
         <TheHeaderDropdown />
+        {/* <CToggler inHeader className="d-md-down-none" onClick={toggleAside}>
+          <CIcon className="mr-2" size="lg" name="cil-applications-settings" />
+        </CToggler> */}
       </CHeaderNav>
 
       <CSubheader className="px-3 justify-content-between">

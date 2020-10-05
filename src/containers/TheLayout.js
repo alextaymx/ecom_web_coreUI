@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { TheContent, TheSidebar, TheFooter, TheHeader } from "./index";
+import TheAside from "./TheAside";
 
 const TheLayout = () => {
   const isLogin = useSelector((state) => state.userInfo.isLogin);
@@ -11,6 +12,7 @@ const TheLayout = () => {
       {isLogin ? (
         <div className="c-app c-default-layout">
           <TheSidebar />
+          <TheAside />
           <div className="c-wrapper">
             <TheHeader />
             <div className="c-body">
