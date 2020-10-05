@@ -4,11 +4,11 @@ import React, { lazy } from "react";
 import {
   CBadge,
   // CBadge,
-  // CButton,
-  // CButtonGroup,
+  CButton,
+  CButtonGroup,
   CCard,
   CCardBody,
-  // CCardFooter,
+  CCardFooter,
   CCardHeader,
   CCol,
   CDataTable,
@@ -18,33 +18,15 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 
-// import MainChartExample from "../charts/MainChartExample";
+import MainChartExample from "../charts/MainChartExample";
 import Users from "../users/Users";
 import usersData from "../users/UsersData";
 import Products from "../base/tables/Products";
+import TableTabs from "../base/tables/TableTabs";
 const fields = ["name", "registered", "role", "status"];
 
 const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
 const WidgetsBrand = lazy(() => import("../widgets/WidgetsBrand.js"));
-
-// axios
-//   .post(
-//     `${
-//       process.env.NODE_ENV === "production" ? "" : process.env.REACT_APP_BASE_URL
-//     }/create_product`,
-//     {}
-//   )
-//   .then((response) => {
-//     const data = response.data.data;
-//     console.log(data);
-//     // const user = { id: data.user };
-//     // dispatch(login(user));
-//     // console.log("returned: ", data);
-//     // history.push("/dashboard");
-//   })
-//   .catch((error) => {
-//     console.error("There was an error!", error);
-//   });
 
 const Dashboard = () => {
   const getBadge = (status) => {
@@ -63,16 +45,16 @@ const Dashboard = () => {
   };
   return (
     <>
-      <Products />
       <WidgetsDropdown />
+      {/* Overview */}
       <CCard>
-        {/* <CCardBody>
+        <CCardBody>
           <CRow>
             <CCol sm="5">
               <h4 id="traffic" className="card-title mb-0">
-                Traffic
+                Overview
               </h4>
-              <div className="small text-muted">November 2017</div>
+              <div className="small text-muted">November 2020</div>
             </CCol>
             <CCol sm="7" className="d-none d-md-block">
               <CButton color="primary" className="float-right">
@@ -141,12 +123,11 @@ const Dashboard = () => {
               <CProgress className="progress-xs mt-2" precision={1} value={40} />
             </CCol>
           </CRow>
-        </CCardFooter> */}
+        </CCardFooter>
       </CCard>
 
+      <TableTabs />
       <Users />
-
-      <WidgetsBrand withCharts />
 
       <CRow>
         <CCol>
@@ -654,6 +635,8 @@ const Dashboard = () => {
           </CCard>
         </CCol>
       </CRow>
+
+      <WidgetsBrand withCharts />
     </>
   );
 };

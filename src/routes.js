@@ -1,6 +1,8 @@
 import React from "react";
 
 // my own components
+const TableTabs = React.lazy(() => import("./views/base/tables/TableTabs"));
+// const ProductList = React.lazy(() => import("./views/base/tables/Products"));
 const CreateProduct = React.lazy(() => import("./views/base/forms/CreateProduct"));
 const UpdateProductForm = React.lazy(() =>
   import("./views/base/forms/UpdateProductForm")
@@ -56,6 +58,16 @@ const User = React.lazy(() => import("./views/users/User"));
 
 const routes = [
   // own components
+  {
+    path: "/productList",
+    name: "ProductList",
+    component: TableTabs,
+  },
+  // {
+  //   path: "/productList",
+  //   name: "ProductList",
+  //   component: ProductList,
+  // },
   {
     path: "/createProduct",
     name: "CreateProduct",

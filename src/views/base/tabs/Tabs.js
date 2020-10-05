@@ -13,6 +13,7 @@ import {
   CCardHeader,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
+import Products from "../tables/Products";
 
 const Tabs = () => {
   const [active, setActive] = useState(1);
@@ -133,6 +134,46 @@ const Tabs = () => {
                 <CTabPane>{`1. ${lorem}`}</CTabPane>
                 <CTabPane>{`2. ${lorem}`}</CTabPane>
                 <CTabPane>{`3. ${lorem}`}</CTabPane>
+              </CTabContent>
+            </CTabs>
+          </CCardBody>
+        </CCard>
+      </CCol>
+      <CCol xs="12" md="12" className="mb-4">
+        <CCard>
+          <CCardHeader>Controlled tabs</CCardHeader>
+          <CCardBody>
+            <CTabs activeTab={active} onActiveTabChange={(idx) => setActive(idx)}>
+              <CNav variant="tabs">
+                <CNavItem>
+                  <CNavLink>
+                    <CIcon name="cil-check-circle" />
+                    {active === 0 && " Approved"}
+                  </CNavLink>
+                </CNavItem>
+                <CNavItem>
+                  <CNavLink>
+                    <CIcon name="cil-clock" />
+                    {active === 1 && " Pending"}
+                  </CNavLink>
+                </CNavItem>
+                <CNavItem>
+                  <CNavLink>
+                    <CIcon name="cil-history" />
+                    {active === 2 && " Archived"}
+                  </CNavLink>
+                </CNavItem>
+              </CNav>
+              <CTabContent fade={false}>
+                <CTabPane>
+                  <Products />
+                </CTabPane>
+                <CTabPane>
+                  <Products />
+                </CTabPane>
+                <CTabPane>
+                  <Products />
+                </CTabPane>
               </CTabContent>
             </CTabs>
           </CCardBody>
