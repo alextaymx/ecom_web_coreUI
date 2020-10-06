@@ -4,11 +4,12 @@ const {
   addProductVar,
   updateProductVar,
   deleteProductVar,
+  groupBy,
 } = require("../database");
 const { ResponseCode } = require("../constant");
 const { checkParams } = require("../utils/checkParams");
 const _ = require("lodash");
-const { processProductVar } = require("../utils/dbProcessData");
+const { processList } = require("../utils/dbProcessData");
 
 const mainCreate = (obj) => {
   if (
@@ -107,10 +108,7 @@ const getProductVars = (req, res) => {
   if ("page" in req.query) {
     page = req.query.page;
   }
-  let resultList = _.cloneDeep(getProductVar(product_id, page));
-  resultList.forEach((productVar, index) => {
-    resultList[index] = processProductVar(productVar);
-  });
+  let resultList = processList(getProductVar(product_id, page), "productVar");
   res
     .status(ResponseCode.General_success.code)
     .json(
@@ -125,7 +123,7 @@ const updateProductVars = (req, res) => {
   try {
     const req_body = req.body;
     if (!("product_id" in req_body)) {
-      throw 500;
+      throw new Error("Product id undefined");
     }
     if (getProductVar(req_body.product_id).length === 0) {
       res.status(400).json(createResponse(null, "Product Variation not found"));

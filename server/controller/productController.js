@@ -9,8 +9,7 @@ const {
 const { ResponseCode } = require("../constant");
 const { checkParams } = require("../utils/checkParams");
 const { mainCreate } = require("./productVarController");
-const { processProduct } = require("../utils/dbProcessData");
-const _ = require("lodash");
+const { processList, filterData } = require("../utils/dbProcessData");
 
 module.exports.createProduct = (req, res) => {
   try {
@@ -51,14 +50,18 @@ module.exports.createProduct = (req, res) => {
 module.exports.getProduct = (req, res) => {
   try {
     const product_id = req.params.id;
-    let page = 1;
-    if ("page" in req.query) {
-      page = req.query.page;
-    }
-    let resultList = _.cloneDeep(getProduct(product_id, page));
-    resultList.forEach((result, index) => {
-      resultList[index] = processProduct(result);
-    });
+    const page = "page" in req.query ? req.query.page : 1;
+    const isActive = "isActive" in req.query ? req.query.isActive : null;
+    let resultList = processList(getProduct(product_id, page, 10), "product");
+    resultList =
+      isActive !== null
+        ? resultList.map((product) => {
+            product.variations = product.variations.filter(
+              (productVar) => productVar.status === (isActive === "true" ? 1 : 0)
+            );
+            return product;
+          })
+        : resultList;
     const tableInfo = getTableInfo("product");
     res.status(ResponseCode.General_success.code).json(
       createResponse(

@@ -1,4 +1,4 @@
-const { productVarList, supplierList, orderList, productList } = require("../database");
+const { productVarList, supplierList, orderList } = require("../database");
 const _ = require("lodash");
 
 const getElementByIndexArr = (input_list, index_arr) => {
@@ -41,8 +41,38 @@ const processSupplier = (supplier) => {
   return supplier;
 };
 
+const processList = (list, obj) => {
+  let targetFunc = null;
+  let cloneList = _.cloneDeep(list);
+  switch (obj) {
+    case "product":
+      targetFunc = processProduct;
+      break;
+    case "productVar":
+      targetFunc = processProductVar;
+      break;
+    case "supplier":
+      targetFunc = processSupplier;
+      break;
+    default:
+      return [];
+  }
+  return cloneList.map((element) => {
+    let cloneElement = _.cloneDeep(element);
+    return targetFunc(cloneElement);
+  });
+};
+
+const filterData = (list, filters) => {
+  let result = _.cloneDeep(list);
+  filters.forEach((filter) => {
+    console.log(filter);
+    result = result.filter((element) => element[filter.key] === filter.value);
+  });
+  return result;
+};
+
 module.exports = {
-  processProduct,
-  processProductVar,
-  processSupplier,
+  processList,
+  filterData,
 };

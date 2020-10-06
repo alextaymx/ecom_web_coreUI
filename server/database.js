@@ -2,6 +2,8 @@ const { Roles, OrderType } = require("./constant");
 const { bcrypt_hash, compare_bcrypt_hash } = require("./utils/bcrypt");
 const faker = require("faker");
 const faker_cn = require("faker/locale/zh_CN");
+const moment = require("moment");
+const _ = require("lodash");
 const getRandomNum = (min, max, count) => {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -11,27 +13,15 @@ const getRandomNum = (min, max, count) => {
   }
   return [...new Set(result)];
 };
-const getTableInfo = (table) => {
-  let size = 0;
-  switch (table) {
-    case "productVar":
-      size = productVarList.length;
-      break;
-    case "product":
-      size = productList.length;
-      break;
-    case "supplier":
-      size = supplierList.length;
-      break;
-    case "order":
-      size = orderList.length;
-      break;
-    default:
-      return {};
-  }
-  const totalPages = size % 10 !== 0 ? parseInt(size / 10) + 1 : parseInt(size / 10);
-  return { size, totalPages };
+
+const groupBy = (list, by, isDate = false) => {
+  return !isDate
+    ? _(list).groupBy(by)
+    : _(list).groupBy((x) => moment(x[by]).toISOString().split("T")[0]);
 };
+
+const randomLastWeekDate = () =>
+  moment(new Date()).subtract(getRandomNum(0, 7, 1)[0], "days").toISOString();
 
 let userList = [
   {
@@ -117,19 +107,16 @@ const getUserByIdPassword = (id, password) => {
 };
 
 /*Order*/
-const generateOrder = (count) => {
-  let temp = [];
-  for (let i = 0; i < count; i++) {
-    temp.push({
+const generateOrder = (count) =>
+  [...Array(count).keys()].map((i) => {
+    return {
       id: i,
       orderNumber: faker.random.number(),
       receiveNumber: faker.random.number(),
-      createdAt: faker.date.past(),
-      updatedAt: faker.date.recent(),
-    });
-  }
-  return temp;
-};
+      createdAt: randomLastWeekDate(),
+      updatedAt: randomLastWeekDate(),
+    };
+  });
 let orderList = generateOrder(20);
 const addOrder = (newOrder) => {
   let order = { ...newOrder, id: orderList.length };
@@ -150,18 +137,17 @@ const deleteOrder = (order_id) => {
 };
 
 const getOrder = (order_id, page_num) => {
-  if (order_id === "*") {
-    return orderList.slice(10 * (page_num - 1), 10 * page_num);
-  } else {
-    return orderList.filter((order) => order.id === parseInt(order_id));
-  }
+  let result =
+    order_id === "*"
+      ? orderList
+      : orderList.filter((order) => order.id === parseInt(order_id));
+  return result.slice(10 * (page_num - 1), 10 * page_num);
 };
 
 /*Product Variation*/
-const generateProductVar = (count) => {
-  let temp = [];
-  for (let i = 0; i < count; i++) {
-    temp.push({
+const generateProductVar = (count) =>
+  [...Array(count).keys()].map((i) => {
+    return {
       id: i,
       itemNo: faker.random.number(),
       title: faker.commerce.productName(),
@@ -180,17 +166,16 @@ const generateProductVar = (count) => {
       supplyPrice: faker.commerce.price(),
       supplyRate: 0,
       orderType: OrderType.Order,
-      orderBy: faker.date.past(),
-      releaseBy: faker.date.future(),
+      orderBy: randomLastWeekDate(),
+      releaseBy: randomLastWeekDate(),
       resale: true,
-      createdAt: faker.date.past(),
-      updatedAt: faker.date.past(),
+      createdAt: randomLastWeekDate(),
+      updatedAt: randomLastWeekDate(),
       orders: [i],
       supplier: null,
-    });
-  }
-  return temp;
-};
+      status: getRandomNum(0, 2, 1)[0], // 1 is active, 0 is inactive,
+    };
+  });
 
 let productVarList = generateProductVar(40);
 
@@ -220,12 +205,12 @@ const deleteProductVar = (product_id) => {
   );
 };
 
-const getProductVar = (product_id, page_num) => {
-  if (product_id === "*") {
-    return productVarList.slice(10 * (page_num - 1), 10 * page_num);
-  } else {
-    return productVarList.filter((productVar) => productVar.id === parseInt(product_id));
-  }
+const getProductVar = (product_id, page_num, itemsPerPage = 10) => {
+  let result =
+    product_id === "*"
+      ? productVarList
+      : productVarList.filter((productVar) => productVar.id === parseInt(product_id));
+  return result.slice(itemsPerPage * (page_num - 1), itemsPerPage * page_num);
 };
 
 /*Product*/
@@ -236,8 +221,8 @@ const generateProduct = (count) => {
       id: i,
       masterSku: faker.random.uuid(),
       remarks: null,
-      createdAt: faker.date.past(),
-      updatedAt: faker.date.past(),
+      createdAt: randomLastWeekDate(),
+      updatedAt: randomLastWeekDate(),
       createdBy: getRandomNum(1, userList.length + 1, 1)[0],
       variations: [i * 2, i * 2 + 1],
     });
@@ -265,19 +250,20 @@ const deleteProduct = (product_id) => {
   productList = productList.filter((product) => product.id !== parseInt(product_id));
 };
 
-const getProduct = (product_id, page_num) => {
-  if (product_id === "*") {
-    return productList.slice(10 * (page_num - 1), 10 * page_num);
-  } else {
-    return productList.filter((productVar) => productVar.id === parseInt(product_id));
-  }
+const getProduct = (product_id, page_num, itemsPerPage = 10) => {
+  let result =
+    product_id === "*"
+      ? productList
+      : productList.filter((productVar) => productVar.id === parseInt(product_id));
+  return result.slice(itemsPerPage * (page_num - 1), itemsPerPage * page_num);
 };
 
 /*Supplier*/
-const generateSupplier = (count) => {
-  let temp = [];
-  for (let i = 0; i < count; i++) {
-    temp.push({
+const generateSupplier = (count) =>
+  [...Array(count).keys()].map((i) => {
+    productVarList[i * 2].supplier = i;
+    productVarList[i * 2 + 1].supplier = i;
+    return {
       id: i,
       name: faker.name.findName(),
       address: faker.address.streetAddress(),
@@ -288,12 +274,8 @@ const generateSupplier = (count) => {
       createdAt: faker.date.past(),
       updatedAt: faker.date.past(),
       products: [i * 2, i * 2 + 1],
-    });
-    productVarList[i * 2].supplier = i;
-    productVarList[i * 2 + 1].supplier = i;
-  }
-  return temp;
-};
+    };
+  });
 let supplierList = generateSupplier(20);
 const addSupplier = (newSupplier) => {
   let supplier = { ...newSupplier, id: supplierList.length };
@@ -320,34 +302,60 @@ const deleteSupplier = (supplier_id) => {
   supplierList = supplierList.filter((supplier) => supplier.id !== parseInt(supplier_id));
 };
 
-const getSupplier = (supplier_id, page_num) => {
-  if (supplier_id === "*") {
-    return supplierList.slice(10 * (page_num - 1), 10 * page_num);
-  } else {
-    return supplierList.filter((supplier) => supplier.id === parseInt(supplier_id));
+const getSupplier = (supplier_id, page_num, itemsPerPage = 10) => {
+  let result =
+    supplier_id === "*"
+      ? supplierList
+      : supplierList.filter((supplier) => supplier.id === parseInt(supplier_id));
+  return result.slice(itemsPerPage * (page_num - 1), itemsPerPage * page_num);
+};
+
+const getTable = (table) => {
+  switch (table) {
+    case "supplier":
+      return supplierList;
+    case "order":
+      return orderList;
+    case "product":
+      return productList;
+    case "productVar":
+      return productVarList;
+    default:
+      return null;
   }
 };
 
-// const getTable = (table) => {
-//   switch (table) {
-//     case "supplier":
-//       return supplierList;
-//     case "order":
-//       return orderList;
-//     case "product":
-//       return productList;
-//     case "productVar":
-//       return productVarList;
-//     default:
-//       return null;
-//   }
-// };
+const dbAdd = (tableName, newObj) => {
+  let table = getTable(tableName);
+  let obj = { ...newObj, id: table[table.length - 1].id + 1 };
+  table.push(obj);
+  return obj.id;
+};
 
-// const dbAdd = (tableName, newObj) => {
-//   let obj = { ...newObj, id: supplierList.length };
-//   supplierList.push(supplier);
-//   return supplier.id;
-// };
+const dbGet = (tableName, id, pageReq, itemsPerPage = 10) => {
+  let table = getTable(tableName);
+  if (id === "*") {
+    return table.slice(itemsPerPage * (pageReq - 1), itemsPerPage * pageReq);
+  } else {
+    return table.filter((element) => element.id === parseInt(id));
+  }
+};
+
+const dbUpdate = (tableName, update_content) => {
+  let table = getTable(tableName);
+  table = table.map((element) => {
+    return element.id === update_content.id ? { ...element, ...update_content } : element;
+  });
+};
+
+const getTableInfo = (table, itemsPerPage = 10) => {
+  const size = getTable(table).length;
+  const totalPages =
+    size % itemsPerPage !== 0
+      ? parseInt(size / itemsPerPage) + 1
+      : parseInt(size / itemsPerPage);
+  return { size, totalPages };
+};
 
 module.exports = {
   userList,
@@ -375,4 +383,5 @@ module.exports = {
   updateSupplier,
   deleteSupplier,
   getTableInfo,
+  groupBy,
 };
