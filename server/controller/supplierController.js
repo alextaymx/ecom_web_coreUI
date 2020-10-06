@@ -7,7 +7,7 @@ const {
 } = require("../database");
 const { ResponseCode } = require("../constant");
 const { checkParams } = require("../utils/checkParams");
-const { processSupplier } = require("../utils/dbProcessData");
+const { processList } = require("../utils/dbProcessData");
 module.exports.createSupplier = (req, res) => {
   try {
     if (!checkParams(["name", "products"], req.body)) {
@@ -31,7 +31,6 @@ module.exports.createSupplier = (req, res) => {
     const supplier_id = addSupplier(newSupplier);
     res.status(200).json(createResponse({ supplier_id }, "Create Supplier successfully"));
   } catch (err) {
-    console.log(err);
     res
       .status(ResponseCode.Internal_server_error.code)
       .json(createResponse(null, ResponseCode.Internal_server_error.msg));
@@ -44,10 +43,7 @@ module.exports.getSupplier = (req, res) => {
   if ("page" in req.query) {
     page = req.query.page;
   }
-  let resultList = JSON.parse(JSON.stringify(getSupplier(supplier_id, page)));
-  resultList.forEach((result, index) => {
-    resultList[index] = processSupplier(result);
-  });
+  let resultList = processList(getSupplier(supplier_id, page), "supplier");
   res
     .status(ResponseCode.General_success.code)
     .json(
