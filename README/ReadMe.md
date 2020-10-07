@@ -172,4 +172,4 @@ CoreUI is an MIT licensed open source project and completely free to use. Howeve
 
 We're also open to conversations regarding custom sponsorship / consulting arrangements. Get in touch on [Twitter](https://twitter.com/lukaszholeczek).
 
-test push from hafizan
+test push from Nur hafizhan
