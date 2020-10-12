@@ -177,7 +177,7 @@ const generateProductVar = (count) =>
     };
   });
 
-let productVarList = generateProductVar(40);
+let productVarList = generateProductVar(240);
 
 const addProductVar = (newProductVar) => {
   let productvar = { ...newProductVar, id: productVarList.length };
@@ -224,13 +224,13 @@ const generateProduct = (count) => {
       createdAt: randomLastWeekDate(),
       updatedAt: randomLastWeekDate(),
       createdBy: getRandomNum(1, userList.length + 1, 1)[0],
-      variations: [i * 2, i * 2 + 1],
+      variations: [i * 4, i * 4 + 1, i * 4 + 2, i * 4 + 3],
     });
   }
   return temp;
 };
 
-let productList = generateProduct(20);
+let productList = generateProduct(60);
 
 const addProduct = (newProduct) => {
   let product = { ...newProduct, id: productList.length };

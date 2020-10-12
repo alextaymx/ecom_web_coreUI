@@ -27,6 +27,7 @@ const TheHeader = () => {
   const dispatch = useDispatch();
   const sidebarShow = useSelector((state) => state.changeState.sidebarShow);
   const asideShow = useSelector((state) => state.changeState.asideShow);
+  const darkMode = useSelector((state) => state.changeState.darkMode);
 
   const toggleSidebar = () => {
     const val = [true, "responsive"].includes(sidebarShow) ? false : "responsive";
@@ -71,13 +72,22 @@ const TheHeader = () => {
       </CHeaderNav>
 
       <CHeaderNav className="px-3">
+        <CToggler
+          inNavbar
+          className="c-header-nav-item c-header-nav-link"
+          onClick={() => dispatch({ type: "set", darkMode: !darkMode })}
+          title="Toggle Light/Dark Mode">
+          <CIcon name="cil-moon" className="c-d-dark-none" alt="CoreUI Icons Moon" />
+          <CIcon name="cil-sun" className="c-d-default-none" alt="CoreUI Icons Sun" />
+        </CToggler>
+
         <TheHeaderDropdownNotif />
         {/* <TheHeaderDropdownTasks />
         <TheHeaderDropdownMssg /> */}
         <TheHeaderDropdown />
-        {/* <CToggler inHeader className="d-md-down-none" onClick={toggleAside}>
+        <CToggler inHeader className="d-md-down-none" onClick={toggleAside}>
           <CIcon className="mr-2" size="lg" name="cil-applications-settings" />
-        </CToggler> */}
+        </CToggler>
       </CHeaderNav>
 
       <CSubheader className="px-3 justify-content-between">

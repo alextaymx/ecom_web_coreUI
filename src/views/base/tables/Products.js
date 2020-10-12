@@ -152,6 +152,8 @@ const Products = ({ productType }) => {
       return (
         <td className="py-2">
           <CButton
+            color="info"
+            variant="ghost"
             shape="pill"
             size="sm"
             onClick={() => {

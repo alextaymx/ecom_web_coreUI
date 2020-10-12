@@ -35,7 +35,7 @@ const TheSidebar = () => {
         <h2 className="c-sidebar-brand-full" height={35}>
           Web
         </h2> */}
-        <CIcon className="c-sidebar-brand-minimized" name="cib-Eventbrite" height={35} />
+        {/* <CIcon className="c-sidebar-brand-minimized" name="cib-Eventbrite" height={35} /> */}
       </CSidebarBrand>
       <CSidebarNav>
         <CCreateElement
