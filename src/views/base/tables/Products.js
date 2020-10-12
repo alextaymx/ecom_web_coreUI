@@ -12,7 +12,11 @@ import {
 import CIcon from "@coreui/icons-react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductAPI } from "../../../apiCalls/get";
-import { deleteProductAPI, deleteProductVarAPI } from "../../../apiCalls/post";
+import {
+  deleteProductAPI,
+  deleteProductVarAPI,
+  updateProductVarAPI,
+} from "../../../apiCalls/post";
 import { onLogoutv2 } from "../../../apiCalls/auth";
 import { pick } from "lodash";
 import ProductVarTable from "./ProductVarTable";
@@ -30,15 +34,15 @@ const fields = [
   { key: "remarks", _style: { width: "14%" } },
   { key: "createdAt", _style: { width: "20%" } },
   { key: "createdBy", _style: { width: "14%" } },
-  {
-    key: "operations",
-    label: "Operations",
-    _style: { width: "11%" },
-    sorter: false,
-    filter: false,
-  },
+  // {
+  //   key: "operations",
+  //   label: "Operations",
+  //   _style: { width: "11%" },
+  //   sorter: false,
+  //   filter: false,
+  // },
 ];
-const Products = ({ productType }) => {
+const Products = ({ productStatus }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.userInfo.user.token);
   const history = useHistory();
@@ -53,7 +57,7 @@ const Products = ({ productType }) => {
 
   useEffect(() => {
     setLoading(true);
-    getProductAPI(token, productType == "Pending" ? currentPage + 1 : currentPage)
+    getProductAPI(token, "*", currentPage, productStatus)
       .then(({ data }) => {
         setProductData(data.resultList);
         setTotalPages(data.totalPage);
@@ -72,7 +76,7 @@ const Products = ({ productType }) => {
           // anything else // console.error("There was an error!", error);
         }
       });
-  }, [productType, dispatch, token, currentPage, fetchTrigger]);
+  }, [productStatus, dispatch, token, currentPage, fetchTrigger]);
 
   const toggleDropdown = (index) => {
     const position = dropdowns.indexOf(index);
@@ -84,14 +88,14 @@ const Products = ({ productType }) => {
     }
     setDropdowns(newDetails);
   };
-  const handleEditProduct = (item) => {
-    // console.log(item);
-    const productFields = pick(item, "id", "masterSku", "remarks");
-    history.push({
-      pathname: "/updateProductForm",
-      state: productFields,
-    });
-  };
+  // const handleEditProduct = (item) => {
+  //   // console.log(item);
+  //   const productFields = pick(item, "id", "masterSku", "remarks");
+  //   history.push({
+  //     pathname: "/updateProductForm",
+  //     state: productFields,
+  //   });
+  // };
   const handleEditProductVar = (varItem) => {
     // console.log(varItem);
     history.push({
@@ -99,22 +103,44 @@ const Products = ({ productType }) => {
       state: varItem,
     });
   };
-  const handleDeleteProduct = ({ id }) => {
-    deleteProductAPI({ product_id: id }, token)
-      .then((data) => {
-        console.log(productData);
-        setFetchTrigger(fetchTrigger + 1);
-      })
-      .catch((error) => {});
-  };
+  // const handleDeleteProduct = ({ id }) => {
+  //   deleteProductAPI({ product_id: id }, token)
+  //     .then((data) => {
+  //       console.log(productData);
+  //       setFetchTrigger(fetchTrigger + 1);
+  //     })
+  //     .catch((error) => {});
+  // };
   const handleDeleteProductVar = ({ id }) => {
-    deleteProductVarAPI({ product_id: id }, token)
+    const updatePayload = {
+      product_id: id,
+      status: 3,
+    };
+    updateProductVarAPI(updatePayload, token)
       .then((data) => {
+        console.log(data);
+        setFetchTrigger(fetchTrigger + 1);
+      })
+      .catch((error) => {});
+    // deleteProductVarAPI({ product_id: id }, token)
+    //   .then((data) => {
+    //     setFetchTrigger(fetchTrigger + 1);
+    //   })
+    //   .catch((error) => {});
+  };
+  const handleApproveProductVar = ({ id }) => {
+    const updatePayload = {
+      product_id: id,
+      status: 1,
+    };
+    updateProductVarAPI(updatePayload, token)
+      .then((data) => {
+        console.log(data);
         setFetchTrigger(fetchTrigger + 1);
       })
       .catch((error) => {});
   };
-  const editDeleteButtonGroup = (item, index, productVar = false) => (
+  const editDeleteButtonGroup = (item, index) => (
     <>
       <CButton
         className="inline"
@@ -123,7 +149,7 @@ const Products = ({ productType }) => {
         shape="pill"
         size="sm"
         onClick={() => {
-          productVar ? handleEditProductVar(item, index) : handleEditProduct(item, index);
+          handleEditProductVar(item, index);
         }}>
         <CIcon name="cil-pencil" />
       </CButton>
@@ -134,20 +160,58 @@ const Products = ({ productType }) => {
         shape="pill"
         size="sm"
         onClick={() => {
-          productVar
-            ? handleDeleteProductVar(item, index)
-            : handleDeleteProduct(item, index);
+          handleDeleteProductVar(item, index);
         }}>
         <CIcon name="cil-trash" />
       </CButton>
     </>
   );
 
+  const approvalButtonGroup = (item, index) => (
+    <>
+      {editDeleteButtonGroup(item, index)}
+      <CButton
+        className="inline"
+        color="success"
+        variant="ghost"
+        shape="pill"
+        size="sm"
+        onClick={() => {
+          handleApproveProductVar(item, index);
+        }}>
+        <CIcon name="cil-check" />
+      </CButton>
+    </>
+  );
+  const restoreButtonGroup = (item, index) => (
+    <>
+      <CButton
+        className="inline"
+        color="success"
+        variant="ghost"
+        shape="pill"
+        size="sm"
+        onClick={() => {
+          handleApproveProductVar(item, index);
+        }}>
+        <CIcon name="cil-history" />
+      </CButton>
+    </>
+  );
   const scopedSlots = {
     remarks: (item) => <td>{item.remarks ? item.remarks : "-"}</td>,
-    operations: (item, index) => {
-      return <td className="py-2">{editDeleteButtonGroup(item, index)}</td>;
-    },
+    // operations: (item, index) => {
+    //   switch (productStatus) {
+    //     case "Active":
+    //       return <td className="py-2">{editDeleteButtonGroup(item, index)}</td>;
+    //     case "Pending":
+    //       return <td className="py-2">{approvalButtonGroup(item, index)}</td>;
+    //     case "Inactive":
+    //       return <td className="py-2">{approvalButtonGroup(item, index)}</td>;
+    //     default:
+    //       break;
+    //   }
+    // },
     show_details: (item, index) => {
       return (
         <td className="py-2">
@@ -177,6 +241,9 @@ const Products = ({ productType }) => {
           handleDeleteProductVar={handleDeleteProductVar}
           dropdowns={dropdowns}
           editDeleteButtonGroup={editDeleteButtonGroup}
+          approvalButtonGroup={approvalButtonGroup}
+          restoreButtonGroup={restoreButtonGroup}
+          productStatus={productStatus}
         />
       );
     },

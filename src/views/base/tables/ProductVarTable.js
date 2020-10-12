@@ -17,6 +17,9 @@ function ProductVarTable({
   handleDeleteProductVar,
   dropdowns,
   editDeleteButtonGroup,
+  approvalButtonGroup,
+  restoreButtonGroup,
+  productStatus,
 }) {
   const productVarFields = [
     "itemNo",
@@ -28,7 +31,7 @@ function ProductVarTable({
     "createdAt",
     {
       key: "operations",
-      label: "",
+      label: "Operations",
       _style: { width: "10%" },
       sorter: false,
       filter: false,
@@ -83,11 +86,16 @@ function ProductVarTable({
                 );
               },
               operations: (varItem, varIndex) => {
-                return (
-                  <td className="py-2">
-                    {editDeleteButtonGroup(varItem, varIndex, true)}
-                  </td>
-                );
+                switch (productStatus) {
+                  case "Active":
+                    return <td className="py-2">{editDeleteButtonGroup(item, index)}</td>;
+                  case "Pending":
+                    return <td className="py-2">{approvalButtonGroup(item, index)}</td>;
+                  case "Inactive":
+                    return <td className="py-2">{restoreButtonGroup(item, index)}</td>;
+                  default:
+                    break;
+                }
               },
             }}
           />
