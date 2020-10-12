@@ -18,6 +18,12 @@ const Regions = {
   Malaysia: 3,
 };
 
+const ProductStatus = {
+  Active: 1,
+  Inactive: 2,
+  Pending: 3,
+};
+
 const ResponseCode = {
   //Success
   Login_success: { code: 200, msg: "Login successfully." },
@@ -69,4 +75,5 @@ module.exports = {
   ResponseCode,
   OrderType,
   Regions,
+  ProductStatus,
 };
