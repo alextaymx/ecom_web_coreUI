@@ -30,8 +30,8 @@ let userList = [
     name: "xiaosha007",
     password: "$2b$10$mOtHQBFtVoA/Kts3xvO0GuQx2L0biAJIDk8ThijvLMjpb6tCGuro.",
     role: Roles.SuperAdmin.id,
-    updated_at: "",
-    created_at: "",
+    updatedAt: randomLastWeekDate(),
+    createdAt: randomLastWeekDate(),
     permissions: [...Roles.SuperAdmin.permissions],
   },
   {
@@ -39,9 +39,9 @@ let userList = [
     email: "testing1@outlook.com",
     name: "wenjie",
     password: "$2b$10$mOtHQBFtVoA/Kts3xvO0GuQx2L0biAJIDk8ThijvLMjpb6tCGuro.",
-    role: Roles.SuperAdmin,
-    updated_at: "",
-    created_at: "",
+    role: Roles.SuperAdmin.id,
+    updatedAt: randomLastWeekDate(),
+    createdAt: randomLastWeekDate(),
     permissions: [...Roles.SuperAdmin.permissions],
   },
   {
@@ -49,9 +49,9 @@ let userList = [
     email: "alextay0naruto@gmail.com",
     name: "alextay",
     password: "$2b$10$3y0HlOh/CiyqDvEkdeqImeC/2iHzSDsWT34ETCqyziMRLaojmquga", //asdasd
-    role: Roles.SuperAdmin,
-    updated_at: "",
-    created_at: "",
+    role: Roles.SuperAdmin.id,
+    updatedAt: randomLastWeekDate(),
+    createdAt: randomLastWeekDate(),
     permissions: [...Roles.SuperAdmin.permissions],
   },
   {
@@ -59,9 +59,9 @@ let userList = [
     email: "testing3@outlook.com",
     name: "teoshengpu",
     password: "$2b$10$mOtHQBFtVoA/Kts3xvO0GuQx2L0biAJIDk8ThijvLMjpb6tCGuro.",
-    role: Roles.User,
-    updated_at: "",
-    created_at: "",
+    role: Roles.User.id,
+    updatedAt: randomLastWeekDate(),
+    createdAt: randomLastWeekDate(),
     permissions: [...Roles.User.permissions],
   },
 ];
@@ -85,8 +85,8 @@ const insertUser = (email, name, password) => {
       name: name,
       password: bcrypt_hash(password),
       role: Roles.User,
-      updated_at: "",
-      created_at: "",
+      updated_at: new Date().toISOString(),
+      created_at: new Date().toISOString(),
       permissions: [...Roles.User.permissions],
     };
     userList.push(newUser);
@@ -317,6 +317,8 @@ const getTable = (table) => {
       return productList;
     case "productVar":
       return productVarList;
+    case "user":
+      return userList;
     default:
       return null;
   }
@@ -354,6 +356,24 @@ const getTableInfo = (table, itemsPerPage = 10) => {
   return { size, totalPages };
 };
 
+const getStatistics = (days = 7, table) => {
+  const allDates = [...Array(days).keys()].map(
+    (i) => moment(new Date()).subtract(i, "days").toISOString().split("T")[0]
+  );
+  const data = getTable(table).filter(
+    (item) =>
+      moment.duration(moment(new Date()).diff(moment(item.createdAt))).asDays() <= days
+  );
+  const group = groupBy(data, "createdAt", true).value();
+  let result = { values: [], labels: [] };
+  allDates.map((item) => {
+    result.values.push(item);
+    item in group ? result.labels.push(group[item].length) : result.labels.push(0);
+    return true;
+  });
+  return result;
+};
+
 module.exports = {
   userList,
   validateUserPassword,
@@ -381,4 +401,6 @@ module.exports = {
   deleteSupplier,
   getTableInfo,
   groupBy,
+  getTable,
+  getStatistics,
 };

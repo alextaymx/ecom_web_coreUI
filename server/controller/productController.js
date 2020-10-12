@@ -5,6 +5,7 @@ const {
   updateProduct,
   deleteProduct,
   getTableInfo,
+  getStatistics,
 } = require("../database");
 const { ResponseCode, ProductStatus } = require("../constant");
 const { checkParams } = require("../utils/checkParams");
@@ -57,7 +58,7 @@ module.exports.getProduct = (req, res) => {
       status !== null
         ? resultList.map((product) => {
             product.variations = product.variations.filter(
-              (productVar) => productVar.status === parseInt(ProductStatus[status])
+              (productVar) => productVar.status === parseInt(status)
             );
             return product;
           })
@@ -71,6 +72,31 @@ module.exports.getProduct = (req, res) => {
           totalProducts: tableInfo.size,
           currentPage: page,
           totalPage: tableInfo.totalPages,
+        },
+        resultList.length > 0 ? ResponseCode.General_success.msg : "No content"
+      )
+    );
+  } catch (err) {
+    res
+      .status(ResponseCode.Internal_server_error.code)
+      .json(createResponse(null, ResponseCode.Internal_server_error.msg));
+  }
+};
+
+module.exports.getStatistics = (req, res) => {
+  try {
+    const req_body = req.body;
+    const target = req_body.target;
+    const days = req_body.days;
+    const resultList = target.map((element) => {
+      let temp = {};
+      temp[element] = getStatistics(days, element);
+      return temp;
+    });
+    res.status(ResponseCode.General_success.code).json(
+      createResponse(
+        {
+          resultList,
         },
         resultList.length > 0 ? ResponseCode.General_success.msg : "No content"
       )
