@@ -27,4 +27,6 @@ router.post(
   productController.deleteProduct
 );
 
+router.post("/get_statistics", authMiddleware.checkUser, productController.getStatistics);
+
 module.exports = router;

@@ -66,7 +66,6 @@ const processList = (list, obj) => {
 const filterData = (list, filters) => {
   let result = _.cloneDeep(list);
   filters.forEach((filter) => {
-    console.log(filter);
     result = result.filter((element) => element[filter.key] === filter.value);
   });
   return result;

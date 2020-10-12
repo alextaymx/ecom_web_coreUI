@@ -2,7 +2,7 @@ const db = require("../database");
 const jwt = require("jsonwebtoken");
 const { createResponse } = require("../responseFormat");
 const { ResponseCode } = require("../constant");
-const maxAge = 3600;
+const maxAge = 36000;
 
 //to create jwt token
 const createToken = (id, password) => {
