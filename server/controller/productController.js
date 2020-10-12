@@ -6,7 +6,7 @@ const {
   deleteProduct,
   getTableInfo,
 } = require("../database");
-const { ResponseCode } = require("../constant");
+const { ResponseCode, ProductStatus } = require("../constant");
 const { checkParams } = require("../utils/checkParams");
 const { mainCreate } = require("./productVarController");
 const { processList, filterData } = require("../utils/dbProcessData");
@@ -51,17 +51,18 @@ module.exports.getProduct = (req, res) => {
   try {
     const product_id = req.params.id;
     const page = "page" in req.query ? req.query.page : 1;
-    const isActive = "isActive" in req.query ? req.query.isActive : null;
+    const status = "status" in req.query ? req.query.status : null;
     let resultList = processList(getProduct(product_id, page, 10), "product");
     resultList =
-      isActive !== null
+      status !== null
         ? resultList.map((product) => {
             product.variations = product.variations.filter(
-              (productVar) => productVar.status === (isActive === "true" ? 1 : 0)
+              (productVar) => productVar.status === parseInt(ProductStatus[status])
             );
             return product;
           })
         : resultList;
+    resultList = resultList.filter((product) => product.variations.length > 0);
     const tableInfo = getTableInfo("product");
     res.status(ResponseCode.General_success.code).json(
       createResponse(

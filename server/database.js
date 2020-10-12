@@ -173,7 +173,7 @@ const generateProductVar = (count) =>
       updatedAt: randomLastWeekDate(),
       orders: [i],
       supplier: null,
-      status: getRandomNum(0, 2, 1)[0], // 1 is active, 0 is inactive,
+      status: getRandomNum(1, 4, 1)[0], // 1 is active, 2 is inactive, 3 is pending
     };
   });
 
@@ -194,15 +194,12 @@ const updateProductVar = (productVar_body) => {
 };
 
 const deleteProductVar = (product_id) => {
-  productList.forEach((product) => {
-    if (product.variations.includes(product_id)) {
-      let index = product.variations.indexOf(product_id);
-      product.variations.splice(index, 1);
+  productVarList = productVarList.map((productVar) => {
+    if (productVar.id === parseInt(product_id)) {
+      productVar.status = 0;
     }
+    return productVar;
   });
-  productVarList = productVarList.filter(
-    (productVar) => productVar.id !== parseInt(product_id)
-  );
 };
 
 const getProductVar = (product_id, page_num, itemsPerPage = 10) => {
