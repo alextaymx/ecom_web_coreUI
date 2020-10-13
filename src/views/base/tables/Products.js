@@ -6,21 +6,19 @@ import {
   CDataTable,
   CPagination,
   CButton,
-  CButtonGroup,
+  // CButtonGroup,
 } from "@coreui/react";
-// import usersData from "../../users/UsersData";
 import CIcon from "@coreui/icons-react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductAPI } from "../../../apiCalls/get";
 import {
-  deleteProductAPI,
-  deleteProductVarAPI,
+  // deleteProductAPI,
+  // deleteProductVarAPI,
   updateProductVarAPI,
 } from "../../../apiCalls/post";
 import { onLogoutv2 } from "../../../apiCalls/auth";
-import { pick } from "lodash";
+// import { pick } from "lodash";
 import ProductVarTable from "./ProductVarTable";
-// import { findLastIndex } from "lodash";
 
 const fields = [
   {
@@ -250,7 +248,7 @@ const Products = ({ productStatus }) => {
   };
   return (
     <>
-      <CCard accentColor="primary">
+      <CCard accentColor="primary" className="shadow">
         <CCardBody>
           <CDataTable
             items={productData}
@@ -260,7 +258,7 @@ const Products = ({ productStatus }) => {
             cleaner
             // hover
             // striped
-            // outlined
+            outlined
             // border
             // pagination
             responsive

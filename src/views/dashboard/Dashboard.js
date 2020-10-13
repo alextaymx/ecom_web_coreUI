@@ -21,7 +21,6 @@ import CIcon from "@coreui/icons-react";
 import MainChartExample from "../charts/MainChartExample";
 import Users from "../users/Users";
 import usersData from "../users/UsersData";
-import Products from "../base/tables/Products";
 import TableTabs from "../base/tables/TableTabs";
 const fields = ["name", "registered", "role", "status"];
 
@@ -61,12 +60,12 @@ const Dashboard = () => {
                 <CIcon name="cil-cloud-download" />
               </CButton>
               <CButtonGroup className="float-right mr-3">
-                {["Day", "Month", "Year"].map((value) => (
+                {["Week", "Month", "Year"].map((value) => (
                   <CButton
                     color="outline-secondary"
                     key={value}
                     className="mx-0"
-                    active={value === "Month"}>
+                    active={value === "Week"}>
                     {value}
                   </CButton>
                 ))}
@@ -126,7 +125,9 @@ const Dashboard = () => {
         </CCardFooter>
       </CCard>
 
-      <TableTabs />
+      {/* <TableTabs /> */}
+
+      <WidgetsBrand withCharts />
       <Users />
 
       <CRow>
@@ -635,8 +636,6 @@ const Dashboard = () => {
           </CCard>
         </CCol>
       </CRow>
-
-      <WidgetsBrand withCharts />
     </>
   );
 };

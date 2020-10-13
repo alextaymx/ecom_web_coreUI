@@ -80,13 +80,13 @@ function TableTabs() {
                 </CNav>
                 <CTabContent fade={false}>
                   <CTabPane>
-                    <Products productStatus="Active" />
+                    <Products productStatus="1" />
                   </CTabPane>
                   <CTabPane>
-                    <Products productStatus="Pending" />
+                    <Products productStatus="2" />
                   </CTabPane>
                   <CTabPane>
-                    <Products productStatus="Inactive" />
+                    <Products productStatus="3" />
                   </CTabPane>
                 </CTabContent>
               </CTabs>

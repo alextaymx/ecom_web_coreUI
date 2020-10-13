@@ -1,7 +1,6 @@
-import CIcon from "@coreui/icons-react";
+// import CIcon from "@coreui/icons-react";
 import {
   CBadge,
-  CButton,
   CCard,
   CCardBody,
   CCardHeader,
@@ -13,8 +12,6 @@ import React from "react";
 function ProductVarTable({
   item,
   index,
-  handleEditProductVar,
-  handleDeleteProductVar,
   dropdowns,
   editDeleteButtonGroup,
   approvalButtonGroup,
@@ -87,12 +84,18 @@ function ProductVarTable({
               },
               operations: (varItem, varIndex) => {
                 switch (productStatus) {
-                  case "Active":
-                    return <td className="py-2">{editDeleteButtonGroup(item, index)}</td>;
-                  case "Pending":
-                    return <td className="py-2">{approvalButtonGroup(item, index)}</td>;
-                  case "Inactive":
-                    return <td className="py-2">{restoreButtonGroup(item, index)}</td>;
+                  case "1": //"Active":
+                    return (
+                      <td className="py-2">{editDeleteButtonGroup(varItem, varIndex)}</td>
+                    );
+                  case "2": //"Pending":
+                    return (
+                      <td className="py-2">{approvalButtonGroup(varItem, varIndex)}</td>
+                    );
+                  case "3": //"Inactive":
+                    return (
+                      <td className="py-2">{restoreButtonGroup(varItem, varIndex)}</td>
+                    );
                   default:
                     break;
                 }
