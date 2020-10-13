@@ -8,15 +8,15 @@ import {
   CForm,
   CFormGroup,
   CInput,
-  CInputGroup,
+  // CInputGroup,
   // CInputGroupAppend,
-  CInputGroupPrepend,
-  CInputGroupText,
+  // CInputGroupPrepend,
+  // CInputGroupText,
   CInputRadio,
   CLabel,
   CRow,
 } from "@coreui/react";
-import React, { useState } from "react";
+import React from "react";
 import { startCase } from "lodash";
 
 function CreateProductForm({

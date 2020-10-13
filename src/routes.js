@@ -10,6 +10,11 @@ const UpdateProductForm = React.lazy(() =>
 const UpdateProductVarForm = React.lazy(() =>
   import("./views/base/forms/UpdateProductVarForm")
 );
+const UserList = React.lazy(() => import("./views/base/tables/UserList"));
+const CreateUser = React.lazy(() => import("./views/base/forms/CreateUser"));
+
+const SupplierList = React.lazy(() => import("./views/base/tables/SupplierList"));
+const CreateSupplier = React.lazy(() => import("./views/base/forms/CreateSupplier"));
 
 // template components
 const Toaster = React.lazy(() => import("./views/notifications/toaster/Toaster"));
@@ -83,7 +88,26 @@ const routes = [
     name: "UpdateProductVarForm",
     component: UpdateProductVarForm,
   },
-
+  {
+    path: "/userList",
+    name: "UserList",
+    component: UserList,
+  },
+  {
+    path: "/createUser",
+    name: "CreateUser",
+    component: CreateUser,
+  },
+  {
+    path: "/supplierList",
+    name: "SupplierList",
+    component: SupplierList,
+  },
+  {
+    path: "/createSupplier",
+    name: "CreateSupplier",
+    component: CreateSupplier,
+  },
   //template components
   { path: "/", exact: true, name: "Home" },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
