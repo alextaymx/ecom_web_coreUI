@@ -31,7 +31,7 @@ const ResponseCode = {
   Logout_success: { code: 200, msg: "Logout successfully." },
   General_success: { code: 200, msg: "Success." },
   //Errors
-  Unauthorized: { code: 401, msg: "Unauthorized permission." },
+  Unauthorized: { code: 401, msg: "Unauthorized permission or inactive user." },
   Login_wrong_input: { code: 401, msg: "Wrong password or username." },
   Internal_server_error: {
     code: 500,

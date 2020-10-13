@@ -53,17 +53,7 @@ module.exports.getProduct = (req, res) => {
     const product_id = req.params.id;
     const page = "page" in req.query ? req.query.page : 1;
     const status = "status" in req.query ? req.query.status : null;
-    let resultList = processList(getProduct(product_id, page, 10), "product");
-    resultList =
-      status !== null
-        ? resultList.map((product) => {
-            product.variations = product.variations.filter(
-              (productVar) => productVar.status === parseInt(status)
-            );
-            return product;
-          })
-        : resultList;
-    resultList = resultList.filter((product) => product.variations.length > 0);
+    const resultList = processList(getProduct(product_id, page, 10, status), "product");
     const tableInfo = getTableInfo("product");
     res.status(ResponseCode.General_success.code).json(
       createResponse(

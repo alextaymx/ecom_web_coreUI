@@ -33,6 +33,7 @@ let userList = [
     updatedAt: randomLastWeekDate(),
     createdAt: randomLastWeekDate(),
     permissions: [...Roles.SuperAdmin.permissions],
+    isActivated: true,
   },
   {
     id: 2,
@@ -43,6 +44,7 @@ let userList = [
     updatedAt: randomLastWeekDate(),
     createdAt: randomLastWeekDate(),
     permissions: [...Roles.SuperAdmin.permissions],
+    isActivated: true,
   },
   {
     id: 3,
@@ -53,6 +55,7 @@ let userList = [
     updatedAt: randomLastWeekDate(),
     createdAt: randomLastWeekDate(),
     permissions: [...Roles.SuperAdmin.permissions],
+    isActivated: true,
   },
   {
     id: 4,
@@ -63,6 +66,7 @@ let userList = [
     updatedAt: randomLastWeekDate(),
     createdAt: randomLastWeekDate(),
     permissions: [...Roles.User.permissions],
+    isActivated: true,
   },
 ];
 
@@ -74,7 +78,7 @@ const validateUserPassword = (email, password) => {
   return null;
 };
 
-const insertUser = (email, name, password) => {
+const insertUser = (email, name, password, role = Roles.User.id) => {
   if (email != null && name != null && password != null) {
     if (userList.filter((user) => user.email === email).length > 0) {
       return null;
@@ -84,10 +88,11 @@ const insertUser = (email, name, password) => {
       email: email,
       name: name,
       password: bcrypt_hash(password),
-      role: Roles.User,
-      updated_at: new Date().toISOString(),
-      created_at: new Date().toISOString(),
+      role: role,
+      updatedAt: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
       permissions: [...Roles.User.permissions],
+      isActivated: false,
     };
     userList.push(newUser);
     return newUser;
@@ -95,6 +100,27 @@ const insertUser = (email, name, password) => {
     return null;
   }
 };
+
+const getUser = (user_id, page_num, itemsPerPage = 10, isActive = null) => {
+  let result =
+    isActive !== null
+      ? userList.filter((user) => user.isActivated.toString() === isActive.toString())
+      : userList;
+  result =
+    user_id === "*" ? result : result.filter((user) => user.id === parseInt(user_id));
+  return result.slice(itemsPerPage * (page_num - 1), itemsPerPage * page_num);
+};
+
+const generateUser = (count) => {
+  [...Array(count).keys()].map((i) => {
+    return insertUser(
+      faker.internet.email(),
+      faker.internet.userName(),
+      faker.internet.password()
+    );
+  });
+};
+generateUser(20);
 
 const getUserByIdPassword = (id, password) => {
   const user_obj = userList.filter((user) => user.id === id);
@@ -244,14 +270,33 @@ const updateProduct = (product_body) => {
 };
 
 const deleteProduct = (product_id) => {
-  productList = productList.filter((product) => product.id !== parseInt(product_id));
+  productList = productList.map((product) => {
+    if (product.id === parseInt(product_id)) {
+      product.variations.forEach((productVarId) => {
+        deleteProductVar(productVarId);
+      });
+    }
+  });
 };
 
-const getProduct = (product_id, page_num, itemsPerPage = 10) => {
+const getProduct = (product_id, page_num, itemsPerPage = 10, status = null) => {
   let result =
+    status !== null
+      ? productList.map((product) => {
+          const validVar = productVarList.filter(
+            (productVar) =>
+              product.variations.includes(productVar.id) &&
+              productVar.status === parseInt(status)
+          );
+          product.variations = validVar.map((productVar) => productVar.id);
+          return product;
+        })
+      : productList;
+  result = result.filter((product) => product.variations.length > 0);
+  result =
     product_id === "*"
-      ? productList
-      : productList.filter((productVar) => productVar.id === parseInt(product_id));
+      ? result
+      : result.filter((productVar) => productVar.id === parseInt(product_id));
   return result.slice(itemsPerPage * (page_num - 1), itemsPerPage * page_num);
 };
 
@@ -324,15 +369,8 @@ const getTable = (table) => {
   }
 };
 
-const dbAdd = (tableName, newObj) => {
-  let table = getTable(tableName);
-  let obj = { ...newObj, id: table[table.length - 1].id + 1 };
-  table.push(obj);
-  return obj.id;
-};
-
 const dbGet = (tableName, id, pageReq, itemsPerPage = 10) => {
-  let table = getTable(tableName);
+  const table = getTable(tableName);
   if (id === "*") {
     return table.slice(itemsPerPage * (pageReq - 1), itemsPerPage * pageReq);
   } else {
@@ -342,8 +380,10 @@ const dbGet = (tableName, id, pageReq, itemsPerPage = 10) => {
 
 const dbUpdate = (tableName, update_content) => {
   let table = getTable(tableName);
-  table = table.map((element) => {
-    return element.id === update_content.id ? { ...element, ...update_content } : element;
+  table.forEach((element, index) => {
+    if (element.id === update_content.id) {
+      table[index] = { ...element, ...update_content };
+    }
   });
 };
 
@@ -403,4 +443,6 @@ module.exports = {
   groupBy,
   getTable,
   getStatistics,
+  getUser,
+  dbUpdate,
 };
