@@ -4,13 +4,12 @@ const {
   addProduct,
   updateProduct,
   deleteProduct,
-  getTableInfo,
   getStatistics,
 } = require("../database");
-const { ResponseCode, ProductStatus } = require("../constant");
+const { ResponseCode } = require("../constant");
 const { checkParams } = require("../utils/checkParams");
 const { mainCreate } = require("./productVarController");
-const { processList, filterData } = require("../utils/dbProcessData");
+const { processList } = require("../utils/dbProcessData");
 
 module.exports.createProduct = (req, res) => {
   try {
@@ -53,15 +52,15 @@ module.exports.getProduct = (req, res) => {
     const product_id = req.params.id;
     const page = "page" in req.query ? req.query.page : 1;
     const status = "status" in req.query ? req.query.status : null;
-    const resultList = processList(getProduct(product_id, page, 10, status), "product");
-    const tableInfo = getTableInfo("product");
+    const productList = getProduct(product_id, page, 10, status);
+    const resultList = processList(productList.data, "product");
     res.status(ResponseCode.General_success.code).json(
       createResponse(
         {
           resultList: resultList,
-          totalProducts: tableInfo.size,
+          totalProducts: productList.tableInfo.size,
           currentPage: page,
-          totalPage: tableInfo.totalPages,
+          totalPage: productList.tableInfo.totalPages,
         },
         resultList.length > 0 ? ResponseCode.General_success.msg : "No content"
       )
@@ -104,7 +103,7 @@ module.exports.updateProduct = (req, res) => {
     if (!("product_id" in req_body)) {
       throw new Error("Product id not found");
     }
-    if (getProduct(req_body.product_id).length === 0) {
+    if (getProduct(req_body.product_id).data.length === 0) {
       res.status(400).json(createResponse(null, "Product not found"));
       return;
     }
@@ -124,7 +123,7 @@ module.exports.updateProduct = (req, res) => {
 module.exports.deleteProduct = (req, res) => {
   try {
     const { product_id } = req.body;
-    if (getProduct(product_id).length === 0) {
+    if (getProduct(product_id, 1, 10000).data.length === 0) {
       res.status(400).json(createResponse(null, "Product not found"));
       return;
     }

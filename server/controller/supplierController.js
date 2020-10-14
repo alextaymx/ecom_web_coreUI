@@ -43,15 +43,19 @@ module.exports.getSupplier = (req, res) => {
   if ("page" in req.query) {
     page = req.query.page;
   }
-  let resultList = processList(getSupplier(supplier_id, page), "supplier");
-  res
-    .status(ResponseCode.General_success.code)
-    .json(
-      createResponse(
-        { resultList: resultList },
-        resultList.length > 0 ? ResponseCode.General_success.msg : "No content"
-      )
-    );
+  const supplierList = getSupplier(supplier_id, page);
+  const resultList = processList(supplierList.data, "supplier");
+  res.status(ResponseCode.General_success.code).json(
+    createResponse(
+      {
+        resultList: resultList,
+        totalProducts: supplierList.tableInfo.size,
+        currentPage: page,
+        totalPage: supplierList.tableInfo.totalPages,
+      },
+      resultList.length > 0 ? ResponseCode.General_success.msg : "No content"
+    )
+  );
 };
 
 module.exports.updateSupplier = (req, res) => {
@@ -60,7 +64,7 @@ module.exports.updateSupplier = (req, res) => {
     if (!("supplier_id" in req_body)) {
       throw new Error("Order id not found");
     }
-    if (getSupplier(req_body.supplier_id).length === 0) {
+    if (getSupplier(req_body.supplier_id, 1, 100000).data.length === 0) {
       res.status(400).json(createResponse(null, "Order not found"));
       return;
     }
@@ -83,7 +87,7 @@ module.exports.updateSupplier = (req, res) => {
 module.exports.deleteSupplier = (req, res) => {
   try {
     const { supplier_id } = req.body;
-    if (getSupplier(supplier_id).length === 0) {
+    if (getSupplier(supplier_id, 1, 100000).data.length === 0) {
       res.status(400).json(createResponse(null, "Supplier not found"));
       return;
     }

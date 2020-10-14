@@ -108,7 +108,7 @@ const getUser = (user_id, page_num, itemsPerPage = 10, isActive = null) => {
       : userList;
   result =
     user_id === "*" ? result : result.filter((user) => user.id === parseInt(user_id));
-  return result.slice(itemsPerPage * (page_num - 1), itemsPerPage * page_num);
+  return packWithTableInfo(result, itemsPerPage, page_num);
 };
 
 const generateUser = (count) => {
@@ -162,12 +162,12 @@ const deleteOrder = (order_id) => {
   orderList = orderList.filter((order) => order.id !== parseInt(order_id));
 };
 
-const getOrder = (order_id, page_num) => {
+const getOrder = (order_id, page_num, itemsPerPage = 10) => {
   let result =
     order_id === "*"
       ? orderList
       : orderList.filter((order) => order.id === parseInt(order_id));
-  return result.slice(10 * (page_num - 1), 10 * page_num);
+  return packWithTableInfo(result, itemsPerPage, page_num);
 };
 
 /*Product Variation*/
@@ -233,7 +233,7 @@ const getProductVar = (product_id, page_num, itemsPerPage = 10) => {
     product_id === "*"
       ? productVarList
       : productVarList.filter((productVar) => productVar.id === parseInt(product_id));
-  return result.slice(itemsPerPage * (page_num - 1), itemsPerPage * page_num);
+  return packWithTableInfo(result, itemsPerPage, page_num);
 };
 
 /*Product*/
@@ -298,7 +298,7 @@ const getProduct = (product_id, page_num, itemsPerPage = 10, status = null) => {
     product_id === "*"
       ? result
       : result.filter((productVar) => productVar.id === parseInt(product_id));
-  return result.slice(itemsPerPage * (page_num - 1), itemsPerPage * page_num);
+  return packWithTableInfo(result, itemsPerPage, page_num);
 };
 
 /*Supplier*/
@@ -350,7 +350,7 @@ const getSupplier = (supplier_id, page_num, itemsPerPage = 10) => {
     supplier_id === "*"
       ? supplierList
       : supplierList.filter((supplier) => supplier.id === parseInt(supplier_id));
-  return result.slice(itemsPerPage * (page_num - 1), itemsPerPage * page_num);
+  return packWithTableInfo(result, itemsPerPage, page_num);
 };
 
 const getTable = (table) => {
@@ -388,13 +388,20 @@ const dbUpdate = (tableName, update_content) => {
   });
 };
 
-const getTableInfo = (table, itemsPerPage = 10) => {
-  const size = getTable(table).length;
+const getTableInfo = (list, itemsPerPage = 10) => {
+  const size = list.length;
   const totalPages =
     size % itemsPerPage !== 0
       ? parseInt(size / itemsPerPage) + 1
       : parseInt(size / itemsPerPage);
   return { size, totalPages };
+};
+
+const packWithTableInfo = (list, itemsPerPage, currentPage) => {
+  return {
+    data: list.slice(itemsPerPage * (currentPage - 1), itemsPerPage * currentPage),
+    tableInfo: getTableInfo(list, itemsPerPage),
+  };
 };
 
 const getStatistics = (days = 7, table) => {
@@ -440,7 +447,6 @@ module.exports = {
   addSupplier,
   updateSupplier,
   deleteSupplier,
-  getTableInfo,
   groupBy,
   getTable,
   getStatistics,

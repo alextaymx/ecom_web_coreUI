@@ -32,15 +32,18 @@ module.exports.getOrder = (req, res) => {
   if ("page" in req.query) {
     page = req.query.page;
   }
-  let resultList = getOrder(order_id, page);
-  res
-    .status(ResponseCode.General_success.code)
-    .json(
-      createResponse(
-        { resultList: resultList },
-        resultList.length > 0 ? ResponseCode.General_success.msg : "No content"
-      )
-    );
+  const resultList = getOrder(order_id, page);
+  res.status(ResponseCode.General_success.code).json(
+    createResponse(
+      {
+        resultList: resultList.data,
+        totalProducts: resultList.tableInfo.size,
+        currentPage: page,
+        totalPage: resultList.tableInfo.totalPages,
+      },
+      resultList.length > 0 ? ResponseCode.General_success.msg : "No content"
+    )
+  );
 };
 
 module.exports.updateOrder = (req, res) => {

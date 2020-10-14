@@ -30,15 +30,18 @@ module.exports.getUser = (req, res) => {
   if ("isActive" in req.query) {
     isActive = req.query.isActive;
   }
-  let resultList = getUser(user_id, page, 10, isActive);
-  res
-    .status(ResponseCode.General_success.code)
-    .json(
-      createResponse(
-        { resultList: resultList },
-        resultList.length > 0 ? ResponseCode.General_success.msg : "No content"
-      )
-    );
+  const resultList = getUser(user_id, page, 10, isActive);
+  res.status(ResponseCode.General_success.code).json(
+    createResponse(
+      {
+        resultList: resultList.data,
+        totalUsers: resultList.tableInfo.size,
+        currentPage: page,
+        totalPage: resultList.tableInfo.totalPages,
+      },
+      resultList.length > 0 ? ResponseCode.General_success.msg : "No content"
+    )
+  );
 };
 
 module.exports.updateUser = (req, res) => {
@@ -47,7 +50,7 @@ module.exports.updateUser = (req, res) => {
     if (!("id" in req_body)) {
       throw new Error("Order id not found");
     }
-    if (getUser(req_body.id, 1, 100000).length === 0) {
+    if (getUser(req_body.id, 1, 100000).data.length === 0) {
       res.status(400).json(createResponse(null, "User not found"));
       return;
     }

@@ -1,4 +1,4 @@
-const { productVarList, supplierList, orderList } = require("../database");
+const { productVarList, supplierList, orderList, userList } = require("../database");
 const _ = require("lodash");
 
 const getElementByIndexArr = (input_list, index_arr) => {
@@ -29,6 +29,7 @@ const processProduct = (product) => {
     let temp = _.cloneDeep(product.variations[index]);
     product.variations[index] = processProductVar(temp);
   });
+  product.createdBy = getElementByIndexArr(userList, [product.createdBy])[0].name;
   return product;
 };
 
