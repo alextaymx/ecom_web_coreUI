@@ -6,7 +6,7 @@ import { CContainer, CFade } from "@coreui/react";
 import routes from "../routes.js";
 // redux
 // import { useSelector } from "react-redux";
-
+const Page404 = React.lazy(() => import("../views/pages/page404/Page404"));
 const loading = (
   <div className="pt-3 text-center">
     <div className="sk-spinner sk-spinner-pulse" />
@@ -37,7 +37,8 @@ const TheContent = () => {
                   />
                 )
             )}
-            <Redirect from="/" to="/dashboard" />
+            <Route name="Page 404" render={(props) => <Page404 {...props} />} />
+            {/* <Redirect from="/" to="/dashboard" /> */}
             {/* {isLogin ? (
               <Redirect from="/" to="/dashboard" />
             ) : (

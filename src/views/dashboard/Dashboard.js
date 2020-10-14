@@ -21,7 +21,7 @@ import CIcon from "@coreui/icons-react";
 import MainChartExample from "../charts/MainChartExample";
 import Users from "../users/Users";
 import usersData from "../users/UsersData";
-import TableTabs from "../../pages/products/table/TableTabs";
+// import TableTabs from "../../pages/products/table/TableTabs";
 const fields = ["name", "registered", "role", "status"];
 
 const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
