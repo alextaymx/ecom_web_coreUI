@@ -52,7 +52,9 @@ const TheHeader = () => {
 
       <CHeaderNav className="d-md-down-none mr-auto">
         <CHeaderNavItem className="px-3">
-          <CHeaderNavLink to="/dashboard">Dashboard</CHeaderNavLink>
+          <CHeaderNavLink to="/dashboard" replace>
+            Dashboard
+          </CHeaderNavLink>
         </CHeaderNavItem>
         <CHeaderNavItem className="px-3">
           <CHeaderNavLink to="/users">Users</CHeaderNavLink>
@@ -99,7 +101,11 @@ const TheHeader = () => {
           {/* <CLink className="c-subheader-nav-link" href="#">
             <CIcon name="cil-speech" alt="Settings" />
           </CLink> */}
-          <CLink className="c-subheader-nav-link" aria-current="page" to="/dashboard">
+          <CLink
+            className="c-subheader-nav-link"
+            aria-current="page"
+            to="/dashboard"
+            replace>
             <CIcon name="cil-graph" alt="Dashboard" />
             &nbsp;Dashboard
           </CLink>

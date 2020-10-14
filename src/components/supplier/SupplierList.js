@@ -42,9 +42,8 @@ function SupplierList() {
     setLoading(true);
     getSupplierAPI(token, "*", currentPage)
       .then(({ data }) => {
-        console.log(data.resultList);
         setSupplierData(data.resultList);
-        setTotalPages(data.totalPage || 3);
+        setTotalPages(data.totalPage);
         setLoading(false);
       })
       .catch((error) => {

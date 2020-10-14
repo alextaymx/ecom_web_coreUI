@@ -47,7 +47,7 @@ const WidgetsDropdown = ({ data }) => {
                   dataPoints={data.product.labels}
                   pointHoverBackgroundColor="primary"
                   label="Products"
-                  labels="months"
+                  labels="days"
                 />
               }>
               {dropdown()}
@@ -67,8 +67,8 @@ const WidgetsDropdown = ({ data }) => {
                   dataPoints={data.productVar.labels}
                   pointHoverBackgroundColor="info"
                   options={{ elements: { line: { tension: 0.00001 } } }}
-                  label="Members"
-                  labels="months"
+                  label="Variants"
+                  labels="days"
                 />
               }>
               {dropdown()}
@@ -81,16 +81,20 @@ const WidgetsDropdown = ({ data }) => {
               header={data.user.labels.reduce((a, b) => a + b, 0).toString()}
               text="Users registered"
               footerSlot={
-                <ChartLineSimple
-                  className="mt-3"
-                  style={{ height: "70px" }}
-                  backgroundColor="rgba(255,255,255,.2)"
-                  dataPoints={data.user.labels}
-                  options={{ elements: { line: { borderWidth: 2.5 } } }}
-                  pointHoverBackgroundColor="warning"
-                  label="Members"
-                  labels="months"
-                />
+                <>
+                  <CIcon name="cil-user" height="36" className="my-4" />
+                  <ChartLineSimple
+                    className="pt-2 position-absolute w-100 h-100"
+                    // className="mt-3"
+                    style={{ height: "70px" }}
+                    backgroundColor="rgba(255,255,255,.2)"
+                    dataPoints={data.user.labels}
+                    options={{ elements: { line: { borderWidth: 2.5 } } }}
+                    pointHoverBackgroundColor="warning"
+                    label="Users"
+                    labels="days"
+                  />
+                </>
               }>
               {dropdown()}
             </CWidgetDropdown>

@@ -19,6 +19,7 @@ import {
 import { onLogoutv2 } from "../../../apiCalls/auth";
 // import { pick } from "lodash";
 import ProductVarTable from "./ProductVarTable";
+import { conformsTo } from "lodash";
 
 const fields = [
   {
@@ -55,10 +56,16 @@ const Products = ({ productStatus }) => {
 
   useEffect(() => {
     setLoading(true);
+    const interval = setTimeout(() => {
+      setFetchTrigger(fetchTrigger + 1);
+    }, 30000);
+
     getProductAPI(token, "*", currentPage, productStatus)
       .then(({ data }) => {
         setProductData(data.resultList);
         setTotalPages(data.totalPage);
+
+        console.log("Now fetching product...");
         setLoading(false);
       })
       .catch((error) => {
@@ -74,6 +81,9 @@ const Products = ({ productStatus }) => {
           // anything else // console.error("There was an error!", error);
         }
       });
+    return () => {
+      clearTimeout(interval);
+    };
   }, [productStatus, dispatch, token, currentPage, fetchTrigger]);
 
   const toggleDropdown = (index) => {

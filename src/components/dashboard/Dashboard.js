@@ -105,7 +105,11 @@ const Dashboard = () => {
                 </CCol>
               </CRow>
               <MainChartExample
-                style={{ height: "300px", marginTop: "40px" }}
+                style={{
+                  height: "300px",
+                  minWidth: "600px",
+                  marginTop: "40px",
+                }}
                 data={data}
               />
             </CCardBody>

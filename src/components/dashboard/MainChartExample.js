@@ -92,12 +92,14 @@ const MainChartExample = ({ data, ...attributes }) => {
   return (
     <>
       {data && (
-        <CChartLine
-          {...attributes}
-          datasets={defaultDatasets}
-          options={defaultOptions}
-          labels={data.product.values || null}
-        />
+        <div style={{ overflowX: "auto" }}>
+          <CChartLine
+            {...attributes}
+            datasets={defaultDatasets}
+            options={defaultOptions}
+            labels={data.product.values || null}
+          />
+        </div>
       )}
     </>
   );

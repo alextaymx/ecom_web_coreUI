@@ -23,12 +23,12 @@ export default [
     to: "/productList",
     icon: "cil-list",
   },
-  {
-    _tag: "CSidebarNavItem",
-    name: "Create Product",
-    to: "/createProduct",
-    icon: "cil-plus",
-  },
+  // {
+  //   _tag: "CSidebarNavItem",
+  //   name: "Create Product",
+  //   to: "/createProduct",
+  //   icon: "cil-plus",
+  // },
   {
     _tag: "CSidebarNavTitle",
     _children: ["Users"],
