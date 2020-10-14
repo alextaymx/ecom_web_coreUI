@@ -1,39 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { CChartLine } from "@coreui/react-chartjs";
 import { getStyle, hexToRgba } from "@coreui/utils/src";
-import { useSelector } from "react-redux";
-import { getStatistics } from "../../apiCalls/post";
-
 const brandSuccess = getStyle("success") || "#4dbd74";
 const brandInfo = getStyle("info") || "#20a8d8";
 const brandDanger = getStyle("danger") || "#f86c6b";
 
-const MainChartExample = (attributes) => {
+const MainChartExample = ({ data, ...attributes }) => {
   // const random = (min, max) => {
   //   return Math.floor(Math.random() * (max - min + 1) + min);
   // };
-  const token = useSelector((state) => state.userInfo.user.token);
-  const [data, setData] = useState({ product: {}, productVar: {}, user: {} });
-
-  useEffect(() => {
-    const payload = { days: 7, target: ["product", "productVar", "user"] };
-    getStatistics(payload, token)
-      .then(({ data }) => {
-        const [{ product }, { productVar }, { user }] = data.resultList;
-        const fetchedData = {
-          product,
-          productVar,
-          user,
-        };
-        setData(fetchedData);
-        console.log("returned data: ", fetchedData);
-        console.log("returned data: ", product.values);
-      })
-      .catch((error) => {
-        throw error;
-      });
-  }, [token]);
-
   const defaultDatasets = (() => {
     // let elements = 27;
     const data1 = data.product.labels;
