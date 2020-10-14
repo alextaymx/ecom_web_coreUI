@@ -48,7 +48,7 @@ const ButtonGroups = React.lazy(() =>
 );
 const Buttons = React.lazy(() => import("./views/buttons/buttons/Buttons"));
 const Charts = React.lazy(() => import("./views/charts/Charts"));
-const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
+const Dashboard = React.lazy(() => import("./components/dashboard/Dashboard"));
 const CoreUIIcons = React.lazy(() => import("./views/icons/coreui-icons/CoreUIIcons"));
 const Flags = React.lazy(() => import("./views/icons/flags/Flags"));
 const Brands = React.lazy(() => import("./views/icons/brands/Brands"));

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   CWidgetDropdown,
   CRow,
@@ -9,34 +9,11 @@ import {
   CDropdownToggle,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import ChartLineSimple from "../charts/ChartLineSimple";
-import { getStatistics } from "../../apiCalls/post";
-import { useSelector } from "react-redux";
+import ChartLineSimple from "../../views/charts/ChartLineSimple";
+
 // import ChartBarSimple from "../charts/ChartBarSimple";
 
-const WidgetsDropdown = () => {
-  const token = useSelector((state) => state.userInfo.user.token);
-  const [data, setData] = useState();
-
-  useEffect(() => {
-    const payload = { days: 7, target: ["product", "productVar", "user"] };
-    getStatistics(payload, token)
-      .then(({ data }) => {
-        const [{ product }, { productVar }, { user }] = data.resultList;
-        const fetchedData = {
-          product,
-          productVar,
-          user,
-        };
-        setData(fetchedData);
-        console.log("returned data: ", fetchedData);
-        console.log("returned data: ", product.values);
-      })
-      .catch((error) => {
-        throw error;
-      });
-  }, [token]);
-
+const WidgetsDropdown = ({ data }) => {
   const dropdown = () => {
     return (
       <CDropdown>
@@ -52,7 +29,6 @@ const WidgetsDropdown = () => {
       </CDropdown>
     );
   };
-
   // render
   return (
     <>

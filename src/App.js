@@ -7,8 +7,12 @@ import { HashRouter, Route, Switch } from "react-router-dom";
 import "./scss/style.scss";
 
 const loading = (
-  <div className="pt-3 text-center">
-    <div className="sk-spinner sk-spinner-pulse" />
+  <div
+    className="c-app c-default-layout justify-content-center flex-row align-items-center"
+    role="status">
+    <div className="spinner-grow">
+      <span className="sr-only">Loading...</span>
+    </div>
   </div>
 );
 
