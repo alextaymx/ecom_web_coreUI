@@ -4,11 +4,9 @@ const {
   addProductVar,
   updateProductVar,
   deleteProductVar,
-  groupBy,
 } = require("../database");
 const { ResponseCode } = require("../constant");
 const { checkParams } = require("../utils/checkParams");
-const _ = require("lodash");
 const { processList } = require("../utils/dbProcessData");
 
 const mainCreate = (obj) => {
@@ -108,15 +106,19 @@ const getProductVars = (req, res) => {
   if ("page" in req.query) {
     page = req.query.page;
   }
-  let resultList = processList(getProductVar(product_id, page), "productVar");
-  res
-    .status(ResponseCode.General_success.code)
-    .json(
-      createResponse(
-        { resultList: resultList },
-        resultList.length > 0 ? ResponseCode.General_success.msg : "No content"
-      )
-    );
+  const productVarList = getProductVar(product_id, page);
+  let resultList = processList(productVarList.data, "productVar");
+  res.status(ResponseCode.General_success.code).json(
+    createResponse(
+      {
+        resultList: resultList,
+        totalProducts: productVarList.tableInfo.size,
+        currentPage: page,
+        totalPage: productVarList.tableInfo.totalPages,
+      },
+      resultList.length > 0 ? ResponseCode.General_success.msg : "No content"
+    )
+  );
 };
 
 const updateProductVars = (req, res) => {
@@ -125,7 +127,7 @@ const updateProductVars = (req, res) => {
     if (!("product_id" in req_body)) {
       throw new Error("Product id undefined");
     }
-    if (getProductVar(req_body.product_id, 1, 10000).length === 0) {
+    if (getProductVar(req_body.product_id, 1, 100000).data.length === 0) {
       res.status(400).json(createResponse(null, "Product Variation not found"));
       return;
     }
@@ -148,7 +150,7 @@ const updateProductVars = (req, res) => {
 const deleteProductVars = (req, res) => {
   try {
     const { product_id } = req.body;
-    if (getProductVar(product_id, 1, 10000).length === 0) {
+    if (getProductVar(product_id, 1, 100000).data.length === 0) {
       res.status(400).json(createResponse(null, "Product Variation not found"));
       return;
     }
