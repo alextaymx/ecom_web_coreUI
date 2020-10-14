@@ -19,7 +19,6 @@ import {
 import { onLogoutv2 } from "../../../apiCalls/auth";
 // import { pick } from "lodash";
 import ProductVarTable from "./ProductVarTable";
-import { conformsTo } from "lodash";
 
 const fields = [
   {
