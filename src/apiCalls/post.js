@@ -128,3 +128,19 @@ export const createUserAPI = (payload, token) => {
       throw error;
     });
 };
+
+export const updateUserAPI = (payload, token) => {
+  const URL = `${rootUrl}/users/update_user`;
+  return axios
+    .post(URL, payload, {
+      method: "POST/GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: token,
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};
