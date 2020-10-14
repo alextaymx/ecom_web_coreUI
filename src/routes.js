@@ -1,7 +1,7 @@
 import React from "react";
 
 // my own components
-const TableTabs = React.lazy(() => import("./pages/products/table/TableTabs"));
+const TableTabs = React.lazy(() => import("./components/product/table/TableTabs.js"));
 // const ProductList = React.lazy(() => import("./views/base/tables/Products"));
 const CreateProduct = React.lazy(() => import("./components/product/form/CreateProduct"));
 const UpdateProductForm = React.lazy(() =>
@@ -63,53 +63,26 @@ const User = React.lazy(() => import("./views/users/User"));
 
 const routes = [
   // own components
-  {
-    path: "/productList",
-    name: "ProductList",
-    component: TableTabs,
-  },
+  { path: "/productList", name: "ProductList", component: TableTabs },
   // {
   //   path: "/productList",
   //   name: "ProductList",
   //   component: ProductList,
   // },
-  {
-    path: "/createProduct",
-    name: "CreateProduct",
-    component: CreateProduct,
-  },
-  {
-    path: "/updateProductForm",
-    name: "UpdateProductForm",
-    component: UpdateProductForm,
-  },
+  { path: "/createProduct", name: "CreateProduct", component: CreateProduct },
+  { path: "/updateProductForm", name: "UpdateProductForm", component: UpdateProductForm },
   {
     path: "/updateProductVarForm",
     name: "UpdateProductVarForm",
     component: UpdateProductVarForm,
   },
-  {
-    path: "/userList",
-    name: "UserList",
-    component: UserList,
-  },
-  {
-    path: "/createUser",
-    name: "CreateUser",
-    component: CreateUser,
-  },
-  {
-    path: "/supplierList",
-    name: "SupplierList",
-    component: SupplierList,
-  },
-  {
-    path: "/createSupplier",
-    name: "CreateSupplier",
-    component: CreateSupplier,
-  },
+  { path: "/userList", name: "UserList", component: UserList },
+  { path: "/createUser", name: "CreateUser", component: CreateUser },
+  { path: "/supplierList", name: "SupplierList", component: SupplierList },
+  { path: "/createSupplier", name: "CreateSupplier", component: CreateSupplier },
+
   //template components
-  { path: "/", exact: true, name: "Home" },
+  { path: "/", exact: true, name: "Home", component: Dashboard },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
   { path: "/theme", name: "Theme", component: Colors, exact: true },
   { path: "/theme/colors", name: "Colors", component: Colors },
