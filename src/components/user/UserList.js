@@ -17,6 +17,7 @@ import { getUserAPI } from "../../apiCalls/get";
 import { useDispatch, useSelector } from "react-redux";
 import { onLogoutv2 } from "../../apiCalls/auth";
 import CIcon from "@coreui/icons-react";
+import { updateUserAPI } from "../../apiCalls/post";
 
 // import usersData from "../../users/UsersData";
 const fields = [
@@ -66,7 +67,7 @@ function UserList() {
     getUserAPI(token, "*", currentPage, status)
       .then(({ data }) => {
         setUserData(data.resultList);
-        setTotalPages(data.totalPage || 3);
+        setTotalPages(data.totalPage || tab === "Pending" ? 3 : 1);
         setLoading(false);
       })
       .catch((error) => {
@@ -84,18 +85,18 @@ function UserList() {
       });
   }, [token, dispatch, status, currentPage, fetchTrigger]);
 
-  const handleApproveUser = ({ id }) => {
+  const handleApproveDeleteUser = ({ id }, action) => {
     const updatePayload = {
-      product_id: id,
-      status: 1,
+      id,
+      isActivated: action === "approve" ? true : false,
     };
     console.log(updatePayload);
-    // updateProductVarAPI(updatePayload, token)
-    //   .then((data) => {
-    //     console.log(data);
-    //     setFetchTrigger(fetchTrigger + 1);
-    //   })
-    //   .catch((error) => {});
+    updateUserAPI(updatePayload, token)
+      .then((data) => {
+        console.log(data);
+        setFetchTrigger(fetchTrigger + 1);
+      })
+      .catch((error) => {});
   };
   const approvalButtonGroup = (item, index) => (
     <>
@@ -106,7 +107,7 @@ function UserList() {
         shape="pill"
         size="sm"
         onClick={() => {
-          handleApproveUser(item, index);
+          handleApproveDeleteUser(item, "delete");
         }}>
         <CIcon name="cil-ban" />
       </CButton>
@@ -118,7 +119,7 @@ function UserList() {
           shape="pill"
           size="sm"
           onClick={() => {
-            handleApproveUser(item, index);
+            handleApproveDeleteUser(item, "approve");
           }}>
           <CIcon name="cil-check" />
         </CButton>
