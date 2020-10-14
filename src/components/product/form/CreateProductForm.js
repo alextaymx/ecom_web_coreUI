@@ -12,7 +12,7 @@ import {
   // CInputGroupAppend,
   // CInputGroupPrepend,
   // CInputGroupText,
-  CInputRadio,
+  // CInputRadio,
   CLabel,
   CRow,
 } from "@coreui/react";

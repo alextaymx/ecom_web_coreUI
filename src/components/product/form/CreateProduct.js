@@ -70,7 +70,7 @@ const initialState = {
   releaseBy: "2020-01-01",
   orderType: "Special",
   orders: "a",
-  supplier: "alex",
+  supplier: "1",
   retailPrice: "999",
   supplyPrice: "888",
   supplyRate: "777",
@@ -128,19 +128,21 @@ function CreateProduct() {
     dispatch({ action: "product", field: e.target.name, value: e.target.value });
   };
   const productVarOnChange = (index, e) => {
+    // console.log(index, e);
     dispatch({
       action: "productVar",
       field: e.target.name,
       value: e.target.value,
       index,
     });
+    // console.log(state);
   };
   // console.log(state);
   const handleFormSubmit = (e) => {
     e.preventDefault();
     createProductAPI(state, token)
       .then((data) => {
-        console.log("returned data: ", data, state);
+        // console.log("returned data: ", data, state);
         dispatch({ action: "reset" });
         setVisible(5);
         setStep(1);

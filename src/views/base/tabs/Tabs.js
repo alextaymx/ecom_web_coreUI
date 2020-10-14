@@ -13,7 +13,7 @@ import {
   CCardHeader,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import Products from "../tables/Products";
+import Products from "../../../components/product/table/Products";
 
 const Tabs = () => {
   const [active, setActive] = useState(1);

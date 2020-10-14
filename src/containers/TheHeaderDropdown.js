@@ -10,7 +10,7 @@ import {
 import { freeSet } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 import { useHistory } from "react-router-dom";
-import { logout } from "../actions";
+import { logout } from "../redux/actions";
 // redux
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";

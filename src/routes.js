@@ -1,20 +1,20 @@
 import React from "react";
 
 // my own components
-const TableTabs = React.lazy(() => import("./views/base/tables/TableTabs"));
+const TableTabs = React.lazy(() => import("./pages/products/table/TableTabs"));
 // const ProductList = React.lazy(() => import("./views/base/tables/Products"));
-const CreateProduct = React.lazy(() => import("./views/base/forms/CreateProduct"));
+const CreateProduct = React.lazy(() => import("./components/product/form/CreateProduct"));
 const UpdateProductForm = React.lazy(() =>
-  import("./views/base/forms/UpdateProductForm")
+  import("./components/product/form/UpdateProductForm")
 );
 const UpdateProductVarForm = React.lazy(() =>
-  import("./views/base/forms/UpdateProductVarForm")
+  import("./components/product/form/UpdateProductVarForm")
 );
-const UserList = React.lazy(() => import("./views/base/tables/UserList"));
-const CreateUser = React.lazy(() => import("./views/base/forms/CreateUser"));
+const UserList = React.lazy(() => import("./components/user/UserList"));
+const CreateUser = React.lazy(() => import("./components/user/CreateUser"));
 
-const SupplierList = React.lazy(() => import("./views/base/tables/SupplierList"));
-const CreateSupplier = React.lazy(() => import("./views/base/forms/CreateSupplier"));
+const SupplierList = React.lazy(() => import("./components/supplier/SupplierList"));
+const CreateSupplier = React.lazy(() => import("./components/supplier/CreateSupplier"));
 
 // template components
 const Toaster = React.lazy(() => import("./views/notifications/toaster/Toaster"));

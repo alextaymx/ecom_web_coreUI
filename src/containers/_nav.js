@@ -68,9 +68,14 @@ export default [
   },
   {
     _tag: "CSidebarNavDropdown",
-    name: "UI Kit",
+    name: "UI Kit  ..../src/views",
     // route: "/base",
-    icon: "cil-options",
+    icon: {
+      name: "cil-star",
+      className: "text-danger",
+    },
+    // icon: { name: "cil-options", color: "info" },
+
     _children: [
       {
         _tag: "CSidebarNavTitle",

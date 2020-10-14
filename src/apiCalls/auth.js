@@ -1,5 +1,5 @@
 import axios from "axios";
-import { logout } from "../actions";
+import { logout } from "../redux/actions";
 const rootUrl = `${
   process.env.NODE_ENV === "production" ? "" : process.env.REACT_APP_BASE_URL
 }/api/`;
