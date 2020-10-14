@@ -16,7 +16,7 @@ import {
   CRow,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import { onRegister } from "../../../apiCalls/auth";
+import { onRegister } from "../../apiCalls/auth";
 
 const Register = () => {
   const [username, setUsername] = useState("");

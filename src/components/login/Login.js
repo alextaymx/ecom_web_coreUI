@@ -17,8 +17,8 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { useDispatch } from "react-redux";
-import { login } from "../../../actions";
-import { onLogin } from "../../../apiCalls/auth";
+import { login } from "../../redux/actions";
+import { onLogin } from "../../apiCalls/auth";
 
 const Login = () => {
   let history = useHistory();

@@ -11,15 +11,20 @@ import {
   // CInputGroupAppend,
   CInputGroupPrepend,
   CInputGroupText,
-  CInputRadio,
+  // CInputRadio,
   CLabel,
   CRow,
 } from "@coreui/react";
 // import CIcon from "@coreui/icons-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import { createProductVarAPI } from "../../../apiCalls/post";
 // import { useSelector } from "react-redux";
 import { startCase, pick, omit } from "lodash";
+import Select from "react-select";
+// import makeAnimated from "react-select/animated";
+import { useDispatch, useSelector } from "react-redux";
+import { getSupplierAPI } from "../../../apiCalls/get";
+import { onLogoutv2 } from "../../../apiCalls/auth";
 // const initialState = {
 //   itemNo: "",
 //   retailPrice: "",
@@ -37,6 +42,7 @@ import { startCase, pick, omit } from "lodash";
 //     [field]: value,
 //   };
 // };
+// const animatedComponents = makeAnimated();
 
 function CreateProductVarForm({
   fieldArr,
@@ -45,6 +51,38 @@ function CreateProductVarForm({
   decrementStep,
   addProductVar,
 }) {
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.userInfo.user.token);
+  const [supplierData, setSupplierData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [fetchTrigger, setFetchTrigger] = useState(0);
+
+  useEffect(() => {
+    setLoading(true);
+    getSupplierAPI(token, "*", 1)
+      .then(({ data }) => {
+        console.log(data.resultList);
+        const suppliers = data.resultList.map((supplier) => ({
+          value: supplier.id,
+          label: supplier.name,
+        }));
+        setSupplierData(suppliers);
+        setLoading(false);
+      })
+      .catch((error) => {
+        if (error.response) {
+          onLogoutv2(dispatch);
+          // console.error("err response", error.response); // client received an error response (5xx, 4xx)
+        } else if (error.request) {
+          // console.error("err req", error.request); // client never received a response, or request never left
+        } else {
+          setTimeout(() => {
+            setFetchTrigger(fetchTrigger + 1);
+          }, 2000);
+          // anything else // console.error("There was an error!", error);
+        }
+      });
+  }, [token, dispatch, fetchTrigger]);
   // const radioInput = pick(field, "resale");
   return (
     <>
@@ -61,7 +99,8 @@ function CreateProductVarForm({
                     "supplyPrice",
                     "resale",
                     "orderBy",
-                    "releaseBy"
+                    "releaseBy",
+                    "supplier"
                   );
                   const monetaryInputField = pick(
                     productVar,
@@ -141,6 +180,57 @@ function CreateProductVarForm({
                               </CCol>
                             );
                           })}
+                          <CCol sm="4">
+                            <CFormGroup>
+                              <CLabel htmlFor="supplier">Supplier</CLabel>
+                              <Select
+                                name="supplier"
+                                id="supplier"
+                                isLoading={loading}
+                                isSearchable
+                                onChange={({ value }) => {
+                                  const fakeEvent = {
+                                    target: {
+                                      name: "supplier",
+                                      value,
+                                    },
+                                  };
+                                  productVarOnChange(arrIndex, fakeEvent);
+                                }}
+                                // components={animatedComponents}
+                                // defaultValue={[colourOptions[4], colourOptions[5]]}
+                                // isMulti
+                                options={supplierData || []}
+                              />
+                            </CFormGroup>
+                          </CCol>
+
+                          <CCol sm="4">
+                            <CFormGroup>
+                              <CLabel htmlFor="resale">Resale</CLabel>
+                              <Select
+                                name="resale"
+                                id="resale"
+                                isSearchable
+                                onChange={({ value }) => {
+                                  const fakeEvent = {
+                                    target: {
+                                      name: "resale",
+                                      value,
+                                    },
+                                  };
+                                  productVarOnChange(arrIndex, fakeEvent);
+                                }}
+                                // components={animatedComponents}
+                                defaultValue={{ value: "false", label: "No" }}
+                                // isMulti
+                                options={[
+                                  { value: "true", label: "Yes" },
+                                  { value: "false", label: "No" },
+                                ]}
+                              />
+                            </CFormGroup>
+                          </CCol>
                           {/* <CCol sm="4">
                             <CFormGroup>
                               <CLabel>Resale</CLabel>
