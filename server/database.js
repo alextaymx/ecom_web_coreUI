@@ -288,8 +288,9 @@ const getProduct = (product_id, page_num, itemsPerPage = 10, status = null) => {
               product.variations.includes(productVar.id) &&
               productVar.status === parseInt(status)
           );
-          product.variations = validVar.map((productVar) => productVar.id);
-          return product;
+          let temp = _.cloneDeep(product);
+          temp.variations = validVar.map((productVar) => productVar.id);
+          return temp;
         })
       : productList;
   result = result.filter((product) => product.variations.length > 0);

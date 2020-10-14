@@ -32,7 +32,7 @@ const ResponseCode = {
   General_success: { code: 200, msg: "Success." },
   //Errors
   Unauthorized: { code: 401, msg: "Unauthorized permission or inactive user." },
-  Login_wrong_input: { code: 401, msg: "Wrong password or username." },
+  Login_wrong_input: { code: 401, msg: "Wrong password or username or inactive user." },
   Internal_server_error: {
     code: 500,
     msg: "Internal Server Error. Try again later.",
