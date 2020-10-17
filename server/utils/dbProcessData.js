@@ -1,4 +1,5 @@
 const { productVarList, supplierList, orderList, userList } = require("../database");
+const { Roles } = require("../constant");
 const _ = require("lodash");
 
 const getElementByIndexArr = (input_list, index_arr) => {
@@ -42,6 +43,14 @@ const processSupplier = (supplier) => {
   return supplier;
 };
 
+const processUser = (user) => {
+  delete user.password;
+  Object.keys(Roles).forEach((Role_key) => {
+    if (user.role === Roles[Role_key].id) user.role = Role_key;
+  });
+  return user;
+};
+
 const processList = (list, obj) => {
   let targetFunc = null;
   let cloneList = _.cloneDeep(list);
@@ -54,6 +63,9 @@ const processList = (list, obj) => {
       break;
     case "supplier":
       targetFunc = processSupplier;
+      break;
+    case "user":
+      targetFunc = processUser;
       break;
     default:
       return [];
