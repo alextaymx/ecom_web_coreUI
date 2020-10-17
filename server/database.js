@@ -111,6 +111,19 @@ const getUser = (user_id, page_num, itemsPerPage = 10, isActive = null) => {
   return packWithTableInfo(result, itemsPerPage, page_num);
 };
 
+const updateUser = (user_body) => {
+  userList.forEach((user, index) => {
+    if (user.id === parseInt(user_body.id)) {
+      userList[index] = { ...user, ...user_body };
+      Object.keys(Roles).forEach((Role_key) => {
+        if (Roles[Role_key].id === parseInt(userList[index].role)) {
+          userList[index].permissions = Roles[Role_key].permissions;
+        }
+      });
+    }
+  });
+};
+
 const generateUser = (count) => {
   [...Array(count).keys()].map((i) => {
     return insertUser(
@@ -370,24 +383,6 @@ const getTable = (table) => {
   }
 };
 
-const dbGet = (tableName, id, pageReq, itemsPerPage = 10) => {
-  const table = getTable(tableName);
-  if (id === "*") {
-    return table.slice(itemsPerPage * (pageReq - 1), itemsPerPage * pageReq);
-  } else {
-    return table.filter((element) => element.id === parseInt(id));
-  }
-};
-
-const dbUpdate = (tableName, update_content) => {
-  let table = getTable(tableName);
-  table.forEach((element, index) => {
-    if (element.id === update_content.id) {
-      table[index] = { ...element, ...update_content };
-    }
-  });
-};
-
 const getTableInfo = (list, itemsPerPage = 10) => {
   const size = list.length;
   const totalPages =
@@ -451,5 +446,5 @@ module.exports = {
   getTable,
   getStatistics,
   getUser,
-  dbUpdate,
+  updateUser,
 };
