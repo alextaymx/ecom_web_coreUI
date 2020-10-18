@@ -87,7 +87,7 @@ function UpdateProductForm() {
       };
       updateProductAPI(updatePayload, token)
         .then((data) => {
-          console.log(data);
+          // console.log(data);
         })
         .catch((error) => {});
     }

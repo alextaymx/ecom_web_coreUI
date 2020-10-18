@@ -114,7 +114,8 @@ function CreateProduct() {
   // const { itemNo, retailPrice, supplyPrice, supplyRate, resale } = state;
   const [step, setStep] = useState(1);
   const [visible, setVisible] = useState(0);
-  const incrementStep = () => {
+  const incrementStep = (e) => {
+    e.preventDefault();
     setStep(Math.min(step + 1, 2));
   };
   const decrementStep = () => {
