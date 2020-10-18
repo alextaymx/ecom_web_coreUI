@@ -27,7 +27,7 @@ const TheHeaderDropdown = () => {
         // console.log("returned: ", data);
         localStorage.removeItem("loggedInUser");
         dispatch(logout());
-        history.push("/login");
+        history.replace("/login");
       })
       .catch((error) => {
         if (error.response) {

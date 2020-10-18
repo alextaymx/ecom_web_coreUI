@@ -7,6 +7,7 @@ export default [
     _tag: "CSidebarNavItem",
     name: "Dashboard",
     to: "/dashboard",
+    replace: true,
     icon: "cil-chart",
     badge: {
       color: "info",
@@ -21,6 +22,7 @@ export default [
     _tag: "CSidebarNavItem",
     name: "Product List",
     to: "/productList",
+    replace: true,
     icon: "cil-list",
   },
   // {
@@ -37,12 +39,14 @@ export default [
     _tag: "CSidebarNavItem",
     name: "User List",
     to: "/userList",
+    replace: true,
     icon: "cil-list",
   },
   {
     _tag: "CSidebarNavItem",
     name: "Create User",
     to: "/createUser",
+    replace: true,
     icon: "cil-plus",
   },
   {
@@ -53,30 +57,42 @@ export default [
     _tag: "CSidebarNavItem",
     name: "Supplier List",
     to: "/supplierList",
+    replace: true,
     icon: "cil-list",
   },
   {
     _tag: "CSidebarNavItem",
     name: "Create Supplier",
     to: "/createSupplier",
+    replace: true,
     icon: "cil-plus",
   },
 
   {
     _tag: "CSidebarNavTitle",
-    _children: ["Internal Use"],
+    _children: ["Dev Only"],
   },
   {
     _tag: "CSidebarNavDropdown",
-    name: "UI Kit  ..../src/views",
+    name: "UI Kit",
     // route: "/base",
-    icon: {
-      name: "cil-star",
-      className: "text-danger",
-    },
-    // icon: { name: "cil-options", color: "info" },
+    // icon: {
+    //   name: "cil-star",
+    //   className: "text-danger",
+    // },
+    icon: { name: "cil-options", color: "info" },
 
     _children: [
+      {
+        _tag: "CSidebarNavItem",
+        name: "      ..../src/views",
+        icon: {
+          name: "cil-star",
+          className: "text-warning",
+        },
+        label: true,
+      },
+
       {
         _tag: "CSidebarNavTitle",
         _children: ["Theme"],

@@ -67,7 +67,7 @@ function UserList() {
     getUserAPI(token, "*", currentPage, status)
       .then(({ data }) => {
         setUserData(data.resultList);
-        setTotalPages(data.totalPage || tab === "Pending" ? 3 : 1);
+        setTotalPages(data.totalPage);
         setLoading(false);
       })
       .catch((error) => {
