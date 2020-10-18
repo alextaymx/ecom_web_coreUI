@@ -363,6 +363,7 @@ const getSupplier = (supplier_id, page_num, itemsPerPage = 10) => {
     supplier_id === "*"
       ? supplierList
       : supplierList.filter((supplier) => supplier.id === parseInt(supplier_id));
+  result.sort((a, b) => a.name.localeCompare(b.name));
   return packWithTableInfo(result, itemsPerPage, page_num);
 };
 
