@@ -1,7 +1,8 @@
 const { createResponse } = require("../responseFormat");
-const { insertUser, getUser, dbUpdate } = require("../database");
+const { insertUser, getUser, updateUser } = require("../database");
 const { ResponseCode } = require("../constant");
 const { checkParams } = require("../utils/checkParams");
+const { processList } = require("../utils/dbProcessData");
 module.exports.createUser = (req, res) => {
   try {
     if (!checkParams(["username", "email", "password"], req.body)) {
@@ -31,10 +32,11 @@ module.exports.getUser = (req, res) => {
     isActive = req.query.isActive;
   }
   const resultList = getUser(user_id, page, 10, isActive);
+  const userList = processList(resultList.data, "user");
   res.status(ResponseCode.General_success.code).json(
     createResponse(
       {
-        resultList: resultList.data,
+        resultList: userList,
         totalUsers: resultList.tableInfo.size,
         currentPage: page,
         totalPage: resultList.tableInfo.totalPages,
@@ -48,13 +50,13 @@ module.exports.updateUser = (req, res) => {
   try {
     const req_body = req.body;
     if (!("id" in req_body)) {
-      throw new Error("Order id not found");
+      throw new Error("User id not found");
     }
     if (getUser(req_body.id, 1, 100000).data.length === 0) {
       res.status(400).json(createResponse(null, "User not found"));
       return;
     }
-    dbUpdate("user", req_body);
+    updateUser(req_body);
     res
       .status(200)
       .json(createResponse({ user_id: req_body.id }, "Update User successfully"));
