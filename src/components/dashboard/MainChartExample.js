@@ -67,9 +67,9 @@ const MainChartExample = ({ data, ...attributes }) => {
           {
             ticks: {
               beginAtZero: true,
-              maxTicksLimit: 5,
-              stepSize: Math.ceil(50 / 10),
-              max: 50,
+              maxTicksLimit: 10,
+              stepSize: Math.ceil(200 / 10),
+              max: 200,
             },
             gridLines: {
               display: true,

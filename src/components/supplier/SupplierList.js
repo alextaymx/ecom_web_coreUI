@@ -127,7 +127,25 @@ function SupplierList() {
     <CRow>
       <CCol>
         <CCard>
-          <CCardHeader>Supplier List</CCardHeader>
+          <CCardHeader>
+            Supplier List
+            <div className="card-header-actions">
+              <CButton
+                className="inline"
+                color="info"
+                variant="outline"
+                shape="pill"
+                // size="sm"
+                onClick={() => {
+                  history.push({
+                    pathname: "/createSupplier",
+                  });
+                }}>
+                <CIcon name="cil-plus" className="mr-2 float-left" />
+                Create Supplier
+              </CButton>
+            </div>
+          </CCardHeader>
           <CCardBody>
             <CDataTable
               items={supplierData}
