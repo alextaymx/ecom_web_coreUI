@@ -78,7 +78,7 @@ const validateUserPassword = (email, password) => {
   return null;
 };
 
-const insertUser = (email, name, password, role = Roles.User.id) => {
+const insertUser = (email, name, password, createdAt = new Date().toISOString()) => {
   if (email != null && name != null && password != null) {
     if (userList.filter((user) => user.email === email).length > 0) {
       return null;
@@ -88,9 +88,9 @@ const insertUser = (email, name, password, role = Roles.User.id) => {
       email: email,
       name: name,
       password: bcrypt_hash(password),
-      role: role,
+      role: Roles.User.id,
       updatedAt: new Date().toISOString(),
-      createdAt: new Date().toISOString(),
+      createdAt: createdAt,
       permissions: [...Roles.User.permissions],
       status: 3, // 1 is active, 2 is inactive, 3 is pending
     };
@@ -101,13 +101,21 @@ const insertUser = (email, name, password, role = Roles.User.id) => {
   }
 };
 
-const getUser = (user_id, page_num, itemsPerPage = 10, status = null) => {
+const getUser = (
+  user_id,
+  page_num = 1,
+  itemsPerPage = 10,
+  status = null,
+  sortBy = "name",
+  order = "asc"
+) => {
   let result =
     status !== null
       ? userList.filter((user) => user.status.toString() === status.toString())
       : userList;
   result =
     user_id === "*" ? result : result.filter((user) => user.id === parseInt(user_id));
+  sortList(result, sortBy, order);
   return packWithTableInfo(result, itemsPerPage, page_num);
 };
 
@@ -129,11 +137,12 @@ const generateUser = (count) => {
     return insertUser(
       faker.internet.email(),
       faker.internet.userName(),
-      faker.internet.password()
+      faker.internet.password(),
+      randomLastWeekDate()
     );
   });
 };
-generateUser(20);
+generateUser(200);
 
 const getUserByIdPassword = (id, password) => {
   const user_obj = userList.filter((user) => user.id === id);
@@ -216,7 +225,7 @@ const generateProductVar = (count) =>
     };
   });
 
-let productVarList = generateProductVar(1000);
+let productVarList = generateProductVar(1200);
 
 const addProductVar = (newProductVar) => {
   let productvar = { ...newProductVar, id: productVarList.length };
@@ -266,7 +275,7 @@ const generateProduct = (count) => {
   return temp;
 };
 
-let productList = generateProduct(250);
+let productList = generateProduct(300);
 
 const addProduct = (newProduct) => {
   let product = { ...newProduct, id: productList.length };
@@ -337,9 +346,17 @@ const getProduct = (
       : result;
   result = keyword === null ? result : filterByKeyword(result, keyword);
   result = result.filter((product) => product.variations.length > 0);
-  order === "asc"
-    ? result.sort((a, b) => a[sortBy].toString().localeCompare(b[sortBy].toString()))
-    : result.sort((a, b) => b[sortBy].toString().localeCompare(a[sortBy].toString()));
+  !(sortBy === "createdBy")
+    ? sortList(result, sortBy, order)
+    : result.sort((a, b) => {
+        return order === "asc"
+          ? getUser(a.createdBy).data[0].name.localeCompare(
+              getUser(b.createdBy).data[0].name
+            )
+          : getUser(b.createdBy).data[0].name.localeCompare(
+              getUser(a.createdBy).data[0].name
+            );
+      });
   return packWithTableInfo(result, itemsPerPage, page_num);
 };
 
@@ -387,12 +404,18 @@ const deleteSupplier = (supplier_id) => {
   supplierList = supplierList.filter((supplier) => supplier.id !== parseInt(supplier_id));
 };
 
-const getSupplier = (supplier_id, page_num, itemsPerPage = 10) => {
+const getSupplier = (
+  supplier_id,
+  page_num,
+  itemsPerPage = 10,
+  sortBy = "name",
+  order = "asc"
+) => {
   let result =
     supplier_id === "*"
       ? supplierList
       : supplierList.filter((supplier) => supplier.id === parseInt(supplier_id));
-  result.sort((a, b) => a.name.localeCompare(b.name));
+  sortList(result, sortBy, order);
   return packWithTableInfo(result, itemsPerPage, page_num);
 };
 
@@ -427,6 +450,18 @@ const packWithTableInfo = (list, itemsPerPage, currentPage) => {
     data: list.slice(itemsPerPage * (currentPage - 1), itemsPerPage * currentPage),
     tableInfo: getTableInfo(list, itemsPerPage),
   };
+};
+
+const sortList = (list, sortBy, order = "asc") => {
+  list.sort((a, b) => {
+    return order === "asc"
+      ? Number.isInteger(a[sortBy])
+        ? a[sortBy] - b[sortBy]
+        : a[sortBy].localeCompare(b[sortBy])
+      : Number.isInteger(a[sortBy])
+      ? b[sortBy] - a[sortBy]
+      : b[sortBy].localeCompare(a[sortBy]);
+  });
 };
 
 const getStatistics = (days = 7, table) => {

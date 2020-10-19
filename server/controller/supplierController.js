@@ -62,7 +62,7 @@ module.exports.updateSupplier = (req, res) => {
   try {
     const req_body = req.body;
     if (!("supplier_id" in req_body)) {
-      throw new Error("Order id not found");
+      throw new Error("Supplier id not found");
     }
     if (getSupplier(req_body.supplier_id, 1, 100000).data.length === 0) {
       res.status(400).json(createResponse(null, "Order not found"));
