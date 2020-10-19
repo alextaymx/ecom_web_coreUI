@@ -18,6 +18,7 @@ import {
 } from "@coreui/react";
 import React from "react";
 import { startCase } from "lodash";
+import CIcon from "@coreui/icons-react";
 
 function CreateProductForm({
   field,
@@ -40,7 +41,7 @@ function CreateProductForm({
                 onShowChange={setVisible}>
                 Product created successfully! {visible}
               </CAlert>
-              <CForm action="" method="post" onSubmit={incrementStep}>
+              <CForm onSubmit={incrementStep}>
                 <CFormGroup row className="my-0">
                   {Object.keys(field).map((key, index) => {
                     // console.log(key, field[key], index, typeof key);
@@ -64,12 +65,14 @@ function CreateProductForm({
                     );
                   })}
                 </CFormGroup>
-
-                <CFormGroup className="form-actions">
-                  <CButton type="submit" color="primary">
-                    Next step
-                  </CButton>
-                </CFormGroup>
+                <CRow className="justify-content-end ">
+                  <CFormGroup className="form-actions col-12 col-lg-2">
+                    <CButton type="submit" color="primary" block>
+                      Next
+                      <CIcon name="cil-arrow-right" className="ml-2" />
+                    </CButton>
+                  </CFormGroup>
+                </CRow>
               </CForm>
             </CCardBody>
           </CCard>

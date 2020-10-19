@@ -24,7 +24,7 @@ import { Redirect, useHistory, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 // import produce from "immer";
 import _ from "lodash";
-import { updateProductAPI } from "../../../apiCalls/post";
+import { updateSupplierAPI } from "../../apiCalls/post";
 // const initialState = {
 //   itemNo: "",
 //   retailPrice: "",
@@ -47,7 +47,7 @@ const reducer = (state, { action, field, value, initialProductState }) => {
   switch (action) {
     case "reset":
       return initialProductState;
-    case "product":
+    case "supplier":
       return {
         ...state,
         [field]: value,
@@ -63,15 +63,16 @@ const changedKeys = (o1, o2) => {
     return o1[key] !== o2[key];
   });
 };
-function UpdateProductForm() {
+function UpdateSupplier() {
   // const radioInput = pick(field, "resale");
   const history = useHistory();
   const location = useLocation();
   const token = useSelector((state) => state.userInfo.user.token);
-  const [state, dispatch] = useReducer(reducer, omit(location.state, "id"));
-  const productOnChange = (e) => {
+  const initialState = omit(location.state, "id", "updatedAt", "createdAt", "products");
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const supplierOnChange = (e) => {
     dispatch({
-      action: "product",
+      action: "supplier",
       field: e.target.name,
       value: e.target.value,
     });
@@ -79,13 +80,13 @@ function UpdateProductForm() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    const changedKey = changedKeys(state, location.state);
+    const changedKey = changedKeys(state, initialState);
     if (changedKey.length !== 0) {
       const updatePayload = {
-        product_id: location.state.id,
+        supplier_id: location.state.id,
         ..._.pick(state, changedKey),
       };
-      updateProductAPI(updatePayload, token)
+      updateSupplierAPI(updatePayload, token)
         .then((data) => {
           // console.log(data);
         })
@@ -99,12 +100,12 @@ function UpdateProductForm() {
         <CRow alignHorizontal="center">
           <CCol md="12">
             <CCard>
-              <CCardHeader>Edit Product</CCardHeader>
+              <CCardHeader>Edit Supplier</CCardHeader>
               <CCardBody>
                 <CForm action="" method="post" onSubmit={handleFormSubmit}>
                   {state && (
                     <CCard accentColor="info">
-                      <CCardHeader>{`Product id: ${location.state.id}`}</CCardHeader>
+                      <CCardHeader>{`Supplier id: ${location.state.id}`}</CCardHeader>
                       <CCardBody>
                         <CFormGroup row className="my-0">
                           {Object.keys(state).map((key, index) => {
@@ -122,7 +123,7 @@ function UpdateProductForm() {
                                     // autoComplete="on"
                                     placeholder={`Enter ${displayName}`}
                                     value={state[key]}
-                                    onChange={(e) => productOnChange(e)}
+                                    onChange={(e) => supplierOnChange(e)}
                                   />
                                 </CFormGroup>
                               </CCol>
@@ -143,10 +144,10 @@ function UpdateProductForm() {
           </CCol>
         </CRow>
       ) : (
-        <Redirect from="/updateProductForm" to="/dashboard" />
+        <Redirect from="/updateSupplier" to="/dashboard" />
       )}
     </>
   );
 }
 
-export default UpdateProductForm;
+export default UpdateSupplier;

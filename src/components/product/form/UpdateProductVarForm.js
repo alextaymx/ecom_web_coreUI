@@ -25,23 +25,10 @@ import { useSelector } from "react-redux";
 // import produce from "immer";
 import _ from "lodash";
 import { updateProductVarAPI } from "../../../apiCalls/post";
-// const initialState = {
-//   itemNo: "",
-//   retailPrice: "",
-//   supplyPrice: "",
-//   supplyRate: "",
-//   resale: "false",
-// };
-
-// const reducer = (state, { field, value }) => {
-//   if (field === "reset") {
-//     return initialState;
-//   }
-//   return {
-//     ...state,
-//     [field]: value,
-//   };
-// };
+import { getSupplierAPI } from "../../../apiCalls/get";
+import { onLogoutv2 } from "../../../apiCalls/auth";
+// import Select from "react-select";
+import { AsyncPaginate } from "react-select-async-paginate";
 
 const reducer = (state, { action, field, value, initialProductState }) => {
   switch (action) {
@@ -68,7 +55,12 @@ function UpdateProductVarForm() {
   const history = useHistory();
   const location = useLocation();
   const token = useSelector((state) => state.userInfo.user.token);
-  const [state, dispatch] = useReducer(reducer, location.state);
+
+  const initialState = {
+    ...location.state,
+    supplier: location.state.supplier.id,
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
   const productVarOnChange = (e) => {
     dispatch({
       action: "productVar",
@@ -76,13 +68,38 @@ function UpdateProductVarForm() {
       value: e.target.value,
     });
   };
-
+  const loadOptions = async (search, oldSuppliers, { page }) => {
+    try {
+      const responseJSON = await getSupplierAPI(token, "*", page);
+      const newSuppliers = responseJSON.data.resultList.map((supplier) => ({
+        value: supplier.id,
+        label: `${supplier.id} - ${supplier.name}`,
+      }));
+      const hasMore = page !== responseJSON.data.totalPage;
+      return {
+        options: newSuppliers,
+        hasMore,
+        additional: {
+          page: page + 1,
+        },
+      };
+    } catch (error) {
+      if (error.response) {
+        onLogoutv2(dispatch);
+        // console.error("err response", error.response); // client received an error response (5xx, 4xx)
+      }
+      return { options: [] };
+    }
+  };
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const changedKey = changedKeys(state, location.state);
+    // due to mutation to the location.state prop , it will always update supplier
+    // can be considered as a performance bug
     if (changedKey.length !== 0) {
       const updatePayload = { product_id: state.id, ..._.pick(state, changedKey) };
-
+      console.log(updatePayload);
+      console.log(location.state);
       updateProductVarAPI(updatePayload, token)
         .then((data) => {
           console.log(data);
@@ -100,7 +117,7 @@ function UpdateProductVarForm() {
     "orderBy",
     "releaseBy",
     "orders",
-    "suppliers"
+    "supplier"
   );
   const monetaryInputField = pick(state, "retailPrice", "supplyPrice");
   const dateInputField = pick(state, "orderBy", "releaseBy");
@@ -184,6 +201,32 @@ function UpdateProductVarForm() {
                               </CCol>
                             );
                           })}
+                          <CCol sm="4">
+                            <CFormGroup>
+                              <CLabel htmlFor="supplier">Supplier</CLabel>
+                              <AsyncPaginate
+                                isSearchable
+                                name="supplier"
+                                id="supplier"
+                                loadOptions={loadOptions}
+                                defaultValue={{
+                                  value: state.supplier,
+                                  label: `${state.supplier} - ${location.state.supplier.name}`,
+                                }}
+                                onChange={({ value }) => {
+                                  productVarOnChange({
+                                    target: {
+                                      name: "supplier",
+                                      value,
+                                    },
+                                  });
+                                }}
+                                additional={{
+                                  page: 1,
+                                }}
+                              />
+                            </CFormGroup>
+                          </CCol>
                           <CCol sm="4">
                             <CFormGroup>
                               <CLabel>Resale</CLabel>

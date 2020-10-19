@@ -2,6 +2,7 @@ import {
   CButton,
   CCard,
   CCardBody,
+  CCardFooter,
   CCardHeader,
   CCol,
   CForm,
@@ -16,7 +17,7 @@ import {
   CRow,
 } from "@coreui/react";
 // import CIcon from "@coreui/icons-react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 // import { createProductVarAPI } from "../../../apiCalls/post";
 // import { useSelector } from "react-redux";
 import { startCase, pick, omit } from "lodash";
@@ -25,24 +26,8 @@ import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { getSupplierAPI } from "../../../apiCalls/get";
 import { onLogoutv2 } from "../../../apiCalls/auth";
-// const initialState = {
-//   itemNo: "",
-//   retailPrice: "",
-//   supplyPrice: "",
-//   supplyRate: "",
-//   resale: "false",
-// };
-
-// const reducer = (state, { field, value }) => {
-//   if (field === "reset") {
-//     return initialState;
-//   }
-//   return {
-//     ...state,
-//     [field]: value,
-//   };
-// };
-// const animatedComponents = makeAnimated();
+import { AsyncPaginate } from "react-select-async-paginate";
+import CIcon from "@coreui/icons-react";
 
 function CreateProductVarForm({
   fieldArr,
@@ -53,36 +38,61 @@ function CreateProductVarForm({
 }) {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.userInfo.user.token);
-  const [supplierData, setSupplierData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [fetchTrigger, setFetchTrigger] = useState(0);
+  // const [supplierData, setSupplierData] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  // const [fetchTrigger, setFetchTrigger] = useState(0);
+  // const [supplier, supplierOnChange] = useState(null);
 
-  useEffect(() => {
-    setLoading(true);
-    getSupplierAPI(token, "*", 1)
-      .then(({ data }) => {
-        console.log(data.resultList);
-        const suppliers = data.resultList.map((supplier) => ({
-          value: supplier.id,
-          label: supplier.name,
-        }));
-        setSupplierData(suppliers);
-        setLoading(false);
-      })
-      .catch((error) => {
-        if (error.response) {
-          onLogoutv2(dispatch);
-          // console.error("err response", error.response); // client received an error response (5xx, 4xx)
-        } else if (error.request) {
-          // console.error("err req", error.request); // client never received a response, or request never left
-        } else {
-          setTimeout(() => {
-            setFetchTrigger(fetchTrigger + 1);
-          }, 2000);
-          // anything else // console.error("There was an error!", error);
-        }
-      });
-  }, [token, dispatch, fetchTrigger]);
+  const loadOptions = async (search, oldSuppliers, { page }) => {
+    try {
+      const responseJSON = await getSupplierAPI(token, "*", page);
+      const newSuppliers = responseJSON.data.resultList.map((supplier) => ({
+        value: supplier.id,
+        label: `${supplier.id} - ${supplier.name}`,
+      }));
+      const hasMore = page !== responseJSON.data.totalPage;
+      return {
+        options: newSuppliers,
+        hasMore,
+        additional: {
+          page: page + 1,
+        },
+      };
+    } catch (error) {
+      if (error.response) {
+        onLogoutv2(dispatch);
+        // console.error("err response", error.response); // client received an error response (5xx, 4xx)
+      }
+      return { options: [] };
+    }
+  };
+
+  // useEffect(() => {
+  //   setLoading(true);
+  //   getSupplierAPI(token, "*", 1)
+  //     .then(({ data }) => {
+  //       console.log(data.resultList);
+  //       const suppliers = data.resultList.map((supplier) => ({
+  //         value: supplier.id,
+  //         label: supplier.name,
+  //       }));
+  //       setSupplierData(suppliers);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       if (error.response) {
+  //         onLogoutv2(dispatch);
+  //         // console.error("err response", error.response); // client received an error response (5xx, 4xx)
+  //       } else if (error.request) {
+  //         // console.error("err req", error.request); // client never received a response, or request never left
+  //       } else {
+  //         setTimeout(() => {
+  //           setFetchTrigger(fetchTrigger + 1);
+  //         }, 2000);
+  //         // anything else // console.error("There was an error!", error);
+  //       }
+  //     });
+  // }, [token, dispatch, fetchTrigger]);
   // const radioInput = pick(field, "resale");
   return (
     <>
@@ -167,7 +177,6 @@ function CreateProductVarForm({
                               <CCol sm="4" key={index}>
                                 <CFormGroup>
                                   <CLabel htmlFor="date-input">{displayName}</CLabel>
-
                                   <CInput
                                     type="date"
                                     id="date-input"
@@ -183,43 +192,42 @@ function CreateProductVarForm({
                           <CCol sm="4">
                             <CFormGroup>
                               <CLabel htmlFor="supplier">Supplier</CLabel>
-                              <Select
+                              <AsyncPaginate
+                                isSearchable
                                 name="supplier"
                                 id="supplier"
-                                isLoading={loading}
-                                isSearchable
+                                value={fieldArr.supplier}
+                                loadOptions={loadOptions}
+                                defaultValue={{ value: "0", label: "0 - Lela Aufderhar" }}
                                 onChange={({ value }) => {
-                                  const fakeEvent = {
+                                  productVarOnChange(arrIndex, {
                                     target: {
                                       name: "supplier",
                                       value,
                                     },
-                                  };
-                                  productVarOnChange(arrIndex, fakeEvent);
+                                  });
                                 }}
-                                // components={animatedComponents}
-                                // defaultValue={[colourOptions[4], colourOptions[5]]}
-                                // isMulti
-                                options={supplierData || []}
+                                additional={{
+                                  page: 1,
+                                }}
                               />
                             </CFormGroup>
                           </CCol>
 
-                          <CCol sm="4">
+                          <CCol sm="2">
                             <CFormGroup>
                               <CLabel htmlFor="resale">Resale</CLabel>
                               <Select
                                 name="resale"
                                 id="resale"
-                                isSearchable
+                                // isSearchable
                                 onChange={({ value }) => {
-                                  const fakeEvent = {
+                                  productVarOnChange(arrIndex, {
                                     target: {
                                       name: "resale",
                                       value,
                                     },
-                                  };
-                                  productVarOnChange(arrIndex, fakeEvent);
+                                  });
                                 }}
                                 // components={animatedComponents}
                                 defaultValue={{ value: "false", label: "No" }}
@@ -286,20 +294,29 @@ function CreateProductVarForm({
                           </CCol> */}
                         </CFormGroup>
                       </CCardBody>
+                      <CCardFooter>
+                        <CButton onClick={decrementStep} color="secondary">
+                          Back
+                        </CButton>{" "}
+                        <CButton
+                          variant="outline"
+                          onClick={addProductVar}
+                          color="warning"
+                          className="card-header-actions">
+                          Add Variation
+                        </CButton>
+                      </CCardFooter>
                     </CCard>
                   );
                 })}
-                <CFormGroup className="form-actions">
-                  <CButton onClick={decrementStep} color="secondary">
-                    Back
-                  </CButton>
-                  <CButton onClick={addProductVar} color="warning">
-                    Add Variation
-                  </CButton>
-                  <CButton type="submit" color="primary">
-                    Create
-                  </CButton>
-                </CFormGroup>
+                <CRow className="justify-content-end ">
+                  <CFormGroup className="form-actions col-12 col-lg-2">
+                    <CButton type="submit" color="primary" block>
+                      Create
+                      <CIcon name="cil-arrow-right" className="ml-2" />
+                    </CButton>
+                  </CFormGroup>
+                </CRow>
               </CForm>
             </CCardBody>
           </CCard>

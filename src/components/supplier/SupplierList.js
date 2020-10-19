@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   CBadge,
+  CButton,
   CCard,
   CCardBody,
   CCardHeader,
@@ -13,8 +14,23 @@ import {
 import { getSupplierAPI } from "../../apiCalls/get";
 import { useDispatch, useSelector } from "react-redux";
 import { onLogoutv2 } from "../../apiCalls/auth";
+import { deleteSupplierAPI } from "../../apiCalls/post";
+import CIcon from "@coreui/icons-react";
+import { useHistory } from "react-router-dom";
 
-const fields = ["name", "address", "email", "telNo", "faxNo"];
+const fields = [
+  "name",
+  "address",
+  "email",
+  "telNo",
+  "faxNo",
+  {
+    key: "operations",
+    label: "Operations",
+    sorter: false,
+  },
+];
+
 const getBadge = (status) => {
   switch (status) {
     case "Active":
@@ -29,8 +45,10 @@ const getBadge = (status) => {
       return "primary";
   }
 };
+
 function SupplierList() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const token = useSelector((state) => state.userInfo.user.token);
   const [supplierData, setSupplierData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,9 +60,9 @@ function SupplierList() {
     setLoading(true);
     getSupplierAPI(token, "*", currentPage)
       .then(({ data }) => {
-        console.log(data.resultList);
         setSupplierData(data.resultList);
-        setTotalPages(data.totalPage || 3);
+        // console.log(data.resultList);
+        setTotalPages(data.totalPage);
         setLoading(false);
       })
       .catch((error) => {
@@ -62,6 +80,49 @@ function SupplierList() {
       });
   }, [token, dispatch, currentPage, fetchTrigger]);
 
+  const handleDeleteSupplier = ({ id }) => {
+    const updatePayload = {
+      supplier_id: id,
+    };
+    deleteSupplierAPI(updatePayload, token)
+      .then((data) => {
+        // console.log(data);
+        setFetchTrigger(fetchTrigger + 1);
+      })
+      .catch((error) => {});
+  };
+  const handleEditSupplier = (item, index) => {
+    history.push({
+      pathname: "/updateSupplier",
+      state: item,
+    });
+  };
+  const editDeleteButtonGroup = (item, index) => (
+    <>
+      <CButton
+        className="inline"
+        color="info"
+        variant="ghost"
+        shape="pill"
+        size="sm"
+        onClick={() => {
+          handleEditSupplier(item, index);
+        }}>
+        <CIcon name="cil-pencil" />
+      </CButton>
+      <CButton
+        className="inline"
+        color="danger"
+        variant="ghost"
+        shape="pill"
+        size="sm"
+        onClick={() => {
+          handleDeleteSupplier(item, index);
+        }}>
+        <CIcon name="cil-trash" />
+      </CButton>
+    </>
+  );
   return (
     <CRow>
       <CCol>
@@ -84,6 +145,9 @@ function SupplierList() {
                   <td>
                     <CBadge color={getBadge(item.status)}>{item.status}</CBadge>
                   </td>
+                ),
+                operations: (item, index) => (
+                  <td className="py-2">{editDeleteButtonGroup(item, index)}</td>
                 ),
               }}
             />
