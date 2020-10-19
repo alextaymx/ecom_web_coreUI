@@ -160,3 +160,19 @@ export const deleteSupplierAPI = (payload, token) => {
       throw error;
     });
 };
+
+export const updateSupplierAPI = (payload, token) => {
+  const URL = `${rootUrl}/suppliers/update_supplier`;
+  return axios
+    .post(URL, payload, {
+      method: "POST/GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: token,
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};

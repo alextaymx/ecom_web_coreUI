@@ -57,7 +57,7 @@ const Products = ({ productStatus }) => {
     setLoading(true);
     const interval = setTimeout(() => {
       setFetchTrigger(fetchTrigger + 1);
-    }, 30000);
+    }, 5000);
 
     getProductAPI(token, "*", currentPage, productStatus)
       .then(({ data }) => {

@@ -214,7 +214,7 @@ function CreateProductVarForm({
                             </CFormGroup>
                           </CCol>
 
-                          <CCol sm="4">
+                          <CCol sm="2">
                             <CFormGroup>
                               <CLabel htmlFor="resale">Resale</CLabel>
                               <Select
