@@ -33,7 +33,7 @@ let userList = [
     updatedAt: randomLastWeekDate(),
     createdAt: randomLastWeekDate(),
     permissions: [...Roles.SuperAdmin.permissions],
-    isActivated: true,
+    status: 1,
   },
   {
     id: 2,
@@ -44,7 +44,7 @@ let userList = [
     updatedAt: randomLastWeekDate(),
     createdAt: randomLastWeekDate(),
     permissions: [...Roles.SuperAdmin.permissions],
-    isActivated: true,
+    status: 1,
   },
   {
     id: 3,
@@ -55,7 +55,7 @@ let userList = [
     updatedAt: randomLastWeekDate(),
     createdAt: randomLastWeekDate(),
     permissions: [...Roles.SuperAdmin.permissions],
-    isActivated: true,
+    status: 1,
   },
   {
     id: 4,
@@ -66,7 +66,7 @@ let userList = [
     updatedAt: randomLastWeekDate(),
     createdAt: randomLastWeekDate(),
     permissions: [...Roles.User.permissions],
-    isActivated: true,
+    status: 1,
   },
 ];
 
@@ -92,7 +92,7 @@ const insertUser = (email, name, password, role = Roles.User.id) => {
       updatedAt: new Date().toISOString(),
       createdAt: new Date().toISOString(),
       permissions: [...Roles.User.permissions],
-      isActivated: false,
+      status: 3, // 1 is active, 2 is inactive, 3 is pending
     };
     userList.push(newUser);
     return newUser;
@@ -101,10 +101,10 @@ const insertUser = (email, name, password, role = Roles.User.id) => {
   }
 };
 
-const getUser = (user_id, page_num, itemsPerPage = 10, isActive = null) => {
+const getUser = (user_id, page_num, itemsPerPage = 10, status = null) => {
   let result =
-    isActive !== null
-      ? userList.filter((user) => user.isActivated.toString() === isActive.toString())
+    status !== null
+      ? userList.filter((user) => user.status.toString() === status.toString())
       : userList;
   result =
     user_id === "*" ? result : result.filter((user) => user.id === parseInt(user_id));

@@ -5,6 +5,9 @@ const Permissions = {
   Create_Product: 4,
   Update_Product: 5,
   Delete_Product: 6,
+  Create_Order: 7,
+  Update_Order: 8,
+  Cancel_Order: 9,
 };
 
 const OrderType = {
