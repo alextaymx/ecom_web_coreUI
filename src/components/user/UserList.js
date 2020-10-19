@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { onLogoutv2 } from "../../apiCalls/auth";
 import CIcon from "@coreui/icons-react";
 import { updateUserAPI } from "../../apiCalls/post";
+import { useHistory } from "react-router-dom";
 
 // import usersData from "../../users/UsersData";
 const fields = [
@@ -28,7 +29,7 @@ const fields = [
   {
     key: "operations",
     label: "Operations",
-    _style: { width: "10%" },
+    _style: { width: "15%" },
     sorter: false,
     filter: false,
   },
@@ -39,20 +40,21 @@ const getBadge = (status) => {
       return "success";
     case false:
       return "danger";
-    case "Active":
-      return "success";
-    case "Inactive":
-      return "secondary";
-    case "Pending":
-      return "warning";
-    case "Banned":
-      return "danger";
+    // case "Active":
+    //   return "success";
+    // case "Inactive":
+    //   return "secondary";
+    // case "Pending":
+    //   return "warning";
+    // case "Banned":
+    //   return "danger";
     default:
       return "primary";
   }
 };
 function UserList() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const token = useSelector((state) => state.userInfo.user.token);
   const [userData, setUserData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -84,22 +86,38 @@ function UserList() {
         }
       });
   }, [token, dispatch, status, currentPage, fetchTrigger]);
-
+  const handleEditUser = (item) => {
+    console.log(item);
+    history.push({
+      pathname: "/updateUser",
+      state: item,
+    });
+  };
   const handleApproveDeleteUser = ({ id }, action) => {
     const updatePayload = {
       id,
       isActivated: action === "approve" ? true : false,
     };
-    console.log(updatePayload);
     updateUserAPI(updatePayload, token)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setFetchTrigger(fetchTrigger + 1);
       })
       .catch((error) => {});
   };
-  const approvalButtonGroup = (item, index) => (
+  const editApprovalButtonGroup = (item) => (
     <>
+      <CButton
+        className="inline"
+        color="info"
+        variant="ghost"
+        shape="pill"
+        size="sm"
+        onClick={() => {
+          handleEditUser(item);
+        }}>
+        <CIcon name="cil-pencil" />
+      </CButton>
       <CButton
         className="inline"
         color="danger"
@@ -170,7 +188,7 @@ function UserList() {
                   </td>
                 ),
                 operations: (item, index) => (
-                  <td className="py-2">{approvalButtonGroup(item, index)}</td>
+                  <td className="py-2">{editApprovalButtonGroup(item, index)}</td>
                 ),
               }}
             />

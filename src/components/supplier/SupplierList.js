@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { onLogoutv2 } from "../../apiCalls/auth";
 import { deleteSupplierAPI } from "../../apiCalls/post";
 import CIcon from "@coreui/icons-react";
+import { useHistory } from "react-router-dom";
 
 const fields = [
   "name",
@@ -47,6 +48,7 @@ const getBadge = (status) => {
 
 function SupplierList() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const token = useSelector((state) => state.userInfo.user.token);
   const [supplierData, setSupplierData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -59,6 +61,7 @@ function SupplierList() {
     getSupplierAPI(token, "*", currentPage)
       .then(({ data }) => {
         setSupplierData(data.resultList);
+        // console.log(data.resultList);
         setTotalPages(data.totalPage);
         setLoading(false);
       })
@@ -83,13 +86,30 @@ function SupplierList() {
     };
     deleteSupplierAPI(updatePayload, token)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setFetchTrigger(fetchTrigger + 1);
       })
       .catch((error) => {});
   };
-  const deleteButtonGroup = (item, index) => (
+  const handleEditSupplier = (item, index) => {
+    history.push({
+      pathname: "/updateSupplier",
+      state: item,
+    });
+  };
+  const editDeleteButtonGroup = (item, index) => (
     <>
+      <CButton
+        className="inline"
+        color="info"
+        variant="ghost"
+        shape="pill"
+        size="sm"
+        onClick={() => {
+          handleEditSupplier(item, index);
+        }}>
+        <CIcon name="cil-pencil" />
+      </CButton>
       <CButton
         className="inline"
         color="danger"
@@ -127,7 +147,7 @@ function SupplierList() {
                   </td>
                 ),
                 operations: (item, index) => (
-                  <td className="py-2">{deleteButtonGroup(item, index)}</td>
+                  <td className="py-2">{editDeleteButtonGroup(item, index)}</td>
                 ),
               }}
             />
