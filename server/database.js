@@ -33,7 +33,7 @@ let userList = [
     updatedAt: randomLastWeekDate(),
     createdAt: randomLastWeekDate(),
     permissions: [...Roles.SuperAdmin.permissions],
-    isActivated: true,
+    status: 1,
   },
   {
     id: 2,
@@ -44,7 +44,7 @@ let userList = [
     updatedAt: randomLastWeekDate(),
     createdAt: randomLastWeekDate(),
     permissions: [...Roles.SuperAdmin.permissions],
-    isActivated: true,
+    status: 1,
   },
   {
     id: 3,
@@ -55,7 +55,7 @@ let userList = [
     updatedAt: randomLastWeekDate(),
     createdAt: randomLastWeekDate(),
     permissions: [...Roles.SuperAdmin.permissions],
-    isActivated: true,
+    status: 1,
   },
   {
     id: 4,
@@ -66,7 +66,7 @@ let userList = [
     updatedAt: randomLastWeekDate(),
     createdAt: randomLastWeekDate(),
     permissions: [...Roles.User.permissions],
-    isActivated: true,
+    status: 1,
   },
 ];
 
@@ -92,7 +92,7 @@ const insertUser = (email, name, password, role = Roles.User.id) => {
       updatedAt: new Date().toISOString(),
       createdAt: new Date().toISOString(),
       permissions: [...Roles.User.permissions],
-      isActivated: false,
+      status: 3, // 1 is active, 2 is inactive, 3 is pending
     };
     userList.push(newUser);
     return newUser;
@@ -101,10 +101,10 @@ const insertUser = (email, name, password, role = Roles.User.id) => {
   }
 };
 
-const getUser = (user_id, page_num, itemsPerPage = 10, isActive = null) => {
+const getUser = (user_id, page_num, itemsPerPage = 10, status = null) => {
   let result =
-    isActive !== null
-      ? userList.filter((user) => user.isActivated.toString() === isActive.toString())
+    status !== null
+      ? userList.filter((user) => user.status.toString() === status.toString())
       : userList;
   result =
     user_id === "*" ? result : result.filter((user) => user.id === parseInt(user_id));
@@ -188,7 +188,7 @@ const generateProductVar = (count) =>
   [...Array(count).keys()].map((i) => {
     return {
       id: i,
-      itemNo: faker.random.number(),
+      itemNo: faker.random.number().toString(),
       title: faker.commerce.productName(),
       chineseTitle: faker_cn.commerce.productName(),
       image: faker.image.animals(),
@@ -216,7 +216,7 @@ const generateProductVar = (count) =>
     };
   });
 
-let productVarList = generateProductVar(240);
+let productVarList = generateProductVar(1000);
 
 const addProductVar = (newProductVar) => {
   let productvar = { ...newProductVar, id: productVarList.length };
@@ -266,7 +266,7 @@ const generateProduct = (count) => {
   return temp;
 };
 
-let productList = generateProduct(60);
+let productList = generateProduct(250);
 
 const addProduct = (newProduct) => {
   let product = { ...newProduct, id: productList.length };
@@ -292,10 +292,39 @@ const deleteProduct = (product_id) => {
   });
 };
 
-const getProduct = (product_id, page_num, itemsPerPage = 10, status = null) => {
+const filterByKeyword = (prodList, keyword) => {
+  const filterMasterSku = prodList.filter((prod) => prod.masterSku.startsWith(keyword));
+  const filterProdvar = prodList
+    .filter((prod) => !prod.masterSku.startsWith(keyword))
+    .map((prod) => {
+      const validVar = productVarList.filter(
+        (productVar) =>
+          prod.variations.includes(productVar.id) &&
+          (productVar.itemNo.startsWith(keyword) || productVar.title.startsWith(keyword))
+      );
+      let temp = _.cloneDeep(prod);
+      temp.variations = validVar.map((productVar) => productVar.id);
+      return temp;
+    });
+  return filterMasterSku.concat(filterProdvar);
+};
+
+const getProduct = (
+  product_id,
+  page_num,
+  itemsPerPage = 10,
+  status = null,
+  keyword = null,
+  sortBy = "createdAt",
+  order = "desc"
+) => {
   let result =
+    product_id === "*"
+      ? productList
+      : productList.filter((productVar) => productVar.id === parseInt(product_id));
+  result =
     status !== null
-      ? productList.map((product) => {
+      ? result.map((product) => {
           const validVar = productVarList.filter(
             (productVar) =>
               product.variations.includes(productVar.id) &&
@@ -305,12 +334,12 @@ const getProduct = (product_id, page_num, itemsPerPage = 10, status = null) => {
           temp.variations = validVar.map((productVar) => productVar.id);
           return temp;
         })
-      : productList;
+      : result;
+  result = keyword === null ? result : filterByKeyword(result, keyword);
   result = result.filter((product) => product.variations.length > 0);
-  result =
-    product_id === "*"
-      ? result
-      : result.filter((productVar) => productVar.id === parseInt(product_id));
+  order === "asc"
+    ? result.sort((a, b) => a[sortBy].toString().localeCompare(b[sortBy].toString()))
+    : result.sort((a, b) => b[sortBy].toString().localeCompare(a[sortBy].toString()));
   return packWithTableInfo(result, itemsPerPage, page_num);
 };
 

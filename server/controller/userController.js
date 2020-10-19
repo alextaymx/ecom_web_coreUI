@@ -24,14 +24,14 @@ module.exports.createUser = (req, res) => {
 module.exports.getUser = (req, res) => {
   const user_id = req.params.id;
   let page = 1;
-  let isActive = null;
+  let status = null;
   if ("page" in req.query) {
     page = req.query.page;
   }
-  if ("isActive" in req.query) {
-    isActive = req.query.isActive;
+  if ("status" in req.query) {
+    status = req.query.status;
   }
-  const resultList = getUser(user_id, page, 10, isActive);
+  const resultList = getUser(user_id, page, 10, status);
   const userList = processList(resultList.data, "user");
   res.status(ResponseCode.General_success.code).json(
     createResponse(

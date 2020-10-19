@@ -20,7 +20,7 @@ module.exports.login = (req, res) => {
   try {
     const { email, password } = req.body;
     const user = db.validateUserPassword(email, password);
-    if (user && user.isActivated) {
+    if (user && user.status === 1) {
       const token = createToken(user.id, user.password);
       // res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
       res

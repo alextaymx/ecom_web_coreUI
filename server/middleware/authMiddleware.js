@@ -13,7 +13,7 @@ const checkUser = (req, res, next) => {
           .json(createResponse(null, ResponseCode.Unauthorized.msg));
       } else {
         let user = db.getUserByIdPassword(decodedToken.id, decodedToken.password);
-        if (user == null || !user.isActivated) {
+        if (user == null || !(user.status === 1)) {
           res
             .status(ResponseCode.Unauthorized.code)
             .json(createResponse(null, ResponseCode.Unauthorized.msg));

@@ -52,7 +52,19 @@ module.exports.getProduct = (req, res) => {
     const product_id = req.params.id;
     const page = "page" in req.query ? req.query.page : 1;
     const status = "status" in req.query ? req.query.status : null;
-    const productList = getProduct(product_id, page, 10, status);
+    const searchKey = "searchKey" in req.query ? req.query.searchKey : null;
+    const sortBy = "sortBy" in req.query ? req.query.sortBy : "createdAt";
+    const order = "order" in req.query ? req.query.order : "desc";
+    const itemsPerPage = "itemsPerPage" in req.query ? req.query.itemsPerPage : 10;
+    const productList = getProduct(
+      product_id,
+      page,
+      itemsPerPage,
+      status,
+      searchKey,
+      sortBy,
+      order
+    );
     const resultList = processList(productList.data, "product");
     res.status(ResponseCode.General_success.code).json(
       createResponse(
@@ -66,6 +78,7 @@ module.exports.getProduct = (req, res) => {
       )
     );
   } catch (err) {
+    console.log(err);
     res
       .status(ResponseCode.Internal_server_error.code)
       .json(createResponse(null, ResponseCode.Internal_server_error.msg));
