@@ -76,7 +76,7 @@ const mainCreate = (obj) => {
     supplier: supplier ? supplier : null,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-    status: 3,
+    status: 2, //2 is pending
   };
   const product_id = addProductVar(newProductVar);
   return product_id;
