@@ -92,7 +92,7 @@ const insertUser = (email, name, password, createdAt = new Date().toISOString())
       updatedAt: new Date().toISOString(),
       createdAt: createdAt,
       permissions: [...Roles.User.permissions],
-      status: 3, // 1 is active, 2 is inactive, 3 is pending
+      status: 2, // 1 is active, 2 is pending, 3 is inactive
     };
     userList.push(newUser);
     return newUser;
@@ -223,7 +223,7 @@ const generateProductVar = (count) =>
       updatedAt: randomLastWeekDate(),
       orders: [i],
       supplier: null,
-      status: getRandomNum(1, 4, 1)[0], // 1 is active, 2 is inactive, 3 is pending
+      status: getRandomNum(1, 4, 1)[0], // 1 is active, 2 is pending, 3 is inactive
     };
   });
 
@@ -246,7 +246,7 @@ const updateProductVar = (productVar_body) => {
 const deleteProductVar = (product_id) => {
   productVarList = productVarList.map((productVar) => {
     if (parseInt(productVar.id) === parseInt(product_id)) {
-      productVar.status = 0;
+      productVar.status = 3;
     }
     return productVar;
   });
