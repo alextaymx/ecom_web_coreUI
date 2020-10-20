@@ -9,7 +9,7 @@ const WidgetsBrand = ({ withCharts }) => {
 
   return withCharts ? (
     <CRow>
-      <CCol sm="6" lg="3">
+      <CCol sm="12" lg="12">
         <CWidgetBrand
           color="facebook"
           rightHeader="89k"
@@ -27,7 +27,7 @@ const WidgetsBrand = ({ withCharts }) => {
         </CWidgetBrand>
       </CCol>
 
-      <CCol sm="6" lg="3">
+      <CCol sm="12" lg="12">
         <CWidgetBrand
           color="twitter"
           rightHeader="973k"
@@ -45,7 +45,7 @@ const WidgetsBrand = ({ withCharts }) => {
         </CWidgetBrand>
       </CCol>
 
-      <CCol sm="6" lg="3">
+      <CCol sm="12" lg="12">
         <CWidgetBrand
           color="linkedin"
           rightHeader="500+"
@@ -63,7 +63,7 @@ const WidgetsBrand = ({ withCharts }) => {
         </CWidgetBrand>
       </CCol>
 
-      <CCol sm="6" lg="3">
+      <CCol sm="12" lg="12">
         <CWidgetBrand
           rightHeader="12"
           rightFooter="events"

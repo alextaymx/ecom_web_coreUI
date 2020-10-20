@@ -59,7 +59,7 @@ function CreateSupplier() {
     e.preventDefault();
     createSupplierAPI({ ...state, products: [0, 1] }, token)
       .then((data) => {
-        console.log("returned data: ", data, state);
+        console.log("create supplier: ", data, state);
         dispatch({ action: "reset" });
         setVisible(5);
         // window.location.reload(false);

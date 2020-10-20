@@ -98,8 +98,8 @@ function UpdateProductVarForm() {
     // can be considered as a performance bug
     if (changedKey.length !== 0) {
       const updatePayload = { product_id: state.id, ..._.pick(state, changedKey) };
-      console.log(updatePayload);
-      console.log(location.state);
+      // console.log(updatePayload);
+      // console.log(location.state);
       updateProductVarAPI(updatePayload, token)
         .then((data) => {
           console.log(data);

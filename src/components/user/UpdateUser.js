@@ -100,10 +100,9 @@ function UpdateSupplier() {
         id: location.state.id,
         ..._.pick(state, changedKey),
       };
-      console.log(updatePayload, "special");
       updateUserAPI(updatePayload, token)
         .then((data) => {
-          console.log(data);
+          console.log("update user payload & data", updatePayload, data);
         })
         .catch((error) => {});
     }
@@ -143,7 +142,7 @@ function UpdateSupplier() {
                                         isMulti
                                         options={options}
                                         onChange={(selectedArray) => {
-                                          console.log(selectedArray);
+                                          // console.log(selectedArray);
                                           const value = selectedArray
                                             ? selectedArray.map((item) => item.value)
                                             : [];

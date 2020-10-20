@@ -8,9 +8,9 @@ import {
   CNav,
   CNavItem,
   CNavLink,
-  CTabContent,
-  CTabPane,
-  CTabs,
+  // CTabContent,
+  // CTabPane,
+  // CTabs,
   CButton,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";

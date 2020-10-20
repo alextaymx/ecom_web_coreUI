@@ -141,6 +141,7 @@ function CreateProduct() {
   // console.log(state);
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    // console.log(state, "product");
     createProductAPI(state, token)
       .then((data) => {
         // console.log("returned data: ", data, state);

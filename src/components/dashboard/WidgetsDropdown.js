@@ -34,7 +34,7 @@ const WidgetsDropdown = ({ data }) => {
     <>
       {data && (
         <CRow>
-          <CCol sm="6" lg="4">
+          <CCol sm="12" lg="4">
             <CWidgetDropdown
               color="gradient-primary"
               header={data.product.labels.reduce((a, b) => a + b, 0).toString()}
@@ -54,7 +54,7 @@ const WidgetsDropdown = ({ data }) => {
             </CWidgetDropdown>
           </CCol>
 
-          <CCol sm="6" lg="4">
+          <CCol sm="12" lg="4">
             <CWidgetDropdown
               color="gradient-info"
               header={data.productVar.labels.reduce((a, b) => a + b, 0).toString()}
@@ -74,27 +74,22 @@ const WidgetsDropdown = ({ data }) => {
               {dropdown()}
             </CWidgetDropdown>
           </CCol>
-
-          <CCol sm="6" lg="4">
+          <CCol sm="12" lg="4">
             <CWidgetDropdown
               color="gradient-warning"
               header={data.user.labels.reduce((a, b) => a + b, 0).toString()}
               text="Users registered"
               footerSlot={
-                <>
-                  <CIcon name="cil-user" height="36" className="my-4" />
-                  <ChartLineSimple
-                    className="pt-2 position-absolute w-100 h-100"
-                    // className="mt-3"
-                    style={{ height: "70px" }}
-                    backgroundColor="rgba(255,255,255,.2)"
-                    dataPoints={data.user.labels}
-                    options={{ elements: { line: { borderWidth: 2.5 } } }}
-                    pointHoverBackgroundColor="warning"
-                    label="Users"
-                    labels="days"
-                  />
-                </>
+                <ChartLineSimple
+                  className="mt-3"
+                  style={{ height: "70px" }}
+                  backgroundColor="rgba(255,255,255,.2)"
+                  dataPoints={data.user.labels}
+                  pointHoverBackgroundColor="warning"
+                  options={{ elements: { line: { borderWidth: 2.5 } } }}
+                  label="Users"
+                  labels="days"
+                />
               }>
               {dropdown()}
             </CWidgetDropdown>
