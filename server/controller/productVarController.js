@@ -127,7 +127,7 @@ const updateProductVars = (req, res) => {
     if (!("product_id" in req_body)) {
       throw new Error("Product id undefined");
     }
-    if (getProductVar(req_body.product_id, 1, 100000).data.length === 0) {
+    if (getProductVar(req_body.product_id, 1).data.length === 0) {
       res.status(400).json(createResponse(null, "Product Variation not found"));
       return;
     }
@@ -150,7 +150,7 @@ const updateProductVars = (req, res) => {
 const deleteProductVars = (req, res) => {
   try {
     const { product_id } = req.body;
-    if (getProductVar(product_id, 1, 100000).data.length === 0) {
+    if (getProductVar(product_id, 1).data.length === 0) {
       res.status(400).json(createResponse(null, "Product Variation not found"));
       return;
     }

@@ -64,7 +64,7 @@ module.exports.updateSupplier = (req, res) => {
     if (!("supplier_id" in req_body)) {
       throw new Error("Supplier id not found");
     }
-    if (getSupplier(req_body.supplier_id, 1, 100000).data.length === 0) {
+    if (getSupplier(req_body.supplier_id, 1).data.length === 0) {
       res.status(400).json(createResponse(null, "Order not found"));
       return;
     }
@@ -87,7 +87,7 @@ module.exports.updateSupplier = (req, res) => {
 module.exports.deleteSupplier = (req, res) => {
   try {
     const { supplier_id } = req.body;
-    if (getSupplier(supplier_id, 1, 100000).data.length === 0) {
+    if (getSupplier(supplier_id, 1).data.length === 0) {
       res.status(400).json(createResponse(null, "Supplier not found"));
       return;
     }
