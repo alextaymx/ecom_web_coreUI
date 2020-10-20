@@ -28,7 +28,7 @@ import { onLogoutv2 } from "../../apiCalls/auth";
 // const fields = ["name", "registered", "role", "status"];
 
 const WidgetsDropdown = lazy(() => import("./WidgetsDropdown.js"));
-const WidgetsBrand = lazy(() => import("../../views/widgets/WidgetsBrand.js"));
+// const WidgetsBrand = lazy(() => import("../../views/widgets/WidgetsBrand.js"));
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -117,7 +117,7 @@ const Dashboard = () => {
               />
             </CCardBody>
             <CCardFooter>
-              <CRow className="text-center">
+              {/* <CRow className="text-center">
                 <CCol md sm="12" className="mb-sm-2 mb-0">
                   <div className="text-muted">Visits</div>
                   <strong>29.703 Users (40%)</strong>
@@ -163,13 +163,12 @@ const Dashboard = () => {
                   <strong>Average Rate (40.15%)</strong>
                   <CProgress className="progress-xs mt-2" precision={1} value={40} />
                 </CCol>
-              </CRow>
+              </CRow> */}
             </CCardFooter>
           </CCard>
 
           {/* <TableTabs /> */}
 
-          <WidgetsBrand withCharts />
           {/* <Users /> */}
 
           <CRow>

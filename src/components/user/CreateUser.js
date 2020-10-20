@@ -49,12 +49,14 @@ function CreateSupplier() {
   // const { itemNo, retailPrice, supplyPrice, supplyRate, resale } = state;
 
   const [visible, setVisible] = useState(0);
+  const [errorAlert, setErrorAlert] = useState(false);
 
   const userOnChange = (e) => {
     dispatch({ action: "user", field: e.target.name, value: e.target.value });
   };
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    setErrorAlert(false);
     console.log(state);
     createUserAPI(state, token)
       .then((data) => {
@@ -65,6 +67,8 @@ function CreateSupplier() {
       })
       .catch((error) => {
         if (error.response) {
+          setErrorAlert(true);
+          console.log(error.response);
           // console.error("err response", error.response); // client received an error response (5xx, 4xx)
         } else if (error.request) {
           // console.error("err req", error.request); // client never received a response, or request never left
@@ -79,8 +83,11 @@ function CreateSupplier() {
         <CCard>
           <CCardHeader>Add user</CCardHeader>
           <CCardBody>
+            <CAlert color="danger" show={errorAlert} closeButton>
+              Failed to create user!
+            </CAlert>
             <CAlert color="success" show={visible} closeButton onShowChange={setVisible}>
-              User added successfully! {visible}
+              User added successfully! Dismissing in {visible} seconds...
             </CAlert>
             <CForm action="" method="post" onSubmit={handleFormSubmit}>
               <CFormGroup row className="my-0">
