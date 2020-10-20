@@ -1,5 +1,5 @@
 import React from "react";
-import { CContainer, CNavLink, CSidebar, CSidebarClose } from "@coreui/react";
+import { CContainer, CSidebar, CSidebarClose } from "@coreui/react";
 import { useDispatch, useSelector } from "react-redux";
 import WidgetsBrand from "../views/widgets/WidgetsBrand";
 

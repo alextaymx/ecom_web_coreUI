@@ -20,7 +20,7 @@ import CIcon from "@coreui/icons-react";
 import { updateUserAPI } from "../../apiCalls/post";
 import { useHistory } from "react-router-dom";
 import { checkPermission, PERMISSION } from "../../apiCalls/constant";
-import { lowerCase, startCase } from "lodash";
+import { startCase } from "lodash";
 
 // import usersData from "../../users/UsersData";
 const fields = [
@@ -54,7 +54,7 @@ const getBadge = (status) => {
       return "light";
   }
 };
-const status = { Active: 1, Inactive: 2, Pending: 3 };
+const status = { Active: 1, Pending: 2, Inactive: 3 };
 const permissionLabel = Object.keys(PERMISSION);
 function UserList() {
   const dispatch = useDispatch();
@@ -89,8 +89,9 @@ function UserList() {
         }
       });
   }, [token, dispatch, tab, currentPage, fetchTrigger]);
+
   const handleEditUser = (item) => {
-    console.log(item);
+    // console.log(item);
     history.push({
       pathname: "/updateUser",
       state: item,
@@ -221,7 +222,6 @@ function UserList() {
               <CNavLink
                 onClick={() => {
                   setTab("Active");
-                  setFetchTrigger(fetchTrigger + 1);
                 }}
                 active={tab === "Active"}>
                 Active
@@ -229,7 +229,6 @@ function UserList() {
               <CNavLink
                 onClick={() => {
                   setTab("Inactive");
-                  setFetchTrigger(fetchTrigger + 1);
                 }}
                 active={tab === "Inactive"}>
                 Inactive
@@ -237,7 +236,6 @@ function UserList() {
               <CNavLink
                 onClick={() => {
                   setTab("Pending");
-                  setFetchTrigger(fetchTrigger + 1);
                 }}
                 active={tab === "Pending"}>
                 Pending

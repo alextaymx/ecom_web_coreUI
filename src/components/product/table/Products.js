@@ -98,7 +98,7 @@ const Products = ({ productStatus }) => {
     return () => {
       clearTimeout(interval);
     };
-  }, [token, query, fetchTrigger]);
+  }, [dispatch, token, query, fetchTrigger]);
 
   const debouncedSearch = debounce((query) => {
     setTableFilterValue(query);

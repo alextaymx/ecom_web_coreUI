@@ -57,10 +57,10 @@ function CreateSupplier() {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     setErrorAlert(false);
-    console.log(state);
+    // console.log(state);
     createUserAPI(state, token)
       .then((data) => {
-        console.log("returned data: ", data, state);
+        console.log("create user: ", data, state);
         dispatch({ action: "reset" });
         setVisible(5);
         // window.location.reload(false);
@@ -68,7 +68,7 @@ function CreateSupplier() {
       .catch((error) => {
         if (error.response) {
           setErrorAlert(true);
-          console.log(error.response);
+          console.log("error", error.response);
           // console.error("err response", error.response); // client received an error response (5xx, 4xx)
         } else if (error.request) {
           // console.error("err req", error.request); // client never received a response, or request never left

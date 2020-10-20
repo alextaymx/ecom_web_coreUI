@@ -2,19 +2,18 @@ import React, { lazy, useEffect, useState } from "react";
 // import axios from "axios";
 
 import {
-  CBadge,
   // CBadge,
   CButton,
   CButtonGroup,
   CCard,
   CCardBody,
   CCardFooter,
-  CCardHeader,
+  // CCardHeader,
   CCol,
-  CDataTable,
-  CProgress,
+  // CDataTable,
+  // CProgress,
   CRow,
-  CCallout,
+  // CCallout,
 } from "@coreui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { getStatistics } from "../../apiCalls/post";
@@ -73,7 +72,7 @@ const Dashboard = () => {
         onLogoutv2(dispatch);
         throw error;
       });
-  }, [token]);
+  }, [token, dispatch]);
   // { product: {}, productVar: {}, user: {} }
   return (
     <>
