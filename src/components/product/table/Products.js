@@ -30,10 +30,10 @@ const fields = [
     sorter: false,
     filter: false,
   },
-  { key: "masterSku", _style: { width: "40%" } },
-  { key: "remarks", _style: { width: "14%" }, sorter: false },
-  { key: "createdBy", _style: { width: "14%" } },
-  { key: "createdAt", _style: { width: "20%" } },
+  { key: "masterSku" },
+  { key: "remarks", sorter: false },
+  { key: "createdBy", _style: { width: "10%" } },
+  { key: "createdAt", _style: { width: "10%" } },
   // {
   //   key: "operations",
   //   label: "Operations",
@@ -250,6 +250,14 @@ const Products = ({ productStatus }) => {
     //       break;
     //   }
     // },
+    createdAt: (item) => {
+      console.log(item.createdAt.substring(0, 10));
+      return (
+        <td className="py-2">
+          {`${item.createdAt.match(/\d\d:\d\d/)} ${item.createdAt.substring(0, 10)}`}
+        </td>
+      );
+    },
     show_details: (item, index) => {
       return (
         <td className="py-2">

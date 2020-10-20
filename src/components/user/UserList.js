@@ -51,7 +51,7 @@ const getBadge = (status) => {
     // case "Banned":
     //   return "danger";
     default:
-      return "light";
+      return "success";
   }
 };
 const status = { Active: 1, Pending: 2, Inactive: 3 };
@@ -262,7 +262,10 @@ function UserList() {
                   <td>
                     {item.permissions.map((key) => {
                       return (
-                        <CBadge color={getBadge(item.permissions)} key={key}>
+                        <CBadge
+                          className="mr-2"
+                          color={getBadge(item.permissions)}
+                          key={key}>
                           {startCase(permissionLabel[key - 1])}
                         </CBadge>
                       );
