@@ -19,13 +19,15 @@ import { onLogoutv2 } from "../../apiCalls/auth";
 import CIcon from "@coreui/icons-react";
 import { updateUserAPI } from "../../apiCalls/post";
 import { useHistory } from "react-router-dom";
+import { PERMISSION } from "./constant";
+import { lowerCase, startCase } from "lodash";
 
 // import usersData from "../../users/UsersData";
 const fields = [
   "name",
   "email",
   "role",
-  "isActivated",
+  "permissions",
   {
     key: "operations",
     label: "Operations",
@@ -40,18 +42,20 @@ const getBadge = (status) => {
       return "success";
     case false:
       return "danger";
-    // case "Active":
-    //   return "success";
-    // case "Inactive":
-    //   return "secondary";
-    // case "Pending":
-    //   return "warning";
+    case "SuperAdmin":
+      return "danger";
+    case "Admin":
+      return "primary";
+    case "User":
+      return "light";
     // case "Banned":
     //   return "danger";
     default:
-      return "primary";
+      return "light";
   }
 };
+const status = { Active: 1, Inactive: 2, Pending: 3 };
+const permissionLabel = Object.keys(PERMISSION);
 function UserList() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -62,14 +66,12 @@ function UserList() {
   const [loading, setLoading] = useState(true);
   const [fetchTrigger, setFetchTrigger] = useState(0);
   const [tab, setTab] = useState("Pending");
-  const status = tab === "Active" ? true : false;
-
   useEffect(() => {
     setLoading(true);
-    getUserAPI(token, "*", currentPage, status)
+    getUserAPI(token, "*", currentPage, status[tab])
       .then(({ data }) => {
         setUserData(data.resultList);
-        setTotalPages(data.totalPage);
+        setTotalPages(Math.max(data.totalPage, 1));
         setLoading(false);
       })
       .catch((error) => {
@@ -85,7 +87,7 @@ function UserList() {
           // anything else // console.error("There was an error!", error);
         }
       });
-  }, [token, dispatch, status, currentPage, fetchTrigger]);
+  }, [token, dispatch, tab, currentPage, fetchTrigger]);
   const handleEditUser = (item) => {
     console.log(item);
     history.push({
@@ -148,7 +150,25 @@ function UserList() {
     <CRow>
       <CCol>
         <CCard>
-          <CCardHeader>User List</CCardHeader>
+          <CCardHeader>
+            User List
+            <div className="card-header-actions">
+              <CButton
+                className="inline"
+                color="info"
+                variant="outline"
+                shape="pill"
+                // size="sm"
+                onClick={() => {
+                  history.push({
+                    pathname: "/createUser",
+                  });
+                }}>
+                <CIcon name="cil-plus" className="mr-2 float-left" />
+                Create User
+              </CButton>
+            </div>
+          </CCardHeader>
           <CCardBody>
             <CNav variant="tabs" justified>
               <CNavLink
@@ -158,6 +178,14 @@ function UserList() {
                 }}
                 active={tab === "Active"}>
                 Active
+              </CNavLink>
+              <CNavLink
+                onClick={() => {
+                  setTab("Inactive");
+                  setFetchTrigger(fetchTrigger + 1);
+                }}
+                active={tab === "Inactive"}>
+                Inactive
               </CNavLink>
               <CNavLink
                 onClick={() => {
@@ -180,11 +208,20 @@ function UserList() {
               pagination
               sorter
               scopedSlots={{
-                isActivated: (item) => (
+                role: (item) => (
                   <td>
-                    <CBadge color={getBadge(item.isActivated)}>
-                      {item.isActivated ? "Active" : "Not Active"}
-                    </CBadge>
+                    <CBadge color={getBadge(item.role)}>{startCase(item.role)}</CBadge>
+                  </td>
+                ),
+                permissions: (item) => (
+                  <td>
+                    {item.permissions.map((key) => {
+                      return (
+                        <CBadge color={getBadge(item.permissions)} key={key}>
+                          {startCase(lowerCase(permissionLabel[key - 1]))}
+                        </CBadge>
+                      );
+                    })}
                   </td>
                 ),
                 operations: (item, index) => (

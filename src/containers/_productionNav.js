@@ -40,12 +40,6 @@ export default [
     icon: "cil-list",
   },
   {
-    _tag: "CSidebarNavItem",
-    name: "Create User",
-    to: "/createUser",
-    icon: "cil-plus",
-  },
-  {
     _tag: "CSidebarNavTitle",
     _children: ["Suppliers"],
   },
@@ -54,11 +48,5 @@ export default [
     name: "Supplier List",
     to: "/supplierList",
     icon: "cil-list",
-  },
-  {
-    _tag: "CSidebarNavItem",
-    name: "Create Supplier",
-    to: "/createSupplier",
-    icon: "cil-plus",
   },
 ];

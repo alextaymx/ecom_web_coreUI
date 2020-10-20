@@ -19,7 +19,7 @@ import { useHistory } from "react-router-dom";
 
 function TableTabs() {
   const history = useHistory();
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(1);
   return (
     <div>
       <CRow>
@@ -57,7 +57,44 @@ function TableTabs() {
               </div> */}
             </CCardHeader>
             <CCardBody>
-              <CTabs activeTab={activeTab} onActiveTabChange={(idx) => setActiveTab(idx)}>
+              <CNav variant="pills" fill justified>
+                <CNavItem>
+                  <CNavLink
+                    onClick={() => {
+                      setActiveTab(1);
+                      // setFetchTrigger(fetchTrigger + 1);
+                    }}
+                    active={activeTab === 1}>
+                    <CIcon name="cil-check-circle" />
+                    {activeTab === 1 && " Active"}
+                  </CNavLink>
+                </CNavItem>
+                <CNavItem>
+                  <CNavLink
+                    onClick={() => {
+                      setActiveTab(2);
+                      // setFetchTrigger(fetchTrigger + 1);
+                    }}
+                    active={activeTab === 2}>
+                    <CIcon name="cil-clock" />
+                    {activeTab === 2 && " Pending"}
+                  </CNavLink>
+                </CNavItem>
+                <CNavItem>
+                  <CNavLink
+                    onClick={() => {
+                      setActiveTab(3);
+                      // setFetchTrigger(fetchTrigger + 1);
+                    }}
+                    active={activeTab === 3}>
+                    <CIcon name="cil-history" />
+                    {activeTab === 3 && " Archived"}
+                  </CNavLink>
+                </CNavItem>
+              </CNav>
+              <Products productStatus={activeTab.toString()} />
+
+              {/* <CTabs activeTab={activeTab} onActiveTabChange={(idx) => setActiveTab(idx)}>
                 <CNav variant="tabs" fill justified>
                   <CNavItem>
                     <CNavLink>
@@ -89,7 +126,7 @@ function TableTabs() {
                     <Products productStatus="3" />
                   </CTabPane>
                 </CTabContent>
-              </CTabs>
+              </CTabs> */}
             </CCardBody>
           </CCard>
         </CCol>

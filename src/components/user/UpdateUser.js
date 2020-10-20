@@ -67,6 +67,10 @@ const changedKeys = (o1, o2) => {
     return o1[key] !== o2[key];
   });
 };
+const options = Object.keys(PERMISSION).map((key, index) => ({
+  value: PERMISSION[key],
+  label: key,
+}));
 function UpdateSupplier() {
   // const radioInput = pick(field, "resale");
   const history = useHistory();
@@ -105,11 +109,6 @@ function UpdateSupplier() {
     }
     history.goBack();
   };
-
-  const options = Object.keys(PERMISSION).map((key, index) => ({
-    value: PERMISSION[key],
-    label: key,
-  }));
   return (
     <>
       {location.state ? (

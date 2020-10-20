@@ -48,7 +48,7 @@ function CreateProductVarForm({
       const responseJSON = await getSupplierAPI(token, "*", page);
       const newSuppliers = responseJSON.data.resultList.map((supplier) => ({
         value: supplier.id,
-        label: `${supplier.id} - ${supplier.name}`,
+        label: `${supplier.name} [${supplier.id}]`,
       }));
       const hasMore = page !== responseJSON.data.totalPage;
       return {
@@ -198,7 +198,7 @@ function CreateProductVarForm({
                                 id="supplier"
                                 value={fieldArr.supplier}
                                 loadOptions={loadOptions}
-                                defaultValue={{ value: "0", label: "0 - Lela Aufderhar" }}
+                                defaultValue={{ value: "0", label: "Lela Aufderhar [0]" }}
                                 onChange={({ value }) => {
                                   productVarOnChange(arrIndex, {
                                     target: {
