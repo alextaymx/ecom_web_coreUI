@@ -78,7 +78,6 @@ module.exports.getProduct = (req, res) => {
       )
     );
   } catch (err) {
-    console.log(err);
     res
       .status(ResponseCode.Internal_server_error.code)
       .json(createResponse(null, ResponseCode.Internal_server_error.msg));
@@ -116,7 +115,7 @@ module.exports.updateProduct = (req, res) => {
     if (!("product_id" in req_body)) {
       throw new Error("Product id not found");
     }
-    if (getProduct(req_body.product_id).data.length === 0) {
+    if (getProduct(req_body.product_id, 1).data.length === 0) {
       res.status(400).json(createResponse(null, "Product not found"));
       return;
     }
@@ -136,7 +135,7 @@ module.exports.updateProduct = (req, res) => {
 module.exports.deleteProduct = (req, res) => {
   try {
     const { product_id } = req.body;
-    if (getProduct(product_id, 1, 10000).data.length === 0) {
+    if (getProduct(product_id, 1).data.length === 0) {
       res.status(400).json(createResponse(null, "Product not found"));
       return;
     }

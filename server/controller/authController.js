@@ -23,14 +23,18 @@ module.exports.login = (req, res) => {
     if (user && user.status === 1) {
       const token = createToken(user.id, user.password);
       // res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-      res
-        .status(ResponseCode.Login_success.code)
-        .json(
-          createResponse(
-            { user: user.id, email: user.email, name: user.name, token: token },
-            ResponseCode.Login_success.msg
-          )
-        );
+      res.status(ResponseCode.Login_success.code).json(
+        createResponse(
+          {
+            user: user.id,
+            email: user.email,
+            name: user.name,
+            token: token,
+            permission: user.permissions,
+          },
+          ResponseCode.Login_success.msg
+        )
+      );
     } else {
       res
         .status(ResponseCode.Login_wrong_input.code)

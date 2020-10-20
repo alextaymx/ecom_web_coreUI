@@ -123,11 +123,12 @@ const updateUser = (user_body) => {
   userList.forEach((user, index) => {
     if (user.id === parseInt(user_body.id)) {
       userList[index] = { ...user, ...user_body };
-      Object.keys(Roles).forEach((Role_key) => {
-        if (Roles[Role_key].id === parseInt(userList[index].role)) {
-          userList[index].permissions = Roles[Role_key].permissions;
-        }
-      });
+      if ("role" in user_body)
+        Object.keys(Roles).forEach((Role_key) => {
+          if (Roles[Role_key].id === parseInt(userList[index].role)) {
+            userList[index].permissions = Roles[Role_key].permissions;
+          }
+        });
     }
   });
 };
@@ -165,7 +166,7 @@ const generateOrder = (count) =>
       updatedAt: randomLastWeekDate(),
     };
   });
-let orderList = generateOrder(20);
+let orderList = generateOrder(600);
 const addOrder = (newOrder) => {
   let order = { ...newOrder, id: orderList.length };
   orderList.push(order);
@@ -176,6 +177,7 @@ const updateOrder = (order_body) => {
   orderList.forEach((order, index) => {
     if (order.id === parseInt(order_body.order_id)) {
       orderList[index] = { ...order, ...order_body };
+      delete orderList[index].order_id;
     }
   });
 };
@@ -287,6 +289,7 @@ const updateProduct = (product_body) => {
   productList.forEach((product, index) => {
     if (product.id === parseInt(product_body.product_id)) {
       productList[index] = { ...product, ...product_body };
+      delete productList[index].product_id;
     }
   });
 };
@@ -396,6 +399,7 @@ const updateSupplier = (supplier_body) => {
   supplierList.forEach((supplier, index) => {
     if (supplier.id === parseInt(supplier_body.supplier_id)) {
       supplierList[index] = { ...supplier, ...supplier_body };
+      delete supplierList[index].supplier_id;
     }
   });
 };

@@ -52,7 +52,7 @@ module.exports.updateUser = (req, res) => {
     if (!("id" in req_body)) {
       throw new Error("User id not found");
     }
-    if (getUser(req_body.id, 1, 100000).data.length === 0) {
+    if (getUser(req_body.id, 1).data.length === 0) {
       res.status(400).json(createResponse(null, "User not found"));
       return;
     }
