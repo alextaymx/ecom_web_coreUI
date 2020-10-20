@@ -175,7 +175,7 @@ const addOrder = (newOrder) => {
 
 const updateOrder = (order_body) => {
   orderList.forEach((order, index) => {
-    if (order.id === parseInt(order_body.order_id)) {
+    if (parseInt(order.id) === parseInt(order_body.order_id)) {
       orderList[index] = { ...order, ...order_body };
       delete orderList[index].order_id;
     }
@@ -190,7 +190,7 @@ const getOrder = (order_id, page_num, itemsPerPage = 10) => {
   let result =
     order_id === "*"
       ? orderList
-      : orderList.filter((order) => order.id === parseInt(order_id));
+      : orderList.filter((order) => parseInt(order.id) === parseInt(order_id));
   return packWithTableInfo(result, itemsPerPage, page_num);
 };
 
@@ -237,7 +237,7 @@ const addProductVar = (newProductVar) => {
 
 const updateProductVar = (productVar_body) => {
   productVarList.forEach((productVar, index) => {
-    if (productVar.id === parseInt(productVar_body.product_id)) {
+    if (parseInt(productVar.id) === parseInt(productVar_body.product_id)) {
       productVarList[index] = { ...productVar, ...productVar_body };
     }
   });
@@ -245,7 +245,7 @@ const updateProductVar = (productVar_body) => {
 
 const deleteProductVar = (product_id) => {
   productVarList = productVarList.map((productVar) => {
-    if (productVar.id === parseInt(product_id)) {
+    if (parseInt(productVar.id) === parseInt(product_id)) {
       productVar.status = 0;
     }
     return productVar;
@@ -256,7 +256,9 @@ const getProductVar = (product_id, page_num, itemsPerPage = 10) => {
   let result =
     product_id === "*"
       ? productVarList
-      : productVarList.filter((productVar) => productVar.id === parseInt(product_id));
+      : productVarList.filter(
+          (productVar) => parseInt(productVar.id) === parseInt(product_id)
+        );
   return packWithTableInfo(result, itemsPerPage, page_num);
 };
 
@@ -287,7 +289,7 @@ const addProduct = (newProduct) => {
 
 const updateProduct = (product_body) => {
   productList.forEach((product, index) => {
-    if (product.id === parseInt(product_body.product_id)) {
+    if (parseInt(product.id) === parseInt(product_body.product_id)) {
       productList[index] = { ...product, ...product_body };
       delete productList[index].product_id;
     }
@@ -296,7 +298,7 @@ const updateProduct = (product_body) => {
 
 const deleteProduct = (product_id) => {
   productList = productList.map((product) => {
-    if (product.id === parseInt(product_id)) {
+    if (parseInt(product.id) === parseInt(product_id)) {
       product.variations.forEach((productVarId) => {
         deleteProductVar(productVarId);
       });
@@ -340,7 +342,7 @@ const getProduct = (
           const validVar = productVarList.filter(
             (productVar) =>
               product.variations.includes(productVar.id) &&
-              productVar.status === parseInt(status)
+              parseInt(productVar.status) === parseInt(status)
           );
           let temp = _.cloneDeep(product);
           temp.variations = validVar.map((productVar) => productVar.id);
@@ -381,12 +383,12 @@ const generateSupplier = (count) =>
       products: [i * 2, i * 2 + 1],
     };
   });
-let supplierList = generateSupplier(20);
+let supplierList = generateSupplier(200);
 const addSupplier = (newSupplier) => {
   let supplier = { ...newSupplier, id: supplierList.length };
   supplier.products.forEach((productVar_id) => {
     productVarList.forEach((productVar, index) => {
-      if (productVar_id === productVar.id) {
+      if (parseInt(productVar_id) === parseInt(productVar.id)) {
         productVarList[index].supplier = supplier.id;
       }
     });
@@ -397,7 +399,7 @@ const addSupplier = (newSupplier) => {
 
 const updateSupplier = (supplier_body) => {
   supplierList.forEach((supplier, index) => {
-    if (supplier.id === parseInt(supplier_body.supplier_id)) {
+    if (parseInt(supplier.id) === parseInt(supplier_body.supplier_id)) {
       supplierList[index] = { ...supplier, ...supplier_body };
       delete supplierList[index].supplier_id;
     }
@@ -418,7 +420,9 @@ const getSupplier = (
   let result =
     supplier_id === "*"
       ? supplierList
-      : supplierList.filter((supplier) => supplier.id === parseInt(supplier_id));
+      : supplierList.filter(
+          (supplier) => parseInt(supplier.id) === parseInt(supplier_id)
+        );
   sortList(result, sortBy, order);
   return packWithTableInfo(result, itemsPerPage, page_num);
 };
