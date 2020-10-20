@@ -307,14 +307,17 @@ const deleteProduct = (product_id) => {
 };
 
 const filterByKeyword = (prodList, keyword) => {
-  const filterMasterSku = prodList.filter((prod) => prod.masterSku.startsWith(keyword));
+  const filterMasterSku = prodList.filter((prod) =>
+    prod.masterSku.toString().includes(keyword)
+  );
   const filterProdvar = prodList
-    .filter((prod) => !prod.masterSku.startsWith(keyword))
+    .filter((prod) => !prod.masterSku.toString().includes(keyword))
     .map((prod) => {
       const validVar = productVarList.filter(
         (productVar) =>
           prod.variations.includes(productVar.id) &&
-          (productVar.itemNo.startsWith(keyword) || productVar.title.startsWith(keyword))
+          (productVar.itemNo.toString().includes(keyword) ||
+            productVar.title.toString().includes(keyword))
       );
       let temp = _.cloneDeep(prod);
       temp.variations = validVar.map((productVar) => productVar.id);
@@ -349,7 +352,7 @@ const getProduct = (
           return temp;
         })
       : result;
-  result = keyword === null ? result : filterByKeyword(result, keyword);
+  result = keyword === null ? result : filterByKeyword(result, keyword.toString());
   result = result.filter((product) => product.variations.length > 0);
   !(sortBy === "createdBy")
     ? sortList(result, sortBy, order)
