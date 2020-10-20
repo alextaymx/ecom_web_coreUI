@@ -19,7 +19,7 @@ import { onLogoutv2 } from "../../apiCalls/auth";
 import CIcon from "@coreui/icons-react";
 import { updateUserAPI } from "../../apiCalls/post";
 import { useHistory } from "react-router-dom";
-import { PERMISSION } from "./constant";
+import { checkPermission, PERMISSION } from "../../apiCalls/constant";
 import { lowerCase, startCase } from "lodash";
 
 // import usersData from "../../users/UsersData";
@@ -47,7 +47,7 @@ const getBadge = (status) => {
     case "Admin":
       return "primary";
     case "User":
-      return "light";
+      return "dark";
     // case "Banned":
     //   return "danger";
     default:
@@ -60,6 +60,7 @@ function UserList() {
   const dispatch = useDispatch();
   const history = useHistory();
   const token = useSelector((state) => state.userInfo.user.token);
+  const currentPermission = useSelector((state) => state.userInfo.user.permission);
   const [userData, setUserData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -95,10 +96,24 @@ function UserList() {
       state: item,
     });
   };
-  const handleApproveDeleteUser = ({ id }, action) => {
+  const handleApproveDeleteRestoreUser = ({ id }, action) => {
+    let status = 3;
+    switch (action) {
+      case "approve":
+        status = 1;
+        break;
+      case "delete":
+        status = 2;
+        break;
+      case "restore":
+        status = 1;
+        break;
+      default:
+        break;
+    }
     const updatePayload = {
       id,
-      isActivated: action === "approve" ? true : false,
+      status,
     };
     updateUserAPI(updatePayload, token)
       .then((data) => {
@@ -109,28 +124,55 @@ function UserList() {
   };
   const editApprovalButtonGroup = (item) => (
     <>
-      <CButton
-        className="inline"
-        color="info"
-        variant="ghost"
-        shape="pill"
-        size="sm"
-        onClick={() => {
-          handleEditUser(item);
-        }}>
-        <CIcon name="cil-pencil" />
-      </CButton>
-      <CButton
-        className="inline"
-        color="danger"
-        variant="ghost"
-        shape="pill"
-        size="sm"
-        onClick={() => {
-          handleApproveDeleteUser(item, "delete");
-        }}>
-        <CIcon name="cil-ban" />
-      </CButton>
+      {tab === "Inactive" && (
+        <CButton
+          className="inline"
+          color="success"
+          variant="ghost"
+          shape="pill"
+          size="sm"
+          onClick={() => {
+            handleApproveDeleteRestoreUser(item, "restore");
+          }}>
+          <CIcon name="cil-history" />
+        </CButton>
+      )}
+      {tab !== "Inactive" && (
+        <>
+          <CButton
+            className="inline"
+            variant="ghost"
+            shape="pill"
+            size="sm"
+            color={
+              checkPermission(currentPermission, PERMISSION.Update_User)
+                ? "info"
+                : "secondary"
+            }
+            disabled={!checkPermission(currentPermission, PERMISSION.Update_User)}
+            onClick={() => {
+              handleEditUser(item);
+            }}>
+            <CIcon name="cil-pencil" />
+          </CButton>
+          <CButton
+            className="inline"
+            variant="ghost"
+            shape="pill"
+            size="sm"
+            color={
+              checkPermission(currentPermission, PERMISSION.Delete_User)
+                ? "danger"
+                : "secondary"
+            }
+            disabled={!checkPermission(currentPermission, PERMISSION.Delete_User)}
+            onClick={() => {
+              handleApproveDeleteRestoreUser(item, "delete");
+            }}>
+            <CIcon name="cil-ban" />
+          </CButton>
+        </>
+      )}
       {tab === "Pending" && (
         <CButton
           className="inline"
@@ -139,7 +181,7 @@ function UserList() {
           shape="pill"
           size="sm"
           onClick={() => {
-            handleApproveDeleteUser(item, "approve");
+            handleApproveDeleteRestoreUser(item, "approve");
           }}>
           <CIcon name="cil-check" />
         </CButton>
@@ -155,9 +197,14 @@ function UserList() {
             <div className="card-header-actions">
               <CButton
                 className="inline"
-                color="info"
+                color={
+                  checkPermission(currentPermission, PERMISSION.Create_User)
+                    ? "info"
+                    : "secondary"
+                }
                 variant="outline"
                 shape="pill"
+                disabled={!checkPermission(currentPermission, PERMISSION.Create_User)}
                 // size="sm"
                 onClick={() => {
                   history.push({
@@ -218,7 +265,7 @@ function UserList() {
                     {item.permissions.map((key) => {
                       return (
                         <CBadge color={getBadge(item.permissions)} key={key}>
-                          {startCase(lowerCase(permissionLabel[key - 1]))}
+                          {startCase(permissionLabel[key - 1])}
                         </CBadge>
                       );
                     })}

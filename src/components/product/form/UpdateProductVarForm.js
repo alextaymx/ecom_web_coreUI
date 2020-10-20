@@ -117,7 +117,8 @@ function UpdateProductVarForm() {
     "orderBy",
     "releaseBy",
     "orders",
-    "supplier"
+    "supplier",
+    "status"
   );
   const monetaryInputField = pick(state, "retailPrice", "supplyPrice");
   const dateInputField = pick(state, "orderBy", "releaseBy");
