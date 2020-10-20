@@ -20,6 +20,7 @@ import { onLogoutv2 } from "../../../apiCalls/auth";
 // import { pick } from "lodash";
 import ProductVarTable from "./ProductVarTable";
 import { debounce } from "lodash";
+import { checkPermission, PERMISSION } from "../../../apiCalls/constant";
 
 const fields = [
   {
@@ -31,8 +32,8 @@ const fields = [
   },
   { key: "masterSku", _style: { width: "40%" } },
   { key: "remarks", _style: { width: "14%" }, sorter: false },
-  { key: "createdAt", _style: { width: "20%" } },
   { key: "createdBy", _style: { width: "14%" } },
+  { key: "createdAt", _style: { width: "20%" } },
   // {
   //   key: "operations",
   //   label: "Operations",
@@ -44,6 +45,7 @@ const fields = [
 const Products = ({ productStatus }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.userInfo.user.token);
+  const currentPermission = useSelector((state) => state.userInfo.user.permission);
   const history = useHistory();
 
   const [productData, setProductData] = useState([]);
@@ -55,7 +57,7 @@ const Products = ({ productStatus }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [tableFilterValue, setTableFilterValue] = useState("");
-  const [sorterValue, setSorterValue] = useState({ column: "", asc: "" });
+  const [sorterValue, setSorterValue] = useState({ column: "createdAt", asc: false });
 
   const params = {
     status: productStatus,
@@ -112,6 +114,7 @@ const Products = ({ productStatus }) => {
     }
     setDropdowns(newDetails);
   };
+
   // const handleEditProduct = (item) => {
   //   // console.log(item);
   //   const productFields = pick(item, "id", "masterSku", "remarks");
@@ -169,10 +172,15 @@ const Products = ({ productStatus }) => {
     <>
       <CButton
         className="inline"
-        color="info"
+        color={
+          checkPermission(currentPermission, PERMISSION.Update_Product)
+            ? "info"
+            : "secondary"
+        }
         variant="ghost"
         shape="pill"
         size="sm"
+        disabled={!checkPermission(currentPermission, PERMISSION.Update_Product)}
         onClick={() => {
           handleEditProductVar(item, index);
         }}>
@@ -180,10 +188,15 @@ const Products = ({ productStatus }) => {
       </CButton>
       <CButton
         className="inline"
-        color="danger"
+        color={
+          checkPermission(currentPermission, PERMISSION.Delete_Product)
+            ? "danger"
+            : "secondary"
+        }
         variant="ghost"
         shape="pill"
         size="sm"
+        disabled={!checkPermission(currentPermission, PERMISSION.Delete_Product)}
         onClick={() => {
           handleDeleteProductVar(item, index);
         }}>
