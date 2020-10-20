@@ -16,10 +16,13 @@ import {
 import CIcon from "@coreui/icons-react";
 import Products from "./Products";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { checkPermission, PERMISSION } from "../../../apiCalls/constant";
 
 function TableTabs() {
   const history = useHistory();
   const [activeTab, setActiveTab] = useState(1);
+  const currentPermission = useSelector((state) => state.userInfo.user.permission);
   return (
     <div>
       <CRow>
@@ -30,10 +33,17 @@ function TableTabs() {
               <div className="card-header-actions">
                 <CButton
                   className="inline"
-                  color="info"
+                  color={
+                    checkPermission(currentPermission, PERMISSION.Create_Product)
+                      ? "info"
+                      : "secondary"
+                  }
                   variant="outline"
                   shape="pill"
                   // size="sm"
+                  disabled={
+                    !checkPermission(currentPermission, PERMISSION.Create_Product)
+                  }
                   onClick={() => {
                     history.push({
                       pathname: "/createProduct",

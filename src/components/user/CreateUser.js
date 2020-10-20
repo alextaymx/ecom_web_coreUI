@@ -84,7 +84,7 @@ function CreateSupplier() {
             </CAlert>
             <CForm action="" method="post" onSubmit={handleFormSubmit}>
               <CFormGroup row className="my-0">
-                {Object.keys(initialUserState).map((key, index) => {
+                {Object.keys(state).map((key, index) => {
                   // console.log(key, field[key], index, typeof key);
                   const displayName = startCase(key);
                   return (
@@ -97,7 +97,7 @@ function CreateSupplier() {
                           name={key}
                           // autoComplete="on"
                           placeholder={`Enter ${displayName}`}
-                          value={initialUserState[key]}
+                          value={state[key]}
                           onChange={userOnChange}
                           required
                         />

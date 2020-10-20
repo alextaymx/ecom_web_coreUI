@@ -27,7 +27,7 @@ import _ from "lodash";
 import { updateUserAPI } from "../../apiCalls/post";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
-import { PERMISSION } from "./constant";
+import { PERMISSION } from "../../apiCalls/constant";
 const animatedComponents = makeAnimated();
 // const initialState = {
 //   itemNo: "",
