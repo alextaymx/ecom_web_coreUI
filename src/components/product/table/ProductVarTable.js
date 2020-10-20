@@ -38,9 +38,9 @@ function ProductVarTable({
     switch (status) {
       case null:
         return "secondary";
-      case true:
+      case "yes":
         return "success";
-      case false:
+      case "no":
         return "danger";
       default:
         return "primary";
@@ -73,12 +73,11 @@ function ProductVarTable({
               supplier: (varItem) => {
                 return <td>{varItem.supplier ? varItem.supplier.name : ""}</td>;
               },
-              resale: (varItem) => {
+              resale: ({ resale }) => {
+                const stringify = resale === "true" || resale === true ? "yes" : "no";
                 return (
                   <td>
-                    <CBadge color={getBadge(varItem.resale)}>
-                      {varItem.resale === true ? "true" : "false"}
-                    </CBadge>
+                    <CBadge color={getBadge(stringify)}>{stringify}</CBadge>
                   </td>
                 );
               },

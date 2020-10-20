@@ -19,6 +19,7 @@ import {
 import { onLogoutv2 } from "../../../apiCalls/auth";
 // import { pick } from "lodash";
 import ProductVarTable from "./ProductVarTable";
+import { debounce } from "lodash";
 
 const fields = [
   {
@@ -29,7 +30,7 @@ const fields = [
     filter: false,
   },
   { key: "masterSku", _style: { width: "40%" } },
-  { key: "remarks", _style: { width: "14%" } },
+  { key: "remarks", _style: { width: "14%" }, sorter: false },
   { key: "createdAt", _style: { width: "20%" } },
   { key: "createdBy", _style: { width: "14%" } },
   // {
@@ -46,25 +47,37 @@ const Products = ({ productStatus }) => {
   const history = useHistory();
 
   const [productData, setProductData] = useState([]);
-  const [dropdowns, setDropdowns] = useState([]);
+  const [dropdowns, setDropdowns] = useState([]); //dropdown contains product var table
+  const [loading, setLoading] = useState(true);
+  const [fetchTrigger, setFetchTrigger] = useState(0);
+  //table filters & options
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(true);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [fetchTrigger, setFetchTrigger] = useState(0);
+  const [tableFilterValue, setTableFilterValue] = useState("");
+  const [sorterValue, setSorterValue] = useState({ column: "", asc: "" });
 
+  const params = {
+    status: productStatus,
+    page: currentPage,
+    ...(tableFilterValue && { searchKey: tableFilterValue }),
+    ...(sorterValue.column && {
+      sortBy: sorterValue.column,
+      order: sorterValue.asc === true ? "asc" : "desc",
+    }),
+    itemsPerPage,
+  };
+  const query = new URLSearchParams(params).toString();
   useEffect(() => {
     setLoading(true);
     const interval = setTimeout(() => {
       setFetchTrigger(fetchTrigger + 1);
     }, 5000);
-
-    getProductAPI(token, "*", currentPage, productStatus)
+    console.log("Now fetching product...", query);
+    getProductAPI(token, "*", query)
       .then(({ data }) => {
         setProductData(data.resultList);
-        setTotalPages(data.totalPage);
-
-        console.log("Now fetching product...");
+        setTotalPages(Math.max(data.totalPage, 1));
         setLoading(false);
       })
       .catch((error) => {
@@ -83,7 +96,11 @@ const Products = ({ productStatus }) => {
     return () => {
       clearTimeout(interval);
     };
-  }, [productStatus, dispatch, token, currentPage, fetchTrigger]);
+  }, [token, query, fetchTrigger]);
+
+  const debouncedSearch = debounce((query) => {
+    setTableFilterValue(query);
+  }, 500);
 
   const toggleDropdown = (index) => {
     const position = dropdowns.indexOf(index);
@@ -147,6 +164,7 @@ const Products = ({ productStatus }) => {
       })
       .catch((error) => {});
   };
+
   const editDeleteButtonGroup = (item, index) => (
     <>
       <CButton
@@ -255,6 +273,7 @@ const Products = ({ productStatus }) => {
       );
     },
   };
+
   return (
     <>
       <CCard accentColor="primary" className="shadow">
@@ -271,15 +290,21 @@ const Products = ({ productStatus }) => {
             // border
             // pagination
             responsive
-            tableFilter
-            columnFilter
+            // columnFilter
             sorter
+            sorterValue={sorterValue}
+            onSorterValueChange={setSorterValue}
+            tableFilter={{ external: true }}
+            // tableFilterValue={tableFilterValue}
+            onTableFilterChange={(query) => {
+              debouncedSearch(query);
+            }}
             // onRowClick={(item, index) => {
             //   toggleDropdown(index);
             // }}
             // onPageChange={(page) => console.log(page)}
             // itemsPerPageSelect
-            itemsPerPageSelect={{ external: true }}
+            itemsPerPageSelect={{ external: true, values: [10, 20, 50, 100] }}
             itemsPerPage={itemsPerPage}
             onPaginationChange={setItemsPerPage}
             scopedSlots={scopedSlots}

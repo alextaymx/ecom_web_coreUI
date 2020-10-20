@@ -56,9 +56,9 @@ function UpdateProductVarForm() {
   const location = useLocation();
   const token = useSelector((state) => state.userInfo.user.token);
 
-  const initialState = {
+  const initialState = location.state && {
     ...location.state,
-    supplier: location.state.supplier.id,
+    ...(location.state.supplier && { supplier: location.state.supplier.id }),
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   const productVarOnChange = (e) => {
@@ -73,7 +73,7 @@ function UpdateProductVarForm() {
       const responseJSON = await getSupplierAPI(token, "*", page);
       const newSuppliers = responseJSON.data.resultList.map((supplier) => ({
         value: supplier.id,
-        label: `${supplier.id} - ${supplier.name}`,
+        label: `${supplier.name} [${supplier.id}]`,
       }));
       const hasMore = page !== responseJSON.data.totalPage;
       return {
@@ -209,10 +209,12 @@ function UpdateProductVarForm() {
                                 name="supplier"
                                 id="supplier"
                                 loadOptions={loadOptions}
-                                defaultValue={{
-                                  value: state.supplier,
-                                  label: `${state.supplier} - ${location.state.supplier.name}`,
-                                }}
+                                defaultValue={
+                                  location.state.supplier && {
+                                    value: state.supplier,
+                                    label: `${location.state.supplier.name} [${state.supplier}]`,
+                                  }
+                                }
                                 onChange={({ value }) => {
                                   productVarOnChange({
                                     target: {
