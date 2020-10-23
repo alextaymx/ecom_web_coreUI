@@ -104,7 +104,7 @@ function UserList() {
         status = 1;
         break;
       case "delete":
-        status = 2;
+        status = 3;
         break;
       case "restore":
         status = 1;

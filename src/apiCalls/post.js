@@ -176,3 +176,19 @@ export const updateSupplierAPI = (payload, token) => {
       throw error;
     });
 };
+
+export const createOrderAPI = (payload, token) => {
+  const URL = `${rootUrl}/orders/create_order`;
+  return axios
+    .post(URL, payload, {
+      method: "POST/GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: token,
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};

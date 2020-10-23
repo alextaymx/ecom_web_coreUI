@@ -7,11 +7,15 @@ import {
   CCardHeader,
   CCol,
   CDataTable,
+  CDropdown,
+  CDropdownItem,
+  CDropdownMenu,
+  CDropdownToggle,
   CPagination,
   CRow,
 } from "@coreui/react";
 
-import { getSupplierAPI } from "../../apiCalls/get";
+import { getOrderAPI } from "../../apiCalls/get";
 import { useDispatch, useSelector } from "react-redux";
 import { onLogoutv2 } from "../../apiCalls/auth";
 import { deleteSupplierAPI } from "../../apiCalls/post";
@@ -19,11 +23,9 @@ import CIcon from "@coreui/icons-react";
 import { useHistory } from "react-router-dom";
 
 const fields = [
-  "name",
-  "address",
-  "email",
-  "telNo",
-  "faxNo",
+  "orderNumber",
+  "receiveNumber",
+  "createdAt",
   {
     key: "operations",
     label: "Operations",
@@ -31,7 +33,7 @@ const fields = [
   },
 ];
 
-function SupplierList() {
+function OrderList() {
   const dispatch = useDispatch();
   const history = useHistory();
   const token = useSelector((state) => state.userInfo.user.token);
@@ -43,7 +45,7 @@ function SupplierList() {
 
   useEffect(() => {
     setLoading(true);
-    getSupplierAPI(token, "*", currentPage)
+    getOrderAPI(token, "*", currentPage)
       .then(({ data }) => {
         setSupplierData(data.resultList);
         // console.log(data.resultList);
@@ -113,22 +115,26 @@ function SupplierList() {
       <CCol>
         <CCard>
           <CCardHeader>
-            Supplier List
+            Order List
             <div className="card-header-actions">
-              <CButton
-                className="inline"
-                color="info"
-                variant="outline"
-                shape="pill"
-                // size="sm"
-                onClick={() => {
-                  history.push({
-                    pathname: "/createSupplier",
-                  });
-                }}>
-                <CIcon name="cil-plus" className="mr-2 float-left" />
-                Create Supplier
-              </CButton>
+              <CDropdown className="m-1 btn-group">
+                <CDropdownToggle color="info" variant="outline" shape="pill">
+                  <CIcon name="cil-plus" className="mr-2 float-left" />
+                  Create Order
+                </CDropdownToggle>
+                <CDropdownMenu>
+                  {/* <CDropdownItem header>Header</CDropdownItem> */}
+                  <CDropdownItem
+                    onClick={() => {
+                      history.push({
+                        pathname: "/createPurchaseOrder",
+                      });
+                    }}>
+                    Sales Order
+                  </CDropdownItem>
+                  <CDropdownItem disabled>Purchase Order</CDropdownItem>
+                </CDropdownMenu>
+              </CDropdown>
             </div>
           </CCardHeader>
           <CCardBody>
@@ -164,4 +170,4 @@ function SupplierList() {
   );
 }
 
-export default SupplierList;
+export default OrderList;

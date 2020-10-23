@@ -48,8 +48,23 @@ export const getUserAPI = (token, id = "*", page = 1, status = 1) => {
     });
 };
 
-export const getSupplierAPI = (token, id = "*", page = 1, status = "Active") => {
+export const getSupplierAPI = (token, id = "*", page = 1) => {
   const URL = `${rootUrl}/suppliers/get/${id}?page=${page}`;
+  return axios
+    .get(URL, {
+      method: "POST/GET",
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const getOrderAPI = (token, id = "*", page = 1, status = "Active") => {
+  const URL = `${rootUrl}/orders/get_order/${id}?page=${page}`;
   return axios
     .get(URL, {
       method: "POST/GET",

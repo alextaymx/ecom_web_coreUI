@@ -67,6 +67,17 @@ export default [
     replace: true,
     icon: "cil-plus",
   },
+  {
+    _tag: "CSidebarNavTitle",
+    _children: ["Orders"],
+  },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Order List",
+    to: "/orderList",
+    replace: true,
+    icon: "cil-list",
+  },
 
   {
     _tag: "CSidebarNavTitle",

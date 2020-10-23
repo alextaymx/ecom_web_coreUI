@@ -16,6 +16,11 @@ const UpdateUser = React.lazy(() => import("./components/user/UpdateUser"));
 const SupplierList = React.lazy(() => import("./components/supplier/SupplierList"));
 const CreateSupplier = React.lazy(() => import("./components/supplier/CreateSupplier"));
 const UpdateSupplier = React.lazy(() => import("./components/supplier/UpdateSupplier"));
+const OrderList = React.lazy(() => import("./components/order/OrderList"));
+const CreatePurchaseOrder = React.lazy(() =>
+  import("./components/order/CreatePurchaseOrder")
+);
+// const CreateSaleOrder = React.lazy(() => import("./components/order/CreateSaleOrder"));
 // template components
 const Toaster = React.lazy(() => import("./views/notifications/toaster/Toaster"));
 const Tables = React.lazy(() => import("./views/base/tables/Tables"));
@@ -83,6 +88,12 @@ const routes = [
   { path: "/supplierList", name: "SupplierList", component: SupplierList },
   { path: "/createSupplier", name: "CreateSupplier", component: CreateSupplier },
   { path: "/updateSupplier", name: "UpdateSupplier", component: UpdateSupplier },
+  { path: "/orderList", name: "OrderList", component: OrderList },
+  {
+    path: "/createPurchaseOrder",
+    name: "CreatePurchaseOrder",
+    component: CreatePurchaseOrder,
+  },
 
   //template components
   { path: "/", exact: true, name: "Home", component: Dashboard },
