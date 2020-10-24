@@ -6,6 +6,7 @@ const productRoutes = require("./routes/productRoute");
 const orderRoutes = require("./routes/orderRoute");
 const supplierRoutes = require("./routes/supplierRoute");
 const userRoutes = require("./routes/userRoute");
+const constantRoutes = require("./routes/constantRoute");
 const path = require("path");
 const cors = require("cors");
 
@@ -29,6 +30,7 @@ app.use("/api/products", productRoutes, productVarRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/suppliers", supplierRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/constants", constantRoutes);
 // app.use("/api/products", productVarRoutes);
 
 // listen to port

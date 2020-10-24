@@ -4,16 +4,45 @@ const { ResponseCode } = require("../constant");
 const { checkParams } = require("../utils/checkParams");
 module.exports.createOrder = (req, res) => {
   try {
-    if (!checkParams(["orderNumber", "receiveNumber"], req.body)) {
+    if (!checkParams(["type"], req.body)) {
       res
         .status(ResponseCode.Input_missing.code)
         .json(createResponse(null, ResponseCode.Input_missing.msg));
       return;
     }
-    const { orderNumber, receiveNumber } = req.body;
+
+    const {
+      type,
+      remarks,
+      productVariant,
+      product,
+      quantity,
+      recipientName,
+      country,
+      contactNumber,
+      address,
+      shippingFee,
+      referenceNumber,
+      paymentAmount,
+      productDetails,
+      shippingType,
+    } = req.body;
     const newOrder = {
-      orderNumber,
-      receiveNumber,
+      number: new Date(),
+      type, //1 for purchase order, 2 for sales order
+      remarks: remarks ? remarks : null,
+      productVariant: productVariant ? productVariant : null,
+      product: product ? product : null,
+      quantity: quantity ? quantity : null,
+      recipientName: recipientName ? recipientName : null,
+      country: country ? country : null,
+      contactNumber: contactNumber ? contactNumber : null,
+      address: address ? address : null,
+      shippingFee: shippingFee ? shippingFee : null,
+      shippingType: shippingType ? shippingType : null,
+      referenceNumber: referenceNumber ? referenceNumber : null,
+      paymentAmount: paymentAmount ? paymentAmount : null,
+      productDetails: productDetails ? productDetails : null,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
@@ -75,7 +104,7 @@ module.exports.deleteOrder = (req, res) => {
       return;
     }
     deleteOrder(order_id);
-    res.status(200).json(createResponse({ order_id }, "Order Product successfully"));
+    res.status(200).json(createResponse({ order_id }, "Delete Order successfully"));
   } catch (err) {
     res
       .status(ResponseCode.Internal_server_error.code)

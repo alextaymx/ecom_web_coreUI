@@ -1,9 +1,14 @@
-const { Roles, OrderType } = require("./constant");
+const { Roles, OrderType, CountryList } = require("./constant");
 const { bcrypt_hash, compare_bcrypt_hash } = require("./utils/bcrypt");
 const faker = require("faker");
 const faker_cn = require("faker/locale/zh_CN");
 const moment = require("moment");
 const _ = require("lodash");
+const userCount = 200;
+const productCount = 300;
+const productVarCount = 1200;
+const orderCount = 600;
+const supplierCount = 200;
 const getRandomNum = (min, max, count) => {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -143,7 +148,7 @@ const generateUser = (count) => {
     );
   });
 };
-generateUser(200);
+generateUser(userCount);
 
 const getUserByIdPassword = (id, password) => {
   const user_obj = userList.filter((user) => user.id === id);
@@ -160,13 +165,35 @@ const generateOrder = (count) =>
   [...Array(count).keys()].map((i) => {
     return {
       id: i,
-      orderNumber: faker.random.number(),
-      receiveNumber: faker.random.number(),
+      number: faker.random.number(),
       createdAt: randomLastWeekDate(),
       updatedAt: randomLastWeekDate(),
+      type: getRandomNum(1, 3, 1)[0], //1 for purchase order, 2 for sales order
+      remarks: "a",
+      productVariant: 1,
+      product: [i % productCount],
+      quantity: { initial: faker.random.number(), final: faker.random.number() },
+      recipientName: faker.name.findName(),
+      country: CountryList[getRandomNum(0, CountryList.length, 1)[0]].code,
+      contactNumber: {
+        phone: faker.phone.phoneNumber(),
+        mobile: faker.phone.phoneNumber(),
+      },
+      address: {
+        address1: faker.address.streetAddress(),
+        address2: faker.address.secondaryAddress(),
+        state: faker.address.state(),
+        city: faker.address.city(),
+        postcode: faker.address.zipCode(),
+      },
+      shippingFee: faker.random.float(),
+      shippingType: "Pos Laju",
+      referenceNumber: faker.time.recent(),
+      paymentAmount: faker.random.float(),
+      productDetails: {},
     };
   });
-let orderList = generateOrder(600);
+let orderList = generateOrder(orderCount);
 const addOrder = (newOrder) => {
   let order = { ...newOrder, id: orderList.length };
   orderList.push(order);
@@ -227,7 +254,7 @@ const generateProductVar = (count) =>
     };
   });
 
-let productVarList = generateProductVar(1200);
+let productVarList = generateProductVar(productVarCount);
 
 const addProductVar = (newProductVar) => {
   let productvar = { ...newProductVar, id: productVarList.length };
@@ -279,7 +306,7 @@ const generateProduct = (count) => {
   return temp;
 };
 
-let productList = generateProduct(300);
+let productList = generateProduct(productCount);
 
 const addProduct = (newProduct) => {
   let product = { ...newProduct, id: productList.length };
@@ -308,16 +335,16 @@ const deleteProduct = (product_id) => {
 
 const filterByKeyword = (prodList, keyword) => {
   const filterMasterSku = prodList.filter((prod) =>
-    prod.masterSku.toString().includes(keyword)
+    prod.masterSku.toString().toLowerCase().includes(keyword)
   );
   const filterProdvar = prodList
-    .filter((prod) => !prod.masterSku.toString().includes(keyword))
+    .filter((prod) => !prod.masterSku.toString().toLowerCase().includes(keyword))
     .map((prod) => {
       const validVar = productVarList.filter(
         (productVar) =>
           prod.variations.includes(productVar.id) &&
-          (productVar.itemNo.toString().includes(keyword) ||
-            productVar.title.toString().includes(keyword))
+          (productVar.itemNo.toString().toLowerCase().includes(keyword) ||
+            productVar.title.toString().toLowerCase().includes(keyword))
       );
       let temp = _.cloneDeep(prod);
       temp.variations = validVar.map((productVar) => productVar.id);
@@ -352,7 +379,8 @@ const getProduct = (
           return temp;
         })
       : result;
-  result = keyword === null ? result : filterByKeyword(result, keyword.toString());
+  result =
+    keyword === null ? result : filterByKeyword(result, keyword.toString().toLowerCase());
   result = result.filter((product) => product.variations.length > 0);
   !(sortBy === "createdBy")
     ? sortList(result, sortBy, order)
@@ -386,7 +414,7 @@ const generateSupplier = (count) =>
       products: [i * 2, i * 2 + 1],
     };
   });
-let supplierList = generateSupplier(200);
+let supplierList = generateSupplier(supplierCount);
 const addSupplier = (newSupplier) => {
   let supplier = { ...newSupplier, id: supplierList.length };
   supplier.products.forEach((productVar_id) => {
