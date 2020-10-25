@@ -77,3 +77,18 @@ export const getOrderAPI = (token, id = "*", page = 1, status = "Active") => {
       throw error;
     });
 };
+
+export const getCountryAPI = (token) => {
+  const URL = `${rootUrl}/constants/get/country`;
+  return axios
+    .get(URL, {
+      method: "POST/GET",
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+};

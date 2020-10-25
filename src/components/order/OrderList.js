@@ -125,14 +125,22 @@ function OrderList() {
                 <CDropdownMenu>
                   {/* <CDropdownItem header>Header</CDropdownItem> */}
                   <CDropdownItem
+                    disabled
+                    onClick={() => {
+                      history.push({
+                        pathname: "/createSalesOrder",
+                      });
+                    }}>
+                    Sales Order
+                  </CDropdownItem>
+                  <CDropdownItem
                     onClick={() => {
                       history.push({
                         pathname: "/createPurchaseOrder",
                       });
                     }}>
-                    Sales Order
+                    Purchase Order
                   </CDropdownItem>
-                  <CDropdownItem disabled>Purchase Order</CDropdownItem>
                 </CDropdownMenu>
               </CDropdown>
             </div>
